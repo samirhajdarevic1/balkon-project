@@ -1,0 +1,10 @@
+.nastavnici {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 5px;
+}
+.nastavnici * {
+  margin: 10px;
+}
