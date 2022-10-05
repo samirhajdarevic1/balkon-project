@@ -1,36 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSveOcjene } from '../redux/ocjene/actions';
 import { Link } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
-import Ocjena from './Ocjena';
+import OcjenaRow from './OcjenaRow';
 
 const Ocjene = () => {
   const ocjene = useSelector((state) => state.ocjene);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(ucitajSveOcjene());
+  }, []);
+
   return (
     <div>
-      {ocjene && (
-        <button
-          onClick={() => {
-            dispatch(ucitajSveOcjene());
-          }}
-        >
-          Sve ocjene
-        </button>
-      )}
-
       {ocjene.items.map((ocjena) => {
         return (
           <div key={ocjena.idOcjena} className={styles.nastavnici}>
-            <Ocjena
+            <OcjenaRow
               id={ocjena.idOcjena}
               ucenik={ocjena.ucenik}
               nastavnik={ocjena.nastavnik}
               datum={ocjena.datum}
               ocjena={ocjena.ocjena}
-              razred={ocjena.razred}
+              opis={ocjena.opis}
             />
             <Link to={'/ocjene/' + ocjena.idOcjena}>Details</Link>
           </div>

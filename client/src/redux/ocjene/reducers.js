@@ -23,6 +23,21 @@ const ocjeneReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
+    case ocjeneTypes.UCITAJ_OCJENU_REQUEST:
+      return { ...state, loading: true };
+    case ocjeneTypes.UCITAJ_OCJENU_SUCCESS:
+      return {
+        ...state,
+        items: [action.payload],
+        loading: false,
+      };
+    case ocjeneTypes.UCITAJ_OCJENU_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
 
     default:
       return state;

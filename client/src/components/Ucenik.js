@@ -1,30 +1,33 @@
-import React from 'react';
-import store from '../redux/store';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
+import UcenikRow from './UcenikRow';
+import { ucitajUcenika } from '../redux/ucenici/actions';
 
 const Ucenik = (props) => {
-  const ucenici = store.getState().ucenici.items;
   const { idUcenik } = useParams();
+  const [ucenik] = useSelector((state) =>
+    state.ucenici.items.filter((ucenik) => ucenik.idUcenik === +idUcenik)
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ucitajUcenika(+idUcenik));
+  }, []);
+
+  if (!ucenik) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
-    <div>
-      <p>
-        {props.id} {props.ime} {props.prezime} {props.birthday}
-      </p>
-      {idUcenik &&
-        ucenici
-          .filter((ucenik) => ucenik.idUcenik === +idUcenik)
-          .map((ucenik) => {
-            return (
-              <div key={ucenik.idUcenik} className={styles.nastavnici}>
-                <p>
-                  {ucenik.idUcenik} {ucenik.ime} {props.prezime}{' '}
-                  {props.birthday}
-                </p>
-              </div>
-            );
-          })}
+    <div key={ucenik.idUcenik} className={styles.nastavnici}>
+      <UcenikRow
+        id={ucenik.idUcenik}
+        ime={ucenik.ime}
+        prezime={ucenik.prezime}
+        birthday={ucenik.birthday}
+      />
     </div>
   );
 };

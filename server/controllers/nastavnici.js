@@ -44,12 +44,12 @@ exports.getNastavnik = async (req, res, next) => {
 exports.createNastavnik = async (req, res, next) => {
   try {
     let { ime, prezime } = req.body;
-    ime = ime.trim();
+    /*     ime = ime.trim();
     prezime = prezime.trim();
     if (ime || prezime === '') {
       errorResponse(res, 'Must enter the value');
       return;
-    }
+    } */
     const nastavnik = new Nastavnik({ ime, prezime });
     await nastavnik.save();
     return successResponse(res, 200, nastavnik);

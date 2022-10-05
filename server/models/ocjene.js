@@ -70,7 +70,6 @@ module.exports = class Ocjena {
   }
 
   static async fetchAll(idOdjeljenja, idUcenik) {
-    console.log(13, idOdjeljenja, idUcenik);
     if (idOdjeljenja && idUcenik) {
       const ocjene = await db.execute(
         `SELECT 
@@ -162,31 +161,35 @@ module.exports = class Ocjena {
 
   static async findByPk(id) {
     const ocj = await db.execute(
-      'SELECT * FROM ocjene WHERE ocjene.id_ocjena = ? LIMIT 1',
-      [id]
+      `SELECT 
+      o.id_ocjena,
+      CONCAT(u.ime, ' ', u.prezime) as ucenik,
+      o.opis,o.datum,
+      p.naziv,
+      o.ocjena,
+      CONCAT(n.ime, ' ',  n.prezime) as nastavnik,
+      CONCAT(odj.razred, ' ',  odj.oznaka_odjeljenja) as razred
+from balkon.ocjene o 
+left join balkon.odjeljenja odj on o.id_odjeljenja = odj.id_odjeljenja
+LEFT JOIN balkon.nastavnici n ON o.id_nastavnik = n.id_nastavnik
+LEFT JOIN balkon.predmeti p ON o.id_predmet = p.id_predmet
+LEFT JOIN balkon.ucenici u ON o.id_ucenik = u.id_ucenik
+where id_ocjena = ${id}`
     );
     if (ocj[0].length === 0) {
       return null;
     }
-    const {
-      id_ocjena,
-      id_odjeljenja,
-      id_ucenik,
-      id_nastavnik,
-      id_predmet,
-      datum,
-      ocjena,
-      opis,
-    } = ocj[0][0];
+    const { id_ocjena, ucenik, opis, datum, naziv, ocjena, nastavnik, razred } =
+      ocj[0][0];
     return new Ocjena({
       idOcjena: id_ocjena,
-      idOdjeljenja: id_odjeljenja,
-      idUcenik: id_ucenik,
-      idNastavnik: id_nastavnik,
-      idPredmet: id_predmet,
-      datum,
-      ocjena,
+      ucenik: ucenik,
       opis,
+      datum,
+      predmet: naziv,
+      ocjena,
+      nastavnik: nastavnik,
+      razred: razred,
     });
   }
 

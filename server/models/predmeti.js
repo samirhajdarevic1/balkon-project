@@ -29,7 +29,6 @@ module.exports = class Predmet {
     );
   }
   static async fetchAll(idNastavnik) {
-    console.log(idNastavnik);
     if (idNastavnik) {
       const predmeti = await db.execute(
         `SELECT p.naziv FROM balkon.predmeti_nastavnici pn JOIN balkon.predmeti p JOIN balkon.nastavnici n 

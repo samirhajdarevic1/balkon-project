@@ -1,31 +1,37 @@
-import React from 'react';
-import store from '../redux/store';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
+import { ucitajOcjenu } from '../redux/ocjene/actions';
+import OcjenaRow from './OcjenaRow';
 
 const Ocjena = (props) => {
-  const ocjene = store.getState().ocjene;
   const { idOcjena } = useParams();
+  const [ocjena] = useSelector((state) =>
+    state.ocjene.items.filter((ocj) => ocj.idOcjena === +idOcjena)
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ucitajOcjenu(+idOcjena));
+  }, []);
+
+  if (!ocjena) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
-    <div>
-      <p>
-        {props.id} {props.ucenik} {props.nastavnik} {props.datum} {props.ocjena}{' '}
-        {props.razred}
-      </p>
-      {idOcjena &&
-        ocjene
-          .filter((ocj) => ocj.idOcjena === +idOcjena)
-          .map((ocj) => {
-            return (
-              <div key={ocj.idOcjena} className={styles.nastavnici}>
-                <p>
-                  {ocj.idOcjena} {ocj.ucenik} {ocj.nastavnik} {ocj.datum}{' '}
-                  {ocj.ocjena} {ocj.razred}
-                </p>
-              </div>
-            );
-          })}
+    <div key={ocjena.idOcjena} className={styles.nastavnici}>
+      <OcjenaRow
+        id={ocjena.idOcjena}
+        ucenik={ocjena.ucenik}
+        opis={ocjena.opis}
+        datum={ocjena.datum}
+        predmet={ocjena.predmet}
+        nastavnik={ocjena.nastavnik}
+        ocjena={ocjena.ocjena}
+        razred={ocjena.razred}
+      />
     </div>
   );
 };

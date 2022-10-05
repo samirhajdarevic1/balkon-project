@@ -1,27 +1,46 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ucitajPredmet } from '../redux/predmeti/actions';
-import { useParams } from 'react-router-dom';
+import { ucitajPredmet, obrisiPredmet } from '../redux/predmeti/actions';
+import { useParams, useNavigate } from 'react-router-dom';
 import PredmetRow from './PredmetRow';
+import styles from './Nastavnici.module.css';
 
 const Predmet = (props) => {
   const { idPredmet } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [predmet] = useSelector((state) =>
     state.predmeti.items.filter((pred) => pred.idPredmet === +idPredmet)
   );
-  const dispatch = useDispatch();
-
+  const { loading } = useSelector((state) => state.predmeti);
   useEffect(() => {
-    dispatch(ucitajPredmet(+idPredmet));
+    if (!predmet) {
+      dispatch(ucitajPredmet(+idPredmet));
+    }
   }, []);
 
-  console.log(predmet);
-  console.log(idPredmet);
-  if (!predmet) {
+  if (loading) {
     return <h1>Loading...</h1>;
   }
+  if (!predmet) {
+    return <h1>Predmet doesn't exist</h1>;
+  }
 
-  return <PredmetRow id={predmet.idPredmet} naziv={predmet.naziv} />;
+  return (
+    <div key={predmet.idPredmet} className={styles.nastavnici}>
+      <PredmetRow id={predmet.idPredmet} naziv={predmet.naziv} />
+      {idPredmet && (
+        <button
+          onClick={() => {
+            dispatch(obrisiPredmet(+idPredmet)).then(navigate('/predmeti'));
+          }}
+        >
+          Delete
+        </button>
+      )}
+    </div>
+  );
 };
 
 export default Predmet;
