@@ -1,30 +1,53 @@
-import { React } from 'react';
-import store from '../redux/store';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  ucitajNastavnika,
+  obrisiNastavnika,
+} from '../redux/nastavnici/actions';
+import { useParams, useNavigate } from 'react-router-dom';
+import NastavnikRow from './NastavnikRow';
 import styles from './Nastavnici.module.css';
 
 const Nastavnik = (props) => {
-  const nastavnici = store.getState().nastavnici.items;
   const { idNastavnik } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const [nastavnik] = useSelector((state) =>
+    state.nastavnici.items.filter((nas) => nas.idNastavnik === +idNastavnik)
+  );
+  const { loading } = useSelector((state) => state.nastavnici);
+
+  useEffect(() => {
+    if (!nastavnik) {
+      dispatch(ucitajNastavnika(+idNastavnik));
+    }
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+  if (!nastavnik) {
+    return <h1>Nastavnik doesn't exist</h1>;
+  }
   return (
-    <div>
-      <p>
-        {props.id} {props.ime} {props.prezime}
-      </p>
-      {idNastavnik &&
-        nastavnici
-          .filter((nas) => nas.idNastavnik === +idNastavnik)
-          .map((nast) => {
-            return (
-              <div key={nast.idNastavnik} className={styles.nastavnici}>
-                <p>
-                  {nast.idNastavnik} {nast.ime} {nast.prezime}
-                </p>
-                <button onClick={() => {}}>Delete</button>
-              </div>
+    <div key={nastavnik.idNastavnik} className={styles.nastavnici}>
+      <NastavnikRow
+        id={nastavnik.idNastavnik}
+        ime={nastavnik.ime}
+        prezime={nastavnik.prezime}
+      />
+      {idNastavnik && (
+        <button
+          onClick={() => {
+            dispatch(obrisiNastavnika(+idNastavnik)).then(
+              navigate('/nastavnici')
             );
-          })}
+          }}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { nastavniciTypes } from './types';
 const INITIAL_STATE = {
   loading: false,
   items: [],
+  messages: undefined,
   error: null,
 };
 
@@ -23,12 +24,31 @@ const nastavniciReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
+    case nastavniciTypes.UCITAJ_NASTAVNIKA_REQUEST:
+      return { ...state, loading: true };
+    case nastavniciTypes.UCITAJ_NASTAVNIKA_SUCCESS:
+      return {
+        ...state,
+        items: state.items.push(action.payload),
+        //items: [...state.items, action.payload],
+        //items: state.items.filter((i) => i.idNastavnik !== action.payload),
+        loading: false,
+      };
+    case nastavniciTypes.UCITAJ_NASTAVNIKA_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
     case nastavniciTypes.OBRISI_NASTAVNIKA_REQUEST:
       return { ...state, loading: true };
     case nastavniciTypes.OBRISI_NASTAVNIKA_SUCCESS:
       return {
         ...state,
-        items: action.payload,
+        //items: state.items.filter((i) => i.idNastavnik !== action.payload.id),
+        //items: state.items.splice(action.payload.index, 1),
+        items: state.items.filter((i) => i.idNastavnik !== action.payload),
         loading: false,
       };
     case nastavniciTypes.OBRISI_NASTAVNIKA_ERROR: {
