@@ -37,7 +37,7 @@ exports.createPredmet = async (req, res, next) => {
     const { naziv } = req.body;
     const predmet = new Predmet({ naziv });
     await predmet.save();
-    return res.json({ message: 'Successfully created' });
+    return res.json({ message: 'Successfully created', predmet: predmet });
   } catch (err) {
     return errorResponse(res, 'Internal server error', 500, err);
   }

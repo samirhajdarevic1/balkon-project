@@ -29,8 +29,8 @@ const nastavniciReducer = (state = INITIAL_STATE, action) => {
     case nastavniciTypes.UCITAJ_NASTAVNIKA_SUCCESS:
       return {
         ...state,
-        items: state.items.push(action.payload),
         //items: [...state.items, action.payload],
+        items: [action.payload],
         //items: state.items.filter((i) => i.idNastavnik !== action.payload),
         loading: false,
       };

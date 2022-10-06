@@ -40,7 +40,6 @@ exports.createOdjeljenjeNastavnik = async (req, res, next) => {
       idOdjeljenja,
       idNastavnik,
     });
-    console.log(odjPredNast);
     await odjPredNast.save();
     return res.json({ message: 'Successfully created!' });
   } catch (err) {

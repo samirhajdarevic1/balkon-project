@@ -35,3 +35,24 @@ export const ucitajOcjenu = (id) => {
     }
   };
 };
+
+export const obrisiOcjenu = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ocjeneTypes.OBRISI_OCJENU_REQUEST });
+      const response = await fetch(`http://localhost:3001/nastavnici/${id}`, {
+        method: 'DELETE',
+      });
+      await response.json();
+      dispatch({
+        type: ocjeneTypes.OBRISI_OCJENU_SUCCESS,
+        payload: id,
+      });
+    } catch (error) {
+      dispatch({
+        type: ocjeneTypes.OBRISI_OCJENU_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};

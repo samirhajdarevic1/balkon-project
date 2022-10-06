@@ -64,3 +64,33 @@ export const obrisiPredmet = (id) => {
     }
   };
 };
+
+export const dodajPredmet = (predmet) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: predmetiTypes.DODAJ_PREDMET_REQUEST });
+      const response = await fetch(`http://localhost:3001/predmeti`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          naziv: `${predmet.naziv}`,
+        }),
+      });
+      //.then(ucitajSvePredmete().then((res) => console.log(res)));
+      const result = await response.json();
+      console.log(1234, result);
+      dispatch({
+        type: predmetiTypes.DODAJ_PREDMET_SUCCESS,
+        payload: result.predmet,
+      });
+    } catch (error) {
+      dispatch({
+        type: predmetiTypes.DODAJ_PREDMET_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};

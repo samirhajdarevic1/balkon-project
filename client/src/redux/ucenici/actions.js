@@ -35,3 +35,24 @@ export const ucitajUcenika = (id) => {
     }
   };
 };
+
+export const obrisiUcenika = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: uceniciTypes.OBRISI_UCENIKA_REQUEST });
+      const response = await fetch(`http://localhost:3001/ucenici/${id}`, {
+        method: 'DELETE',
+      });
+      await response.json();
+      dispatch({
+        type: uceniciTypes.OBRISI_UCENIKA_SUCCESS,
+        payload: id,
+      });
+    } catch (error) {
+      dispatch({
+        type: uceniciTypes.OBRISI_UCENIKA_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};

@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
 import UcenikRow from './UcenikRow';
-import { ucitajUcenika } from '../redux/ucenici/actions';
+import { ucitajUcenika, obrisiUcenika } from '../redux/ucenici/actions';
 
 const Ucenik = (props) => {
   const { idUcenik } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [ucenik] = useSelector((state) =>
     state.ucenici.items.filter((ucenik) => ucenik.idUcenik === +idUcenik)
   );
-  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.ucenici);
 
   useEffect(() => {
-    dispatch(ucitajUcenika(+idUcenik));
+    if (!ucenik) {
+      dispatch(ucitajUcenika(+idUcenik));
+    }
   }, []);
 
-  if (!ucenik) {
+  if (loading) {
     return <h1>Loading...</h1>;
+  }
+  if (!ucenik) {
+    return <h1>Ucenik doesn't exist</h1>;
   }
 
   return (
@@ -28,6 +35,15 @@ const Ucenik = (props) => {
         prezime={ucenik.prezime}
         birthday={ucenik.birthday}
       />
+      {idUcenik && (
+        <button
+          onClick={() => {
+            dispatch(obrisiUcenika(+idUcenik)).then(navigate('/ucenici'));
+          }}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 };

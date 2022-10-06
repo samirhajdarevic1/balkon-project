@@ -38,6 +38,23 @@ const ocjeneReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
+    case ocjeneTypes.OBRISI_OCJENU_REQUEST:
+      return { ...state, loading: true };
+    case ocjeneTypes.OBRISI_OCJENU_SUCCESS:
+      return {
+        ...state,
+        //items: state.items.filter((i) => i.idNastavnik !== action.payload.id),
+        //items: state.items.splice(action.payload.index, 1),
+        items: state.items.filter((i) => i.idNastavnik !== action.payload),
+        loading: false,
+      };
+    case ocjeneTypes.OBRISI_OCJENU_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
 
     default:
       return state;

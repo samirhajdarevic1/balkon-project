@@ -4,7 +4,6 @@ const { errorResponse, successResponse } = require('./error');
 exports.getZakljucneOcjene = async (req, res, next) => {
   try {
     const zakljucneOcjene = await ZakljucnaOcjena.fetchAll();
-    console.log(zakljucneOcjene);
     if (zakljucneOcjene) {
       return res.json({ zakljucneOcjene });
     }

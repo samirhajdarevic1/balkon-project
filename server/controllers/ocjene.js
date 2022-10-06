@@ -7,7 +7,6 @@ exports.getOcjene = async (req, res, next) => {
     const { idOdjeljenja } = req.query;
 
     if (idOdjeljenja & idUcenik) {
-      console.log(123, idOdjeljenja, idUcenik);
       const ocjene = await Ocjena.fetchAll(idOdjeljenja, idUcenik);
       if (ocjene.length > 0) {
         return res.json({ ocjene });
@@ -15,14 +14,12 @@ exports.getOcjene = async (req, res, next) => {
       return res.json({ ocjene });
     }
     if (idUcenik) {
-      console.log('aaaa');
       const ocjene = await Ocjena.fetchAll(idUcenik);
       if (ocjene.length > 0) {
         return res.json({ ocjene });
       }
     }
     const ocjene = await Ocjena.fetchAll();
-    console.log('bbbbb');
     if (ocjene.length > 0) {
       return res.json({ ocjene });
     }

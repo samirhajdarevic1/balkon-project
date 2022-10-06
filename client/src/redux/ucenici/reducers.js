@@ -40,6 +40,22 @@ const uceniciReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
+    case uceniciTypes.OBRISI_UCENIKA_REQUEST:
+      return { ...state, loading: true };
+    case uceniciTypes.OBRISI_UCENIKA_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter((i) => i.idUcenik !== action.payload),
+        loading: false,
+      };
+    case uceniciTypes.OBRISI_UCENIKA_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+
     default:
       return state;
   }

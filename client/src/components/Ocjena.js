@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
-import { ucitajOcjenu } from '../redux/ocjene/actions';
+import { ucitajOcjenu, obrisiOcjenu } from '../redux/ocjene/actions';
 import OcjenaRow from './OcjenaRow';
 
 const Ocjena = (props) => {
   const { idOcjena } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [ocjena] = useSelector((state) =>
     state.ocjene.items.filter((ocj) => ocj.idOcjena === +idOcjena)
   );
-  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.ocjene);
 
   useEffect(() => {
-    dispatch(ucitajOcjenu(+idOcjena));
+    if (!ocjena) {
+      dispatch(ucitajOcjenu(+idOcjena));
+    }
   }, []);
 
-  if (!ocjena) {
+  if (loading) {
     return <h1>Loading...</h1>;
+  }
+  if (!ocjena) {
+    return <h1>Ocjena doesn't exist</h1>;
   }
 
   return (
@@ -32,6 +39,15 @@ const Ocjena = (props) => {
         ocjena={ocjena.ocjena}
         razred={ocjena.razred}
       />
+      {idOcjena && (
+        <button
+          onClick={() => {
+            dispatch(obrisiOcjenu(+idOcjena)).then(navigate('/ocjene'));
+          }}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 };

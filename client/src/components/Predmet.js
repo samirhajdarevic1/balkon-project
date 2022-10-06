@@ -9,10 +9,10 @@ const Predmet = (props) => {
   const { idPredmet } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [predmet] = useSelector((state) =>
     state.predmeti.items.filter((pred) => pred.idPredmet === +idPredmet)
   );
+
   const { loading } = useSelector((state) => state.predmeti);
   useEffect(() => {
     if (!predmet) {
@@ -33,7 +33,9 @@ const Predmet = (props) => {
       {idPredmet && (
         <button
           onClick={() => {
-            dispatch(obrisiPredmet(+idPredmet)).then(navigate('/predmeti'));
+            dispatch(obrisiPredmet(+idPredmet)).then(() =>
+              navigate('/predmeti')
+            );
           }}
         >
           Delete
