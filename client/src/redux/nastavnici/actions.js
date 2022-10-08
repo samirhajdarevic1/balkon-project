@@ -64,3 +64,31 @@ export const obrisiNastavnika = (id) => {
     }
   };
 };
+export const dodajNastavnika = (nastavnik) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: nastavniciTypes.DODAJ_NASTAVNIKA_REQUEST });
+      const response = await fetch(`http://localhost:3001/nastavnici`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ime: `${nastavnik.ime}`,
+          prezime: `${nastavnik.prezime}`,
+        }),
+      });
+      const result = await response.json();
+      dispatch({
+        type: nastavniciTypes.DODAJ_NASTAVNIKA_SUCCESS,
+        payload: result.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: nastavniciTypes.DODAJ_NASTAVNIKA_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};

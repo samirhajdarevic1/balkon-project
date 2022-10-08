@@ -46,8 +46,6 @@ const nastavniciReducer = (state = INITIAL_STATE, action) => {
     case nastavniciTypes.OBRISI_NASTAVNIKA_SUCCESS:
       return {
         ...state,
-        //items: state.items.filter((i) => i.idNastavnik !== action.payload.id),
-        //items: state.items.splice(action.payload.index, 1),
         items: state.items.filter((i) => i.idNastavnik !== action.payload),
         loading: false,
       };
@@ -58,7 +56,21 @@ const nastavniciReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
-
+    case nastavniciTypes.DODAJ_NASTAVNIKA_REQUEST:
+      return { ...state, loading: true };
+    case nastavniciTypes.DODAJ_NASTAVNIKA_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        loading: false,
+      };
+    case nastavniciTypes.DODAJ_NASTAVNIKA_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import Ucenici from './components/Ucenici';
 import Ucenik from './components/Ucenik';
 import Ocjene from './components/Ocjene';
 import Ocjena from './components/Ocjena';
+import PredmetForm from './components/PredmetForm';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <Route path="ucenici/:idUcenik" element={<Ucenik />} />
           <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
           <Route path="predmeti/:idPredmet" element={<Predmet />} />
+          <Route
+            path="predmeti/edit/:idPredmet"
+            element={<PredmetForm />}
+          ></Route>
           <Route path="predmeti" element={<Predmeti />} />
           <Route path="ocjene" element={<Ocjene />} />
           <Route path="ocjene/:idOcjena" element={<Ocjena />} />
