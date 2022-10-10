@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajPredmet, obrisiPredmet } from '../redux/predmeti/actions';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import PredmetRow from './PredmetRow';
 import styles from './Nastavnici.module.css';
-import PredmetForm from './PredmetForm';
+import EditPredmetForm from './EditPredmetForm';
 
 const Predmet = (props) => {
-  const { idPredmet } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { idPredmet } = useParams();
   const [editing, setEditing] = useState(false);
   const [predmet] = useSelector((state) =>
     state.predmeti.items.filter((pred) => pred.idPredmet === +idPredmet)
   );
-
   const { loading } = useSelector((state) => state.predmeti);
+  const tmpNaziv = (predmet && predmet.naziv) || '';
+  const [naziv, setNaziv] = useState(tmpNaziv);
+
   useEffect(() => {
     if (!predmet) {
       dispatch(ucitajPredmet(+idPredmet));
     }
   }, []);
+
+  useEffect(() => {
+    if (predmet) setNaziv(predmet.naziv);
+  }, [predmet]);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -30,7 +37,7 @@ const Predmet = (props) => {
   }
   return !editing ? (
     <div key={predmet.idPredmet} className={styles.nastavnici}>
-      <PredmetRow id={predmet.idPredmet} naziv={predmet.naziv} />
+      <PredmetRow id={predmet.idPredmet} naziv={naziv} />
       {idPredmet && (
         <>
           <button
@@ -42,16 +49,19 @@ const Predmet = (props) => {
           >
             Delete
           </button>
-          <button onClick={() => setEditing(true)}>Edittttt</button>
+          <button
+            onClick={() => {
+              setEditing(true);
+              navigate(`/predmeti/${idPredmet}/edit`);
+            }}
+          >
+            Edittttt
+          </button>
         </>
       )}
     </div>
   ) : (
-    <PredmetForm
-      idPredmet={predmet.idPredmet}
-      naziv={predmet.naziv}
-      editing={editing}
-    />
+    <EditPredmetForm />
   );
 };
 

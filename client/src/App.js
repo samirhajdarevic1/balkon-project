@@ -8,7 +8,10 @@ import Ucenici from './components/Ucenici';
 import Ucenik from './components/Ucenik';
 import Ocjene from './components/Ocjene';
 import Ocjena from './components/Ocjena';
-import PredmetForm from './components/PredmetForm';
+import AddPredmetForm from './components/AddPredmetForm';
+import EditPredmetForm from './components/EditPredmetForm';
+import AddNastavnikForm from './components/AddNastavnikForm';
+import EditNastavnikForm from './components/EditNastavnikForm';
 
 function App() {
   return (
@@ -19,13 +22,22 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="nastavnici" element={<Nastavnici />} />
+          <Route
+            path="nastavnici/add-nastavnik"
+            element={<AddNastavnikForm />}
+          />
+          <Route
+            path="/nastavnici/:idNastavnik/edit"
+            element={<EditNastavnikForm />}
+          />
           <Route path="ucenici" element={<Ucenici />} />
           <Route path="ucenici/:idUcenik" element={<Ucenik />} />
           <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
           <Route path="predmeti/:idPredmet" element={<Predmet />} />
+          <Route path="predmeti/add-predmet" element={<AddPredmetForm />} />
           <Route
-            path="predmeti/edit/:idPredmet"
-            element={<PredmetForm />}
+            path="predmeti/:idPredmet/edit"
+            element={<EditPredmetForm />}
           ></Route>
           <Route path="predmeti" element={<Predmeti />} />
           <Route path="ocjene" element={<Ocjene />} />

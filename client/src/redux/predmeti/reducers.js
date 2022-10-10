@@ -29,7 +29,6 @@ const predmetiReducer = (state = INITIAL_STATE, action) => {
     case predmetiTypes.UCITAJ_PREDMET_SUCCESS:
       return {
         ...state,
-        //items: state.items.push(action.payload),
         items: [action.payload],
         loading: false,
       };
@@ -65,6 +64,26 @@ const predmetiReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     case predmetiTypes.DODAJ_PREDMET_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+
+    case predmetiTypes.UREDI_PREDMET_REQUEST:
+      return { ...state, loading: true };
+
+    case predmetiTypes.UREDI_PREDMET_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.idPredmet !== action.payload.idPredmet ? item : action.payload
+        ),
+        loading: false,
+      };
+
+    case predmetiTypes.UREDI_PREDMET_ERROR: {
       return {
         ...state,
         error: action.error,

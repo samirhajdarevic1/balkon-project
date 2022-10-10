@@ -38,15 +38,24 @@ const Nastavnik = (props) => {
         prezime={nastavnik.prezime}
       />
       {idNastavnik && (
-        <button
-          onClick={() => {
-            dispatch(obrisiNastavnika(+idNastavnik)).then(
-              navigate('/nastavnici')
-            );
-          }}
-        >
-          Delete
-        </button>
+        <>
+          <button
+            onClick={() => {
+              dispatch(obrisiNastavnika(+idNastavnik)).then(
+                navigate('/nastavnici')
+              );
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => {
+              navigate(`/nastavnici/${idNastavnik}/edit`);
+            }}
+          >
+            Edit
+          </button>
+        </>
       )}
     </div>
   );

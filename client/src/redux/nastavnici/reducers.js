@@ -71,6 +71,28 @@ const nastavniciReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
+
+    case nastavniciTypes.UREDI_NASTAVNIKA_REQUEST:
+      return { ...state, loading: true };
+
+    case nastavniciTypes.UREDI_NASTAVNIKA_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.idNastavnik !== action.payload.idNastavnik
+            ? item
+            : action.payload
+        ),
+        loading: false,
+      };
+
+    case nastavniciTypes.UREDI_NASTAVNIKA_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
     default:
       return state;
   }

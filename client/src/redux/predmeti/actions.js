@@ -28,7 +28,6 @@ export const ucitajPredmet = (id) => {
         dispatch({
           type: predmetiTypes.UCITAJ_PREDMET_SUCCESS,
           payload: [],
-          //payload: result.nastavnik,
         });
       }
       dispatch({
@@ -59,6 +58,37 @@ export const obrisiPredmet = (id) => {
     } catch (error) {
       dispatch({
         type: predmetiTypes.OBRISI_PREDMET_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};
+
+export const urediPredmet = (predmet) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: predmetiTypes.UREDI_PREDMET_REQUEST });
+      const response = await fetch(
+        `http://localhost:3001/predmeti/${predmet.idPredmet}`,
+        {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            naziv: `${predmet.naziv}`,
+          }),
+        }
+      );
+      const result = await response.json();
+      dispatch({
+        type: predmetiTypes.UREDI_PREDMET_SUCCESS,
+        payload: result.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: predmetiTypes.UREDI_PREDMET_ERROR,
         error: error.message,
       });
     }

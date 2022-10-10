@@ -4,12 +4,12 @@ import { ucitajSvePredmete } from '../redux/predmeti/actions';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
 import PredmetRow from './PredmetRow';
-import PredmetForm from './PredmetForm';
+import AddPredmetForm from './AddPredmetForm';
 
-const Predmeti = (props) => {
-  console.log(props);
-  const predmeti = useSelector((state) => state.predmeti);
+const Predmeti = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const predmeti = useSelector((state) => state.predmeti);
   const [posting, setPosting] = useState(false);
 
   useEffect(() => {
@@ -17,10 +17,17 @@ const Predmeti = (props) => {
   }, []);
 
   return posting ? (
-    <PredmetForm posting={posting} />
+    <AddPredmetForm />
   ) : (
     <div>
-      <button onClick={() => setPosting(true)}>Add predmet</button>
+      <button
+        onClick={() => {
+          setPosting(true);
+          navigate('/predmeti/add-predmet');
+        }}
+      >
+        Add predmet
+      </button>
       {predmeti &&
         predmeti.items.map((pred) => {
           return (
