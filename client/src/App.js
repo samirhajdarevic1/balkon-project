@@ -12,6 +12,10 @@ import AddPredmetForm from './components/AddPredmetForm';
 import EditPredmetForm from './components/EditPredmetForm';
 import AddNastavnikForm from './components/AddNastavnikForm';
 import EditNastavnikForm from './components/EditNastavnikForm';
+import AddUcenikForm from './components/AddUcenikForm';
+import EditUcenikForm from './components/EditUcenikForm';
+import EditOcjenuForm from './components/EditOcjenuForm';
+import AddOcjenuForm from './components/AddOcjenuForm';
 
 function App() {
   return (
@@ -32,6 +36,8 @@ function App() {
           />
           <Route path="ucenici" element={<Ucenici />} />
           <Route path="ucenici/:idUcenik" element={<Ucenik />} />
+          <Route path="ucenici/:idUcenik/edit" element={<EditUcenikForm />} />
+          <Route path="ucenici/add-ucenik" element={<AddUcenikForm />} />
           <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
           <Route path="predmeti/:idPredmet" element={<Predmet />} />
           <Route path="predmeti/add-predmet" element={<AddPredmetForm />} />
@@ -42,6 +48,8 @@ function App() {
           <Route path="predmeti" element={<Predmeti />} />
           <Route path="ocjene" element={<Ocjene />} />
           <Route path="ocjene/:idOcjena" element={<Ocjena />} />
+          <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
+          <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
           <Route path="*" element={<h1>Not found</h1>} />
         </Route>
       </Routes>

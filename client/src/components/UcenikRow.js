@@ -3,9 +3,11 @@ import React from 'react';
 const UcenikRow = ({ id, ime, prezime, birthday }) => {
   return (
     <div>
-      <p>
-        {id} {ime} {prezime} {birthday}
-      </p>
+      <h1>
+        {id} {ime} {prezime}
+      </h1>
+      <hr />
+      <p>Birthday: {birthday}</p>
     </div>
   );
 };

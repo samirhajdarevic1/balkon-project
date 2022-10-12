@@ -40,13 +40,22 @@ const Ocjena = (props) => {
         razred={ocjena.razred}
       />
       {idOcjena && (
-        <button
-          onClick={() => {
-            dispatch(obrisiOcjenu(+idOcjena)).then(navigate('/ocjene'));
-          }}
-        >
-          Delete
-        </button>
+        <>
+          <button
+            onClick={() => {
+              dispatch(obrisiOcjenu(+idOcjena)).then(navigate('/ocjene'));
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => {
+              navigate(`/ocjene/${idOcjena}/edit`);
+            }}
+          >
+            Edit
+          </button>
+        </>
       )}
     </div>
   );

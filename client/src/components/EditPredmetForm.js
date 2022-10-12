@@ -35,6 +35,7 @@ const EditPredmetForm = () => {
       <div>
         <ul>
           <li>
+            <label>Naziv predmeta</label>
             <input
               value={naziv}
               onChange={(e) => setNaziv(e.target.value)}

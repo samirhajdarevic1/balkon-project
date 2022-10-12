@@ -101,6 +101,7 @@ module.exports = class Ocjena {
           razred: ocjena.razred,
         });
       });
+
       return ocjeneInstances;
     }
     if (idUcenik) {
@@ -150,6 +151,7 @@ module.exports = class Ocjena {
         ucenik: ocjena.ucenik,
         idOcjena: ocjena.id_ocjena,
         nastavnik: ocjena.nastavnik,
+        predmet: ocjena.naziv,
         datum: ocjena.datum,
         ocjena: ocjena.ocjena,
         naziv: ocjena.naziv,

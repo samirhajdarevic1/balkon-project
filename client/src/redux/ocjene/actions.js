@@ -36,6 +36,68 @@ export const ucitajOcjenu = (id) => {
   };
 };
 
+export const urediOcjenu = (ocjena) => {
+  console.log(ocjena);
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ocjeneTypes.UREDI_OCJENU_REQUEST });
+      const response = await fetch(
+        `http://localhost:3001/ocjene/${ocjena.idOcjena}`,
+        {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idOdjeljenja: `${ocjena.idOdjeljenja}`,
+          }),
+        }
+      );
+      const result = await response.json();
+      dispatch({
+        type: ocjeneTypes.UREDI_OCJENU_SUCCESS,
+        payload: result.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ocjeneTypes.UREDI_OCJENU_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};
+
+export const dodajOcjenu = (ocjena) => {
+  console.log(ocjena);
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ocjeneTypes.DODAJ_OCJENU_REQUEST });
+      const response = await fetch(`http://localhost:3001/ocjene`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ucenik: `${ocjena.ucenik}`,
+          ocjena: `${ocjena.ocjena}`,
+        }),
+      });
+      const result = await response.json();
+      dispatch({
+        type: ocjeneTypes.DODAJ_OCJENU_SUCCESS,
+        payload: result.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ocjeneTypes.DODAJ_OCJENU_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};
+
 export const obrisiOcjenu = (id) => {
   return async (dispatch) => {
     try {

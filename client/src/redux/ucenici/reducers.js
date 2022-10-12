@@ -55,7 +55,40 @@ const uceniciReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
     }
+    case uceniciTypes.UREDI_UCENIKA_REQUEST:
+      return { ...state, loading: true };
 
+    case uceniciTypes.UREDI_UCENIKA_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.idUcenik !== action.payload.idUcenik ? item : action.payload
+        ),
+        loading: false,
+      };
+
+    case uceniciTypes.UREDI_PREDMET_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+
+    case uceniciTypes.DODAJ_UCENIKA_REQUEST:
+      return { ...state, loading: true };
+    case uceniciTypes.DODAJ_UCENIKA_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        loading: false,
+      };
+    case uceniciTypes.DODAJ_UCENIKA_ERROR:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     default:
       return state;
   }

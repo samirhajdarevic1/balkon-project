@@ -22,6 +22,7 @@ const AddNastavnikForm = () => {
       <div>
         <ul>
           <li>
+            <label>Ime</label>
             <input
               value={ime}
               onChange={(e) => setIme(e.target.value)}
@@ -30,6 +31,7 @@ const AddNastavnikForm = () => {
             />
           </li>
           <li>
+            <label>Prezime</label>
             <input
               value={prezime}
               onChange={(e) => setPrezime(e.target.value)}

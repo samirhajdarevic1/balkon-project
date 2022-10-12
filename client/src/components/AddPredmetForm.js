@@ -20,6 +20,7 @@ const AddPredmetForm = () => {
       <div>
         <ul>
           <li>
+            <label>Predmet</label>
             <input
               value={predmet}
               onChange={(e) => setPredmet(e.target.value)}

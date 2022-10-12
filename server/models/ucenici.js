@@ -1,11 +1,13 @@
 const db = require('../util/database');
 
 module.exports = class Ucenik {
-  constructor({ idUcenik, ime, prezime, birthday }) {
+  constructor({ idUcenik, ime, prezime, birthday, razredi, predmeti }) {
     this.idUcenik = idUcenik;
     this.ime = ime;
     this.prezime = prezime;
     this.birthday = birthday;
+    this.razredi = razredi;
+    this.predmeti = predmeti;
   }
 
   async save() {
@@ -70,11 +72,38 @@ module.exports = class Ucenik {
       'SELECT * FROM ucenici WHERE ucenici.id_ucenik = ? LIMIT 1',
       [id]
     );
+    const ucenikRazredi =
+      await db.execute(`SELECT CONCAT(razred, ' ', oznaka_odjeljenja) AS razred , CONCAT(n.ime, ' ', n.prezime) as razrednik FROM balkon.ucenik_odjeljenje uo
+      LEFT JOIN balkon.odjeljenja o ON uo.id_odjeljenja = o.id_odjeljenja
+      LEFT JOIN balkon.ucenici u ON uo.id_ucenik = u.id_ucenik
+      LEFT JOIN balkon.nastavnici n ON o.id_nastavnik_razrednik = n.id_nastavnik
+      WHERE u.id_ucenik = ${id};`);
+    const ucenikoviPredmeti = await db.execute(
+      `    SELECT 
+      p.naziv, CONCAT(od.razred,' ', od.oznaka_odjeljenja  ) as razred
+       FROM balkon.predmeti_ucenici pu
+       LEFT JOIN balkon.predmeti p on p.id_predmet = pu.id_predmet
+       LEFT JOIN balkon.ucenici u ON u.id_ucenik = pu.id_ucenik
+       LEFT JOIN balkon.odjeljenja od ON od.id_odjeljenja = pu.id_odjeljenja
+       WHERE pu.id_ucenik=${id}
+       ;`
+    );
     if (ucenik[0].length === 0) {
       return null;
     }
+    const razredi = ucenikRazredi[0];
+    console.log(razredi);
+    const predmeti = ucenikoviPredmeti[0];
+    console.log(1, predmeti);
     const { id_ucenik, ime, prezime, birthday } = ucenik[0][0];
-    return new Ucenik({ idUcenik: id_ucenik, ime, prezime, birthday });
+    return new Ucenik({
+      idUcenik: id_ucenik,
+      ime,
+      prezime,
+      birthday,
+      razredi,
+      predmeti,
+    });
   }
 
   async delete() {
