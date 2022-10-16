@@ -6,13 +6,17 @@ module.exports = class Odjeljenje {
     idSkolskaGodina,
     idNastavnikRazrednik,
     oznakaOdjeljenja,
+    idRazred,
+    razrednik,
     razred,
   }) {
     this.idOdjeljenja = idOdjeljenja;
     this.idSkolskaGodina = idSkolskaGodina;
     this.idNastavnikRazrednik = idNastavnikRazrednik;
     this.oznakaOdjeljenja = oznakaOdjeljenja;
-    this.razred = razred;
+    (this.idRazred = idRazred),
+      (this.razrednik = razrednik),
+      (this.razred = razred);
   }
 
   async save() {
@@ -64,6 +68,7 @@ module.exports = class Odjeljenje {
           idSkolskaGodina: odjeljenje.id_skolska_godina,
           idNastavnikRazrednik: odjeljenje.id_nastavnik_razrednik,
           oznakaOdjeljenja: odjeljenje.oznaka_odjeljenja,
+          razred: odjeljenje.razred,
         });
       });
       return odjeljenjaInstances;
@@ -75,6 +80,7 @@ module.exports = class Odjeljenje {
           idSkolskaGodina: odjeljenje.id_skolska_godina,
           idNastavnikRazrednik: odjeljenje.id_nastavnik_razrednik,
           oznakaOdjeljenja: odjeljenje.oznaka_odjeljenja,
+          razred: odjeljenje.razred,
         });
       });
       return odjeljenjaInstances;
@@ -103,6 +109,29 @@ module.exports = class Odjeljenje {
       oznakaOdjeljenja: oznaka_odjeljenja,
       razred: razred,
     });
+  }
+
+  static async findUcenikovaOdjeljenjaByPk(id) {
+    const ucenikovaOdjeljenja = await db.execute(
+      `SELECT o.id_odjeljenja AS id_razred, CONCAT(razred, ' ', oznaka_odjeljenja) AS razred , CONCAT(n.ime, ' ', n.prezime) as razrednik FROM balkon.ucenik_odjeljenje uo
+      LEFT JOIN balkon.odjeljenja o on uo.id_odjeljenja=o.id_odjeljenja
+      LEFT JOIN balkon.ucenici u on uo.id_ucenik=u.id_ucenik
+      LEFT JOIN balkon.nastavnici n on o.id_nastavnik_razrednik=n.id_nastavnik
+      WHERE u.id_ucenik=${id}`
+    );
+    if (ucenikovaOdjeljenja[0].length === 0) {
+      return null;
+    }
+    const ucenikovaOdjeljenjaInstances = ucenikovaOdjeljenja[0].map(
+      (odjeljenje) => {
+        return new Odjeljenje({
+          idRazred: odjeljenje.id_razred,
+          razred: odjeljenje.razred,
+          razrednik: odjeljenje.razrednik,
+        });
+      }
+    );
+    return ucenikovaOdjeljenjaInstances;
   }
 
   async delete() {

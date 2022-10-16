@@ -19,6 +19,23 @@ exports.getPredmeti = async (req, res, next) => {
   }
 };
 
+exports.getUcenikoviPredmeti = async (req, res, next) => {
+  try {
+    const idUcenik = req.params.idUcenik;
+    const idRazred = req.params.idRazred;
+    const ucenikoviPredmeti = await Predmet.findUcenikovePredmeteByPk(
+      idUcenik,
+      idRazred
+    );
+    if (ucenikoviPredmeti) {
+      return res.json({ ucenikoviPredmeti });
+    }
+    return errorResponse(res, 'Ucenikova odjeljenja not found', 404);
+  } catch (err) {
+    return errorResponse(res, 'Internal server error', 500, err);
+  }
+};
+
 exports.getPredmet = async (req, res, next) => {
   try {
     const idPredmet = req.params.idPredmet;

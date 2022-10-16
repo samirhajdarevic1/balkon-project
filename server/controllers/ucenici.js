@@ -23,9 +23,17 @@ exports.getUcenici = async (req, res, next) => {
 exports.getUcenik = async (req, res, next) => {
   try {
     const idUcenik = req.params.idUcenik;
-    const ucenik = await Ucenik.findByPk(idUcenik);
-    if (ucenik) {
-      return res.json({ ucenik });
+    const razredId = req.query.idOdjeljenja;
+    if (razredId) {
+      const ucenik = await Ucenik.findByPk(idUcenik, razredId);
+      if (ucenik) {
+        return res.json({ ucenik });
+      }
+    } else {
+      const ucenik = await Ucenik.findByPk(idUcenik);
+      if (ucenik) {
+        return res.json({ ucenik });
+      }
     }
     return errorResponse(res, 'Ucenik not found', 404);
   } catch (err) {

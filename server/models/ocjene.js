@@ -69,8 +69,8 @@ module.exports = class Ocjena {
     );
   }
 
-  static async fetchAll(idOdjeljenja, idUcenik) {
-    if (idOdjeljenja && idUcenik) {
+  static async fetchAll(idUcenik, idRazred, idPredmet) {
+    if (idUcenik && idRazred && idPredmet) {
       const ocjene = await db.execute(
         `SELECT 
         CONCAT(u.ime, ' ', u.prezime) as ucenik,
@@ -79,15 +79,17 @@ module.exports = class Ocjena {
               CONCAT(n.ime, ' ',  n.prezime) as nastavnik,
               o.datum, 
               o.ocjena,
+              p.id_predmet,
               p.naziv,
               CONCAT(od.razred, ' ',  od.oznaka_odjeljenja) as razred
-          FROM ocjene o
-          LEFT JOIN nastavnici n ON o.id_nastavnik = n.id_nastavnik
-          LEFT JOIN predmeti p ON o.id_predmet = p.id_predmet
-          LEFT JOIN ucenici u ON o.id_ucenik = u.id_ucenik
-          LEFT JOIN odjeljenja od ON o.id_odjeljenja = od.id_odjeljenja
-          WHERE o.id_odjeljenja = ${idOdjeljenja} 
-          AND o.id_ucenik = ${idUcenik}
+          FROM balkon.ocjene o
+          LEFT JOIN balkon.nastavnici n ON o.id_nastavnik = n.id_nastavnik
+          LEFT JOIN balkon.predmeti p ON o.id_predmet = p.id_predmet
+          LEFT JOIN balkon.ucenici u ON o.id_ucenik = u.id_ucenik
+          LEFT JOIN balkon.odjeljenja od ON o.id_odjeljenja = od.id_odjeljenja
+          WHERE o.id_ucenik = ${idUcenik}
+          AND o.id_odjeljenja = ${idRazred}
+          AND p.id_predmet = ${idPredmet}
           ;`
       );
       const ocjeneInstances = ocjene[0].map((ocjena) => {
@@ -114,10 +116,10 @@ module.exports = class Ocjena {
           o.ocjena,
           p.naziv,
           CONCAT(od.razred, ' ',  od.oznaka_odjeljenja) as razred
-      FROM ocjene o
-      LEFT JOIN nastavnici n ON o.id_nastavnik = n.id_nastavnik
-      LEFT JOIN predmeti p ON o.id_predmet = p.id_predmet
-      LEFT JOIN odjeljenja od ON o.id_odjeljenja = od.id_odjeljenja
+      FROM balkon.ocjene o
+      LEFT JOIN balkon.nastavnici n ON o.id_nastavnik = n.id_nastavnik
+      LEFT JOIN balkon.predmeti p ON o.id_predmet = p.id_predmet
+      LEFT JOIN balkon.odjeljenja od ON o.id_odjeljenja = od.id_odjeljenja
       WHERE o.id_ucenik = ${idUcenik}`
       );
       const ocjeneInstances = ocjene[0].map((ocjena) => {
@@ -133,7 +135,8 @@ module.exports = class Ocjena {
       return ocjeneInstances;
     }
     const ocjene = await db.execute(`SELECT 
-    CONCAT(u.ime, ' ', u.prezime) as ucenik,
+  
+    u.id_ucenik,
         o.id_ocjena, 
           o.id_odjeljenja, 
           CONCAT(n.ime, ' ',  n.prezime) as nastavnik,
@@ -148,7 +151,7 @@ module.exports = class Ocjena {
       LEFT JOIN odjeljenja od ON o.id_odjeljenja = od.id_odjeljenja`);
     const ocjeneInstances = ocjene[0].map((ocjena) => {
       return new Ocjena({
-        ucenik: ocjena.ucenik,
+        idUcenik: ocjena.id_ucenik,
         idOcjena: ocjena.id_ocjena,
         nastavnik: ocjena.nastavnik,
         predmet: ocjena.naziv,

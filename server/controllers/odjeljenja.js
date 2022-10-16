@@ -22,11 +22,28 @@ exports.getOdjeljenja = async (req, res, next) => {
 exports.getOdjeljenje = async (req, res, next) => {
   try {
     const idOdjeljenja = req.params.idOdjeljenja;
+    const idRazred = req.params.idRazred;
+    console.log(1111111111, idRazred);
     const odjeljenje = await Odjeljenje.findByPk(idOdjeljenja);
     if (odjeljenje) {
       return res.json({ odjeljenje });
     }
     return errorResponse(res, 'Nastavnik not found', 404);
+  } catch (err) {
+    return errorResponse(res, 'Internal server error', 500, err);
+  }
+};
+
+exports.getUcenikovaOdjeljenja = async (req, res, next) => {
+  try {
+    const idUcenik = req.params.idUcenik;
+    const ucenikovaOdjeljenja = await Odjeljenje.findUcenikovaOdjeljenjaByPk(
+      idUcenik
+    );
+    if (ucenikovaOdjeljenja) {
+      return res.json({ ucenikovaOdjeljenja });
+    }
+    return errorResponse(res, 'Ucenikova odjeljenja not found', 404);
   } catch (err) {
     return errorResponse(res, 'Internal server error', 500, err);
   }
@@ -43,7 +60,7 @@ exports.createOdjeljenje = async (req, res, next) => {
       razred,
     });
     await odjeljenje.save();
-    return res.json({ message: 'Successfully created!' });
+    return res.json({ message: 'Successfully created!', razred: odjeljenje });
   } catch (err) {
     return errorResponse(res, 'Internal server error', 500, err);
   }

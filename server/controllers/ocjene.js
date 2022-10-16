@@ -4,10 +4,11 @@ const { errorResponse, successResponse } = require('./error');
 exports.getOcjene = async (req, res, next) => {
   try {
     const { idUcenik } = req.params;
-    const { idOdjeljenja } = req.query;
+    const { idRazred } = req.params;
+    const { idPredmet } = req.params;
 
-    if (idOdjeljenja & idUcenik) {
-      const ocjene = await Ocjena.fetchAll(idOdjeljenja, idUcenik);
+    if (idUcenik && idRazred && idPredmet) {
+      const ocjene = await Ocjena.fetchAll(idUcenik, idRazred, idPredmet);
       if (ocjene.length > 0) {
         return res.json({ ocjene });
       }

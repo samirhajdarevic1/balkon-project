@@ -24,6 +24,22 @@ const predmetiReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
+    case predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_REQUEST:
+      return { ...state, loading: true };
+    case predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_SUCCESS:
+      return {
+        ...state,
+        items: action.payload,
+        loading: false,
+      };
+    case predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+
     case predmetiTypes.UCITAJ_PREDMET_REQUEST:
       return { ...state, loading: true };
     case predmetiTypes.UCITAJ_PREDMET_SUCCESS:

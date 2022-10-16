@@ -1,64 +1,105 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
+import { ucitajUcenika } from '../redux/ucenici/actions';
+import Tabs from './Tabs';
 import UcenikRow from './UcenikRow';
-import { ucitajUcenika, obrisiUcenika } from '../redux/ucenici/actions';
-import BasicTabs from './tabs';
-import Tabs from './tabs';
+
+import {
+  /*  BrowserRouter as Router,
+  Routes,
+  Switch,
+  Route, */
+  //useLocation,
+  Outlet,
+} from 'react-router-dom';
+import { ucitajUcenikoveRazrede } from '../redux/odjeljenjaRazredi/actions';
+import { ucitajUcenikovePredmete } from '../redux/predmeti/actions';
 
 const Ucenik = (props) => {
   const { idUcenik } = useParams();
+  const { idRazred } = useParams();
+  //const { idOdjeljenja } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [ucenik] = useSelector((state) =>
     state.ucenici.items.filter((ucenik) => ucenik.idUcenik === +idUcenik)
   );
-  console.log(ucenik);
-  const { loading } = useSelector((state) => state.ucenici);
+  /*  useEffect(() => {
+    dispatch(ucitajUcenikoveRazrede(+idUcenik))
+      .then(() => {
+        dispatch(ucitajUcenika(+idUcenik));
+      })
+      .then(() => dispatch(ucitajUcenikovePredmete(+idUcenik, +idRazred)));
+  }, [idUcenik, idRazred]); */
+
+  const ucenikoviRazredi = useSelector((state) => state.razredi);
+  const ucenikoviPredmeti = useSelector((state) => state.predmeti);
+
+  /*  useEffect(() => {
+    dispatch(ucitajUcenika(+idUcenik)).then((ucenik) => {
+      dispatch(ucitajUcenikoveRazrede(+ucenik.idUcenik))
+        .then((razredi) => {
+          navigate('/ucenici/' + idUcenik + '/' + razredi[0].idRazred);
+        })
+        .then((predmeti) => {
+          if (ucenikoviRazredi) {
+            console.log(55, ucenikoviRazredi);
+            dispatch(
+              ucitajUcenikovePredmete(+idUcenik, predmeti[0].idRazred)
+            ).then(() =>
+              navigate(
+                '/ucenici/' +
+                  idUcenik +
+                  '/' +
+                  ucenikoviRazredi[0].idRazred +
+                  '/' +
+                  predmeti[0].idPredmet
+              )
+            );
+          }
+        });
+    });
+  }, [idRazred]); */
 
   useEffect(() => {
-    if (!ucenik) {
-      dispatch(ucitajUcenika(+idUcenik));
-    }
-  }, []);
+    const fetchData = async () => {
+      const ucenik = await dispatch(ucitajUcenika(+idUcenik));
+      const razredi = await dispatch(ucitajUcenikoveRazrede(+ucenik.idUcenik));
+      await navigate('/ucenici/' + idUcenik + '/' + razredi[0].idRazred);
+      const predmeti = await dispatch(
+        ucitajUcenikovePredmete(+idUcenik, razredi[0].idRazred)
+      );
+      await navigate(
+        '/ucenici/' +
+          idUcenik +
+          '/' +
+          razredi[0].idRazred +
+          '/' +
+          predmeti[0].idPredmet
+      );
+    };
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+    fetchData();
+  }, [idUcenik, idRazred]);
+
   if (!ucenik) {
     return <h1>Ucenik doesn't exist</h1>;
   }
-
   return (
     <>
-      <div key={ucenik.idUcenik} className={styles.nastavnici}>
-        <UcenikRow
-          id={ucenik.idUcenik}
-          ime={ucenik.ime}
-          prezime={ucenik.prezime}
-          birthday={ucenik.birthday}
-        />
-        {idUcenik && (
-          <>
-            <button
-              onClick={() => {
-                dispatch(obrisiUcenika(+idUcenik)).then(navigate('/ucenici'));
-              }}
-            >
-              Delete
-            </button>
-            <button
-              onClick={() => {
-                navigate(`/ucenici/${idUcenik}/edit`);
-              }}
-            >
-              Edit
-            </button>
-          </>
-        )}
-      </div>
-      <Tabs razredi={ucenik.razredi} predmeti={ucenik.predmeti} />
+      <UcenikRow
+        id={ucenik.idUcenik}
+        ime={ucenik.ime}
+        prezime={ucenik.prezime}
+        birthday={ucenik.birthday}
+      />
+      <Tabs
+        razredi={ucenikoviRazredi.items}
+        predmeti={ucenikoviPredmeti.items}
+      />
+      <Outlet />
     </>
   );
 };

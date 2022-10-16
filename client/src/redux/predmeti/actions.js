@@ -16,6 +16,28 @@ export const ucitajSvePredmete = () => async (dispatch) => {
     });
   }
 };
+export const ucitajUcenikovePredmete = (idUcenik, idRazred) => {
+  return async (dispatch) => {
+    console.log(999, idUcenik, idRazred);
+    try {
+      dispatch({ type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_REQUEST });
+      const response = await fetch(
+        `http://localhost:3001/ucenici/${idUcenik}/${idRazred}/predmeti`
+      );
+      const result = await response.json();
+      dispatch({
+        type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_SUCCESS,
+        payload: result.ucenikoviPredmeti,
+      });
+      return result.ucenikoviPredmeti;
+    } catch (error) {
+      dispatch({
+        type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};
 
 export const ucitajPredmet = (id) => {
   return async (dispatch) => {

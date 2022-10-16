@@ -27,6 +27,7 @@ export const ucitajUcenika = (id) => {
         type: uceniciTypes.UCITAJ_UCENIKA_SUCCESS,
         payload: result.ucenik,
       });
+      return result.ucenik;
     } catch (error) {
       dispatch({
         type: uceniciTypes.UCITAJ_UCENIKA_ERROR,

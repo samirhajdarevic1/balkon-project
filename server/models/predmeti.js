@@ -1,9 +1,12 @@
 const db = require('../util/database');
 
 module.exports = class Predmet {
-  constructor({ idPredmet, naziv }) {
+  constructor({ idPredmet, naziv, idRazred, razred, predmet }) {
     this.idPredmet = idPredmet;
     this.naziv = naziv;
+    this.idRazred = idRazred;
+    this.razred = razred;
+    this.predmet = predmet;
   }
 
   async save() {
@@ -76,6 +79,31 @@ module.exports = class Predmet {
     }
     const { id_predmet, naziv } = predmet[0][0];
     return new Predmet({ idPredmet: id_predmet, naziv: naziv });
+  }
+
+  static async findUcenikovePredmeteByPk(idUcenik, idRazred) {
+    const ucenikoviPredmeti = await db.execute(
+      `SELECT 
+      od.id_odjeljenja, p.id_predmet, p.naziv, CONCAT(od.razred,' ', od.oznaka_odjeljenja  ) as razred
+       FROM balkon.predmeti_ucenici pu
+       LEFT JOIN balkon.predmeti p on p.id_predmet = pu.id_predmet
+       LEFT JOIN balkon.ucenici u ON u.id_ucenik = pu.id_ucenik
+       LEFT JOIN balkon.odjeljenja od ON od.id_odjeljenja = pu.id_odjeljenja
+       WHERE pu.id_ucenik=${idUcenik}
+       AND pu.id_odjeljenja=${idRazred}`
+    );
+    if (ucenikoviPredmeti[0].length === 0) {
+      return null;
+    }
+    const ucenikoviPredmetiInstances = ucenikoviPredmeti[0].map((predmet) => {
+      return new Predmet({
+        idRazred: predmet.id_odjeljenja,
+        idPredmet: predmet.id_predmet,
+        razred: predmet.razred,
+        predmet: predmet.naziv,
+      });
+    });
+    return ucenikoviPredmetiInstances;
   }
 
   async delete() {

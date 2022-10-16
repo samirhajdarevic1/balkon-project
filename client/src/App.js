@@ -16,6 +16,9 @@ import AddUcenikForm from './components/AddUcenikForm';
 import EditUcenikForm from './components/EditUcenikForm';
 import EditOcjenuForm from './components/EditOcjenuForm';
 import AddOcjenuForm from './components/AddOcjenuForm';
+import Razred from './components/Razred';
+import Razredi from './components/Razredi';
+import AddRazredForm from './components/AddRazredForm';
 
 function App() {
   return (
@@ -35,7 +38,12 @@ function App() {
             element={<EditNastavnikForm />}
           />
           <Route path="ucenici" element={<Ucenici />} />
-          <Route path="ucenici/:idUcenik" element={<Ucenik />} />
+
+          <Route path="ucenici/:idUcenik" element={<Ucenik />}>
+            <Route path=":idRazred" element={<Razred />}>
+              <Route path=":idPredmet" element={<Razred />} />
+            </Route>
+          </Route>
           <Route path="ucenici/:idUcenik/edit" element={<EditUcenikForm />} />
           <Route path="ucenici/add-ucenik" element={<AddUcenikForm />} />
           <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
@@ -50,6 +58,8 @@ function App() {
           <Route path="ocjene/:idOcjena" element={<Ocjena />} />
           <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
           <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
+          <Route path="razredi" element={<Razredi />} />
+          <Route path="razredi/add-razred" element={<AddRazredForm />} />
           <Route path="*" element={<h1>Not found</h1>} />
         </Route>
       </Routes>
@@ -77,6 +87,9 @@ function Layout() {
             </li>
             <li>
               <Link to="/ocjene">Ocjene</Link>
+            </li>
+            <li>
+              <Link to="/razredi">Razredi</Link>
             </li>
           </ul>
         </nav>
