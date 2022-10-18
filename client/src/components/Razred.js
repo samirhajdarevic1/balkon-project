@@ -1,7 +1,72 @@
-import { TabPanel } from 'react-tabs';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  useParams,
+  useNavigate,
+  Link,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
+import { ucitajUcenikoveRazrede } from '../redux/odjeljenjaRazredi/actions';
+import { Tab, Tabs as TabsComponent, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const Razred = (props) => {
-  return <TabPanel>Selektovani razred je: {props.idRazred}</TabPanel>;
+  const { idRazred, idUcenik } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { loading } = useSelector((state) => state.razredi);
+  const ucenikoviRazredi = useSelector((state) => state.razredi.items);
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    dispatch(ucitajUcenikoveRazrede(+idUcenik));
+  }, [dispatch, idUcenik]);
+
+  useEffect(() => {
+    if (idRazred === undefined && ucenikoviRazredi.length > 0) {
+      navigate(pathname + '/' + ucenikoviRazredi[0].idRazred);
+    }
+    if (idRazred && ucenikoviRazredi.length > 0) {
+      const selectedIndex = ucenikoviRazredi.findIndex((r) => {
+        return r.idRazred === +idRazred;
+      });
+      setTabIndex(selectedIndex);
+    }
+  }, [idRazred, ucenikoviRazredi.length]);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+  if (!ucenikoviRazredi) {
+    return <h1>Ucenikovi razredi doesn't exist</h1>;
+  }
+
+  return (
+    <>
+      <TabsComponent
+        selectedIndex={tabIndex}
+        onSelect={(index) => setTabIndex(index)}
+      >
+        <TabList>
+          {ucenikoviRazredi.map((razred, i) => (
+            <Tab key={razred.idRazred}>
+              <Link to={'/ucenici/' + idUcenik + '/' + razred.idRazred}>
+                {razred.razred}
+              </Link>
+            </Tab>
+          ))}
+        </TabList>
+        {ucenikoviRazredi.map((razred, i) => (
+          <TabPanel key={razred.idRazred}>
+            <h2>Razrednik je: {razred.razrednik}</h2>
+          </TabPanel>
+        ))}
+      </TabsComponent>
+      <Outlet />
+    </>
+  );
 };
 
 export default Razred;
