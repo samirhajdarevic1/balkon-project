@@ -28,9 +28,8 @@ export const ucitajUcenikoveRazrede = (id) => {
       const result = await response.json();
       dispatch({
         type: razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_SUCCESS,
-        payload: result.ucenikovaOdjeljenja,
+        payload: result.ucenikovaOdjeljenja || [],
       });
-      return result.ucenikovaOdjeljenja;
     } catch (error) {
       dispatch({
         type: razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_ERROR,

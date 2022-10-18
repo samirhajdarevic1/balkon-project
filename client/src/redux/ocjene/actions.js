@@ -17,6 +17,28 @@ export const ucitajSveOcjene = () => async (dispatch) => {
   }
 };
 
+export const ucitajOcjeneIzPredmeta = (idUcenik, idRazred, idPredmet) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ocjeneTypes.UCITAJ_UCENIKOVE_OCJENE_REQUEST });
+      const response = await fetch(
+        `http://localhost:3001/ucenici/${idUcenik}/${idRazred}/${idPredmet}/ocjene`
+      );
+      const result = await response.json();
+      dispatch({
+        type: ocjeneTypes.UCITAJ_UCENIKOVE_OCJENE_SUCCESS,
+        payload: result.ocjene,
+      });
+      return result.ocjene;
+    } catch (error) {
+      dispatch({
+        type: ocjeneTypes.UCITAJ_UCENIKOVE_OCJENE_ERROR,
+        error: error.message,
+      });
+    }
+  };
+};
+
 export const ucitajOcjenu = (id) => {
   return async (dispatch) => {
     try {

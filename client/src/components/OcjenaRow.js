@@ -1,19 +1,9 @@
 import React from 'react';
-
-const OcjenaRow = ({
-  id,
-  ucenik,
-  opis,
-  datum,
-  predmet,
-  nastavnik,
-  ocjena,
-  razred,
-}) => {
+import styles from './Nastavnici.module.css';
+const OcjenaRow = ({ id, opis, datum, predmet, nastavnik, ocjena, razred }) => {
   return (
-    <div>
-      <p>ID: {id}</p>
-      <p>Ucenik: {ucenik}</p>
+    <div className={styles.nastavnici}>
+      <p>ID ocjene: {id}</p>
       <p>Datum ocjene: {datum}</p>
       <p>Nastavnik: {nastavnik}</p>
       <p>Predmet: {predmet}</p>

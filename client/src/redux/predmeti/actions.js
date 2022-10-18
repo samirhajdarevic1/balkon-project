@@ -18,7 +18,6 @@ export const ucitajSvePredmete = () => async (dispatch) => {
 };
 export const ucitajUcenikovePredmete = (idUcenik, idRazred) => {
   return async (dispatch) => {
-    console.log(999, idUcenik, idRazred);
     try {
       dispatch({ type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_REQUEST });
       const response = await fetch(

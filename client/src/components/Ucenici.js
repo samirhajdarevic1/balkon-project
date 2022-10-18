@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSveUcenike } from '../redux/ucenici/actions';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
 import UcenikRow from './UcenikRow';
 
 const Ucenici = () => {
@@ -26,7 +25,7 @@ const Ucenici = () => {
       {ucenici &&
         ucenici.items.map((ucenik) => {
           return (
-            <div key={ucenik.idUcenik} className={styles.nastavnici}>
+            <div key={ucenik.idUcenik}>
               <UcenikRow
                 id={ucenik.idUcenik}
                 ime={ucenik.ime}

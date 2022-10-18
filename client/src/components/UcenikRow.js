@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './Ucenik.module.css';
 
 const UcenikRow = ({ id, ime, prezime, birthday }) => {
   return (
-    <div>
+    <div className={styles.ucenik}>
       <h1>
         {id} {ime} {prezime}
       </h1>
