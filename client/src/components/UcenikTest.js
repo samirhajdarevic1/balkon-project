@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  useParams,
-  useNavigate,
-  useSearchParams,
-  Outlet,
-} from 'react-router-dom';
+import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
 import UcenikRow from './UcenikRow';
 import { ucitajUcenika, obrisiUcenika } from '../redux/ucenici/actions';
-import Razred from './Razred';
 
 const UcenikTest = (props) => {
   const { idUcenik } = useParams();
@@ -19,7 +13,6 @@ const UcenikTest = (props) => {
   const [ucenik] = useSelector((state) =>
     state.ucenici.items.filter((ucenik) => ucenik.idUcenik === +idUcenik)
   );
-
   useEffect(() => {
     if (!ucenik) {
       dispatch(ucitajUcenika(+idUcenik));
@@ -40,7 +33,12 @@ const UcenikTest = (props) => {
           id={ucenik.idUcenik}
           ime={ucenik.ime}
           prezime={ucenik.prezime}
-          birthday={ucenik.birthday}
+          birthday={String(ucenik.birthday).split('T')[0]}
+          image={ucenik.image}
+          imeOca={ucenik.imeOca}
+          imeMajke={ucenik.imeMajke}
+          maticniBroj={ucenik.maticniBroj}
+          adresa={ucenik.adresa}
         />
         {idUcenik && (
           <>

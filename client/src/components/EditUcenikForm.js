@@ -14,6 +14,7 @@ const EditUcenikForm = () => {
   const [imeUcenika, setImeUcenika] = useState('');
   const [prezimeUcenika, setPrezimeUcenika] = useState('');
   const [birthday, setBirthday] = useState(ucenik.birthday || '');
+  const [image, setImage] = useState(ucenik.image || '');
 
   useEffect(() => {
     if (!ucenik) {
@@ -26,6 +27,7 @@ const EditUcenikForm = () => {
       setImeUcenika(ucenik.ime);
       setPrezimeUcenika(ucenik.prezime);
       setBirthday(ucenik.birthday);
+      setImage(ucenik.image);
     }
   }, [ucenik]);
 
@@ -37,6 +39,7 @@ const EditUcenikForm = () => {
         ime: imeUcenika,
         prezime: prezimeUcenika,
         birthday,
+        image,
       })
     ).then(() => navigate(`/ucenici/${idUcenik}`));
   };
@@ -66,6 +69,14 @@ const EditUcenikForm = () => {
             <input
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
+              type="text"
+            />
+          </li>
+          <li>
+            <label>Image</label>
+            <input
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               type="text"
             />
           </li>

@@ -27,7 +27,6 @@ export const ucitajUcenika = (id) => {
         type: uceniciTypes.UCITAJ_UCENIKA_SUCCESS,
         payload: result.ucenik,
       });
-      return result.ucenik;
     } catch (error) {
       dispatch({
         type: uceniciTypes.UCITAJ_UCENIKA_ERROR,
@@ -51,6 +50,7 @@ export const dodajUcenika = (ucenik) => {
           ime: `${ucenik.ime}`,
           prezime: `${ucenik.prezime}`,
           birthday: `${ucenik.birthday}`,
+          image: `${ucenik.image}`,
         }),
       });
       const result = await response.json();
@@ -68,9 +68,9 @@ export const dodajUcenika = (ucenik) => {
 };
 
 export const urediUcenika = (ucenik) => {
-  console.log(ucenik);
   return async (dispatch) => {
     try {
+      console.log(ucenik);
       dispatch({ type: uceniciTypes.UREDI_UCENIKA_REQUEST });
       const response = await fetch(
         `http://localhost:3001/ucenici/${ucenik.idUcenik}`,
@@ -84,6 +84,7 @@ export const urediUcenika = (ucenik) => {
             ime: `${ucenik.ime}`,
             prezime: `${ucenik.prezime}`,
             birthday: `${ucenik.birthday}`,
+            image: `${ucenik.image}`,
           }),
         }
       );

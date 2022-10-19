@@ -32,7 +32,7 @@ const Ocjene = () => {
                 ucenik={ocjena.ucenik}
                 nastavnik={ocjena.nastavnik}
                 predmet={ocjena.predmet}
-                datum={ocjena.datum}
+                datum={String(ocjena.datum).split('T')[0]}
                 ocjena={ocjena.ocjena}
                 opis={ocjena.opis}
               />

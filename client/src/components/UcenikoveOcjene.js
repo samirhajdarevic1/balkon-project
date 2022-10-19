@@ -32,7 +32,7 @@ const UcenikoveOcjene = (props) => {
           <div key={ocjena.idOcjena}>
             <OcjenaRow
               id={ocjena.idOcjena}
-              datum={ocjena.datum}
+              datum={String(ocjena.datum).split('T')[0]}
               predmet={ocjena.predmet}
               nastavnik={ocjena.nastavnik}
               ocjena={ocjena.ocjena}

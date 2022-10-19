@@ -58,7 +58,6 @@ export const dodajRazred = (razred) => {
         }),
       });
       const result = await response.json();
-      console.log(result);
       dispatch({
         type: razrediTypes.DODAJ_RAZRED_SUCCESS,
         payload: result.razred,

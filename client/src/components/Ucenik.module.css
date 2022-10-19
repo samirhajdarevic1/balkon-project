@@ -1,9 +1,29 @@
 .ucenik {
-  display: flex;
+  display: grid;
   flex-direction: column;
-  align-items: start;
   border: 1px solid black;
   margin: 10px;
   border-radius: 5px;
   padding: 15px;
+  grid-template-rows: 66px 206px;
+  grid-template-columns: 401px 400px 400px;
+}
+.ucenik h1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.ucenik .data {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.image {
+  width: 150px;
+  height: 150px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 3;
+}
+.image img {
+  width: 150px;
+  height: 150px;
 }

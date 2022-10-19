@@ -43,8 +43,8 @@ exports.getUcenik = async (req, res, next) => {
 
 exports.createUcenik = async (req, res, next) => {
   try {
-    const { ime, prezime, birthday } = req.body;
-    const ucenik = new Ucenik({ ime, prezime, birthday });
+    const { ime, prezime, birthday, image } = req.body;
+    const ucenik = new Ucenik({ ime, prezime, birthday, image });
     await ucenik.save();
     return successResponse(res, 200, ucenik);
   } catch (err) {
@@ -55,7 +55,7 @@ exports.createUcenik = async (req, res, next) => {
 exports.putUpdateUcenik = async (req, res, next) => {
   try {
     const idUcenik = req.params.idUcenik;
-    const { ime, prezime, birthday } = req.body;
+    const { ime, prezime, birthday, image } = req.body;
     const ucenik = await Ucenik.findByPk(idUcenik);
     if (!ucenik) {
       return errorResponse(res, 'Nastavnik not found', 404);
@@ -63,6 +63,7 @@ exports.putUpdateUcenik = async (req, res, next) => {
     ucenik.ime = ime;
     ucenik.prezime = prezime;
     ucenik.birthday = birthday;
+    ucenik.image = image;
     await ucenik.save();
     return successResponse(res, 200, ucenik);
   } catch (err) {

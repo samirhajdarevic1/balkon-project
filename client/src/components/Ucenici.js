@@ -30,7 +30,12 @@ const Ucenici = () => {
                 id={ucenik.idUcenik}
                 ime={ucenik.ime}
                 prezime={ucenik.prezime}
-                birthday={ucenik.birthday}
+                birthday={String(ucenik.birthday).split('T')[0]}
+                image={ucenik.image}
+                imeOca={ucenik.imeOca}
+                imeMajke={ucenik.imeMajke}
+                maticniBroj={ucenik.maticniBroj}
+                adresa={ucenik.adresa}
               />
               <Link to={'/ucenici/' + ucenik.idUcenik}>Details</Link>
             </div>
