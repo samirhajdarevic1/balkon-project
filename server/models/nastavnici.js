@@ -34,7 +34,7 @@ module.exports = class Nastavnik {
   static async fetchAll(idOdjeljenja, idPredmet) {
     if (idPredmet) {
       const nastavnici = await db.execute(
-        `SELECT n.ime, n.prezime FROM balkon.predmeti_nastavnici  pn 
+        `SELECT n.id_nastavnik, n.ime, n.prezime FROM balkon.predmeti_nastavnici  pn 
         JOIN balkon.predmeti p
         JOIN balkon.nastavnici n 
         WHERE balkon.pn.id_predmet = p.id_predmet

@@ -79,6 +79,7 @@ module.exports = class Ocjena {
               CONCAT(n.ime, ' ',  n.prezime) as nastavnik,
               o.datum, 
               o.ocjena,
+              o.opis,
               p.id_predmet,
               p.naziv,
               CONCAT(od.razred, ' ',  od.oznaka_odjeljenja) as razred
@@ -101,6 +102,7 @@ module.exports = class Ocjena {
           ocjena: ocjena.ocjena,
           naziv: ocjena.naziv,
           razred: ocjena.razred,
+          opis: ocjena.opis,
         });
       });
 

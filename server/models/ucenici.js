@@ -74,7 +74,6 @@ module.exports = class Ucenik {
       return uceniciInstances;
     } else {
       const ucenici = await db.execute('SELECT * FROM ucenici');
-      console.log(ucenici);
       const uceniciInstances = ucenici[0].map((ucenik) => {
         return new Ucenik({
           idUcenik: ucenik.id_ucenik,

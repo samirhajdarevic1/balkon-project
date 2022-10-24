@@ -29,6 +29,11 @@ router.get(
 //POST /ucenik
 router.post('/', uceniciController.createUcenik);
 
+router.post(
+  '/:idUcenik/:idRazred/:idPredmet/add-ocjenu',
+  ocjeneController.createOcjena
+);
+
 //DELETE
 router.delete('/:idUcenik', uceniciController.deleteUcenik);
 

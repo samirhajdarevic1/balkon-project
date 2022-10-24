@@ -11,6 +11,8 @@ const UcenikRow = ({
   imeMajke,
   maticniBroj,
   adresa,
+  onEditUcenikHandler,
+  onDeleteUcenikHandler,
 }) => {
   return (
     <div className={styles.ucenik}>
@@ -26,6 +28,22 @@ const UcenikRow = ({
       </div>
       <div className={styles.image}>
         <img src={image} alt="User"></img>
+      </div>
+      <div className={styles['buttons-container']}>
+        <button
+          onClick={() => {
+            onDeleteUcenikHandler();
+          }}
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => {
+            onEditUcenikHandler();
+          }}
+        >
+          Edit
+        </button>
       </div>
     </div>
   );

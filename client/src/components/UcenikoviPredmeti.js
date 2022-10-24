@@ -23,7 +23,9 @@ const Razred = (props) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(ucitajUcenikovePredmete(+idUcenik, +idRazred));
+    if (idRazred) {
+      dispatch(ucitajUcenikovePredmete(+idUcenik, +idRazred));
+    }
   }, [idUcenik, idRazred]);
 
   useEffect(() => {
@@ -70,9 +72,7 @@ const Razred = (props) => {
           ))}
         </TabList>
         {ucenikoviPredmeti.map((predmet, i) => (
-          <TabPanel key={predmet.idPredmet}>
-            <h2>Ocjene:</h2>
-          </TabPanel>
+          <TabPanel key={predmet.idPredmet}>{/* <h2>Ocjene:</h2> */}</TabPanel>
         ))}
       </TabsComponent>
       <Outlet />

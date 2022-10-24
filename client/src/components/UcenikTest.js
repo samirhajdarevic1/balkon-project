@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import styles from './Nastavnici.module.css';
@@ -25,7 +25,12 @@ const UcenikTest = (props) => {
   if (!ucenik) {
     return <h1>Ucenik doesn't exist</h1>;
   }
-
+  const ucenikEditHandler = () => {
+    navigate(`/ucenici/${idUcenik}/edit`);
+  };
+  const deleteUcenikHandler = () => {
+    dispatch(obrisiUcenika(+idUcenik)).then(navigate('/ucenici'));
+  };
   return (
     <>
       <div key={ucenik.idUcenik} className={styles.nastavnici}>
@@ -39,25 +44,9 @@ const UcenikTest = (props) => {
           imeMajke={ucenik.imeMajke}
           maticniBroj={ucenik.maticniBroj}
           adresa={ucenik.adresa}
+          onEditUcenikHandler={ucenikEditHandler}
+          onDeleteUcenikHandler={deleteUcenikHandler}
         />
-        {idUcenik && (
-          <>
-            <button
-              onClick={() => {
-                dispatch(obrisiUcenika(+idUcenik)).then(navigate('/ucenici'));
-              }}
-            >
-              Delete
-            </button>
-            <button
-              onClick={() => {
-                navigate(`/ucenici/${idUcenik}/edit`);
-              }}
-            >
-              Edit
-            </button>
-          </>
-        )}
       </div>
       <Outlet />
     </>

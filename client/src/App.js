@@ -22,6 +22,7 @@ import AddRazredForm from './components/AddRazredForm';
 import UcenikTest from './components/UcenikTest';
 import UcenikoviPredmeti from './components/UcenikoviPredmeti';
 import UcenikoveOcjene from './components/UcenikoveOcjene';
+import Modal from './components/Modal';
 
 function App() {
   return (
@@ -48,7 +49,11 @@ function App() {
               <Route index element={<UcenikoviPredmeti />} />
               <Route path=":idPredmet" element={<UcenikoviPredmeti />}>
                 <Route index element={<UcenikoveOcjene />} />
-                {/* <Route path=":idOcjena" element={<UcenikoveOcjene />} /> */}
+                <Route path="add-ocjenu" element={<AddOcjenuForm />} />
+                <Route
+                  path="ocjene/:idOcjena/edit"
+                  element={<EditOcjenuForm />}
+                />
               </Route>
             </Route>
           </Route>

@@ -17,6 +17,25 @@ export const ucitajSveNastavnike = () => async (dispatch) => {
   }
 };
 
+export const ucitajNastavnikeIzPredmeta = (idPredmet) => async (dispatch) => {
+  try {
+    dispatch({ type: nastavniciTypes.UCITAJ_NASTAVNIKE_REQUEST });
+    const response = await fetch(
+      `http://localhost:3001/predmeti/${idPredmet}/nastavnici`
+    );
+    const result = await response.json();
+    dispatch({
+      type: nastavniciTypes.UCITAJ_NASTAVNIKE_SUCCESS,
+      payload: result.nastavnici,
+    });
+  } catch (error) {
+    dispatch({
+      type: nastavniciTypes.UCITAJ_NASTAVNIKE_ERROR,
+      error: error.message,
+    });
+  }
+};
+
 export const ucitajNastavnika = (id) => {
   return async (dispatch) => {
     try {
@@ -28,7 +47,6 @@ export const ucitajNastavnika = (id) => {
         dispatch({
           type: nastavniciTypes.UCITAJ_NASTAVNIKA_SUCCESS,
           payload: [],
-          //payload: result.nastavnik,
         });
       }
       dispatch({

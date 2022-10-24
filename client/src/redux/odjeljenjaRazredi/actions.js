@@ -5,6 +5,8 @@ export const ucitajSveRazrede = () => async (dispatch) => {
     dispatch({ type: razrediTypes.UCITAJ_RAZREDE_REQUEST });
     const response = await fetch('http://localhost:3001/odjeljenja');
     const result = await response.json();
+    result.reverse();
+    console.log(result);
     dispatch({
       type: razrediTypes.UCITAJ_RAZREDE_SUCCESS,
       payload: result.odjeljenja,

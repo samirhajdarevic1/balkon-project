@@ -9,7 +9,7 @@ const AddUcenikForm = () => {
   const [prezimeUcenika, setPrezimeUcenika] = useState('');
   const [birthday, setBirthday] = useState('');
   const [image, setImage] = useState('');
-
+  const [backdrop, setBackdrop] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,9 +26,20 @@ const AddUcenikForm = () => {
       navigate('/ucenici');
     });
   };
-
+  const backdropHandler = () => {
+    setBackdrop(true);
+    navigate(-1);
+  };
   return (
     <>
+      {!backdrop && (
+        <div
+          className={formStyles.backdrop}
+          onClick={() => {
+            backdropHandler();
+          }}
+        ></div>
+      )}
       <form onSubmit={submitHandler} className={formStyles['form-control']}>
         <ul>
           <li>

@@ -72,7 +72,13 @@ export const urediOcjenu = (ocjena) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            idOdjeljenja: `${ocjena.idOdjeljenja}`,
+            idOdjeljenja: `${ocjena.idRazred}`,
+            idUcenik: `${ocjena.idUcenik}`,
+            idNastavnik: `${ocjena.idNastavnik}`,
+            idPredmet: `${ocjena.idPredmet}`,
+            datum: `${ocjena.datum}`,
+            ocjena: `${ocjena.ocj}`,
+            opis: `${ocjena.opis}`,
           }),
         }
       );
@@ -91,7 +97,6 @@ export const urediOcjenu = (ocjena) => {
 };
 
 export const dodajOcjenu = (ocjena) => {
-  console.log(ocjena);
   return async (dispatch) => {
     try {
       dispatch({ type: ocjeneTypes.DODAJ_OCJENU_REQUEST });
@@ -102,8 +107,13 @@ export const dodajOcjenu = (ocjena) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ucenik: `${ocjena.ucenik}`,
-          ocjena: `${ocjena.ocjena}`,
+          idOdjeljenja: `${ocjena.idRazred}`,
+          idUcenik: `${ocjena.idUcenik}`,
+          idNastavnik: `${ocjena.idNastavnik}`,
+          idPredmet: `${ocjena.idPredmet}`,
+          datum: `${ocjena.datum}`,
+          ocjena: `${ocjena.ocj}`,
+          opis: `${ocjena.opis}`,
         }),
       });
       const result = await response.json();
@@ -124,7 +134,7 @@ export const obrisiOcjenu = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: ocjeneTypes.OBRISI_OCJENU_REQUEST });
-      const response = await fetch(`http://localhost:3001/nastavnici/${id}`, {
+      const response = await fetch(`http://localhost:3001/ocjene/${id}`, {
         method: 'DELETE',
       });
       await response.json();

@@ -1,5 +1,6 @@
 .react-tabs {
   display: flex;
+  flex-wrap: wrap;
   margin-left: 36px;
   width: 470px;
   height: 400px;
