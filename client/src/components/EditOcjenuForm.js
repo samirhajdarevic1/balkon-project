@@ -94,16 +94,16 @@ const EditOcjenuForm = () => {
               </select>
             </li>
             <li>
-              <label>Odaberi nastavnika</label>
-              <select name="idNastavnik">
-                {nastavnici.map((nastavnik) => (
+              <label>Odaberi ucenikov razred</label>
+              <select name="idRazred" disabled>
+                {
                   <option
-                    value={nastavnik.idNastavnik}
-                    key={nastavnik.idNastavnik}
+                    value={ucenikovRazred.idRazred}
+                    key={ucenikovRazred.idRazred}
                   >
-                    {nastavnik.ime} {nastavnik.prezime}
+                    {ucenikovRazred.razred}
                   </option>
-                ))}
+                }
               </select>
             </li>
             <li>
@@ -114,6 +114,19 @@ const EditOcjenuForm = () => {
                     {predmet.predmet}
                   </option>
                 }
+              </select>
+            </li>
+            <li>
+              <label>Odaberi nastavnika</label>
+              <select name="idNastavnik">
+                {nastavnici.map((nastavnik) => (
+                  <option
+                    value={nastavnik.idNastavnik}
+                    key={nastavnik.idNastavnik}
+                  >
+                    {nastavnik.ime} {nastavnik.prezime}
+                  </option>
+                ))}
               </select>
             </li>
             <li>
@@ -129,21 +142,10 @@ const EditOcjenuForm = () => {
               <input
                 value={ocj}
                 onChange={(e) => setOcj(e.target.value)}
-                type="text"
+                type="number"
+                min="1"
+                max="5"
               />
-            </li>
-            <li>
-              <label>Odaberi ucenikov razred</label>
-              <select name="idRazred" disabled>
-                {
-                  <option
-                    value={ucenikovRazred.idRazred}
-                    key={ucenikovRazred.idRazred}
-                  >
-                    {ucenikovRazred.razred}
-                  </option>
-                }
-              </select>
             </li>
             <li>
               <label>Opis</label>

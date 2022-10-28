@@ -1,19 +1,13 @@
 import React from 'react';
 
-const RazredRow = ({
-  id,
-  razred,
-  oznakaOdjeljenja,
-  idSkolskaGodina,
-  idNastavnikRazrednik,
-}) => {
+const RazredRow = ({ id, razred, oznakaOdjeljenja, razrednik }) => {
   return (
     <div>
       <p>idRazred: {id}</p>
-      <p>idSkolskaGodina: {idSkolskaGodina} </p>
-      <p>razred: {razred}</p>
-      <p>Odjeljenje: {oznakaOdjeljenja}</p>
-      <p>idNastavnikRazrednik: {idNastavnikRazrednik}</p>
+      <p>
+        razred: {razred} {oznakaOdjeljenja}
+      </p>
+      <p>Razrednik: {razrednik}</p>
     </div>
   );
 };

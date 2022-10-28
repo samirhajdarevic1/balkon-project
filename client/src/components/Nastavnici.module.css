@@ -2,11 +2,11 @@
   margin: 10px;
 }
 .nastavnici {
-  border: 1px solid black;
   margin: 10px;
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  border: 1px black solid;
 }
 .buttons {
   display: flex;

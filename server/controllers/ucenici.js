@@ -20,6 +20,20 @@ exports.getUcenici = async (req, res, next) => {
   }
 };
 
+exports.getUceniciIzRazreda = async (req, res, next) => {
+  try {
+    const razredId = req.query.idOdjeljenja;
+    if (razredId) {
+      const ucenik = await Ucenik.findByPk(razredId);
+      if (ucenik) {
+        return res.json({ ucenici });
+      }
+    }
+    return errorResponse(res, 'Ucenici not found', 404);
+  } catch (err) {
+    return errorResponse(res, 'Internal server error', 500, err);
+  }
+};
 exports.getUcenik = async (req, res, next) => {
   try {
     const idUcenik = req.params.idUcenik;
@@ -55,7 +69,16 @@ exports.createUcenik = async (req, res, next) => {
 exports.putUpdateUcenik = async (req, res, next) => {
   try {
     const idUcenik = req.params.idUcenik;
-    const { ime, prezime, birthday, image } = req.body;
+    const {
+      ime,
+      prezime,
+      birthday,
+      image,
+      imeOca,
+      imeMajke,
+      adresa,
+      maticniBroj,
+    } = req.body;
     const ucenik = await Ucenik.findByPk(idUcenik);
     if (!ucenik) {
       return errorResponse(res, 'Nastavnik not found', 404);
@@ -64,6 +87,10 @@ exports.putUpdateUcenik = async (req, res, next) => {
     ucenik.prezime = prezime;
     ucenik.birthday = birthday;
     ucenik.image = image;
+    ucenik.imeMajke = imeMajke;
+    ucenik.imeOca = imeOca;
+    ucenik.adresa = adresa;
+    ucenik.maticniBroj = maticniBroj;
     await ucenik.save();
     return successResponse(res, 200, ucenik);
   } catch (err) {

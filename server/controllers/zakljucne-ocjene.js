@@ -15,12 +15,21 @@ exports.getZakljucneOcjene = async (req, res, next) => {
 
 exports.getZakljucnaOcjena = async (req, res, next) => {
   try {
-    const idZakljucnaOcjena = req.params.idZakljucnaOcjena;
-    const zakljucnaOcjena = await ZakljucnaOcjena.findByPk(idZakljucnaOcjena);
+    /*  const idZakljucnaOcjena = req.params.idZakljucnaOcjena; */
+    const idUcenik = req.params.idUcenik;
+    const idPredmet = req.params.idPredmet;
+    const idSkolskaGodina = req.params.idSkolskaGodina;
+    const zakljucnaOcjena = await ZakljucnaOcjena.findByPk(
+      idUcenik,
+      idPredmet,
+      idSkolskaGodina
+    );
     if (zakljucnaOcjena) {
       return res.json({ zakljucnaOcjena });
+    } else {
+      return [];
     }
-    return errorResponse(res, 'Zakljucna ocjena not found', 404);
+    /*     return errorResponse(res, 'Zakljucna ocjena not found', 404); */
   } catch (err) {
     return errorResponse(res, 'Internal server error', 500, err);
   }
@@ -28,13 +37,16 @@ exports.getZakljucnaOcjena = async (req, res, next) => {
 
 exports.createZakljucnaOcjena = async (req, res, next) => {
   try {
-    const { idSkolskaGodina, idPredmet, idUcenik, zakljucnaOcjena } = req.body;
+    console.log(req.body);
+    const { id_skolska_godina, id_predmet, id_ucenik, zakljucnaOcjena } =
+      req.body;
     const zakljucnaOcj = new ZakljucnaOcjena({
-      idSkolskaGodina,
-      idPredmet,
-      idUcenik,
+      id_skolska_godina,
+      id_predmet,
+      id_ucenik,
       zakljucnaOcjena,
     });
+    console.log(zakljucnaOcj);
     await zakljucnaOcj.save();
     return successResponse(res, 200, zakljucnaOcj);
   } catch (err) {

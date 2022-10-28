@@ -5,7 +5,6 @@ import Nastavnik from './components/Nastavnik';
 import Predmeti from './components/Predmeti';
 import Predmet from './components/Predmet';
 import Ucenici from './components/Ucenici';
-import Ucenik from './components/Ucenik';
 import Ocjene from './components/Ocjene';
 import Ocjena from './components/Ocjena';
 import AddPredmetForm from './components/AddPredmetForm';
@@ -23,10 +22,12 @@ import UcenikTest from './components/UcenikTest';
 import UcenikoviPredmeti from './components/UcenikoviPredmeti';
 import UcenikoveOcjene from './components/UcenikoveOcjene';
 import Modal from './components/Modal';
+import UceniciIzRazreda from './components/UceniciIzRazreda';
+import SkolskeGodine from './components/SkolskeGodine';
 
 function App() {
   return (
-    <div>
+    <div style={{ margin: '1.5rem' }}>
       <h1>Main Navigation</h1>
 
       <Routes>
@@ -72,7 +73,12 @@ function App() {
           <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
           <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
           <Route path="razredi" element={<Razredi />}>
-            <Route path=":idRazred" element={<Razred />} />
+            <Route index element={<SkolskeGodine />} />
+            <Route path=":idSkolskaGodina" element={<SkolskeGodine />} />
+            <Route
+              path=":idSkolskaGodina/:idRazred/ucenici"
+              element={<UceniciIzRazreda />}
+            />
           </Route>
           <Route path="razredi/add-razred" element={<AddRazredForm />} />
           <Route path="*" element={<h1>Not found</h1>} />

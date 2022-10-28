@@ -19,6 +19,26 @@ exports.getOdjeljenja = async (req, res, next) => {
   }
 };
 
+exports.getRazrediIzSkolskeGodine = async (req, res, next) => {
+  try {
+    const { idSkolskaGodina } = req.params;
+    let odjeljenja = [];
+    if (idSkolskaGodina) {
+      odjeljenja = await Odjeljenje.fetchAllRazrediIzSkolskeGodine(
+        idSkolskaGodina
+      );
+    } else {
+      odjeljenja = await Odjeljenje.fetchAll();
+    }
+    if (odjeljenja) {
+      return res.json({ odjeljenja });
+    }
+    return [];
+  } catch (err) {
+    return errorResponse(res, 'Internal server error', 500, err);
+  }
+};
+
 exports.getOdjeljenje = async (req, res, next) => {
   try {
     const idOdjeljenja = req.params.idOdjeljenja;

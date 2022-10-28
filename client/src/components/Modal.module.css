@@ -27,21 +27,3 @@
   border-radius: 5px;
   color: black;
 }
-header h2 {
-  margin: 0;
-  width: 100%;
-}
-.message {
-  padding: 0.5rem 1rem;
-  margin: 1rem auto;
-}
-
-.button {
-  margin: 10px auto;
-  border-radius: 10px;
-  background: #872f85;
-  color: white;
-  cursor: pointer;
-  padding: 0.4rem;
-  width: 5rem;
-}

@@ -10,21 +10,27 @@ import {
 } from '../redux/ocjene/actions';
 import OcjenaRow from './OcjenaRow';
 import styles from './Nastavnici.module.css';
+import ZakljucnaOcjena from './ZakljucnaOcjena';
 
 const UcenikoveOcjene = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { idRazred } = useParams();
-  const { idUcenik } = useParams();
-  const { idPredmet } = useParams();
+  const { idUcenik, idRazred, idPredmet } = useParams();
   const { pathname } = useLocation();
   const { loading } = useSelector((state) => state.ocjene);
   const [dodajOcjenu, setDodajOcjenu] = useState(false);
+
   const ucenikoveOcjene = useSelector((state) => state.ocjene.items);
+  const ucenikoviRazredi = useSelector((state) => state.razredi.items);
+
+  const allRazredsIds = ucenikoviRazredi.map((r) => {
+    return r.idRazred;
+  });
+  const indexOfFirstElement = allRazredsIds.indexOf(+idRazred);
 
   useEffect(() => {
     dispatch(ucitajOcjeneIzPredmeta(+idUcenik, +idRazred, +idPredmet));
-  }, [idPredmet]);
+  }, [idPredmet, idUcenik, idRazred]);
 
   useEffect(() => {
     if (dodajOcjenu) {
@@ -49,7 +55,23 @@ const UcenikoveOcjene = (props) => {
   if (ucenikoveOcjene.length < 1) {
     return (
       <>
-        <h1>Nema ocjena još</h1>
+        <h1>Nema ocjena</h1>
+        {indexOfFirstElement < 1 && (
+          <button
+            onClick={() => {
+              setDodajOcjenu(true);
+            }}
+          >
+            Dodaj ocjenu
+          </button>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {indexOfFirstElement < 1 && (
         <button
           onClick={() => {
             setDodajOcjenu(true);
@@ -57,19 +79,7 @@ const UcenikoveOcjene = (props) => {
         >
           Dodaj ocjenu
         </button>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <button
-        onClick={() => {
-          setDodajOcjenu(true);
-        }}
-      >
-        Dodaj ocjenu
-      </button>
+      )}
       <TabsComponent className={styles['ocjene-container']}>
         {ucenikoveOcjene.map((ocjena, i) => (
           <div key={ocjena.idOcjena}>
@@ -83,10 +93,12 @@ const UcenikoveOcjene = (props) => {
               opis={ocjena.opis}
               onEditOcjenaHandler={editOcjenaHandler}
               onDeleteOcjenaHandler={deleteOcjenaHandler}
+              indexOfFirstElement={indexOfFirstElement}
             />
           </div>
         ))}
       </TabsComponent>
+      {ucenikoveOcjene.length > 0 && <ZakljucnaOcjena />}
       <Outlet />
     </>
   );

@@ -59,7 +59,6 @@ export const ucitajOcjenu = (id) => {
 };
 
 export const urediOcjenu = (ocjena) => {
-  console.log(ocjena);
   return async (dispatch) => {
     try {
       dispatch({ type: ocjeneTypes.UREDI_OCJENU_REQUEST });

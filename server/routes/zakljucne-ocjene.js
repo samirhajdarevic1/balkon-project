@@ -9,7 +9,10 @@ const router = express.Router();
 
 router.get('/', zakljucneOcjeneController.getZakljucneOcjene);
 
-router.get('/:idZakljucnaOcjena', zakljucneOcjeneController.getZakljucnaOcjena);
+router.get(
+  '/:idUcenik/:idPredmet/:idSkolskaGodina',
+  zakljucneOcjeneController.getZakljucnaOcjena
+);
 
 //POST /ucenik
 router.post('/', zakljucneOcjeneController.createZakljucnaOcjena);

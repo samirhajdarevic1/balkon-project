@@ -33,7 +33,7 @@ const UcenikTest = (props) => {
   };
   return (
     <>
-      <div key={ucenik.idUcenik} className={styles.nastavnici}>
+      <div key={ucenik.idUcenik}>
         <UcenikRow
           id={ucenik.idUcenik}
           ime={ucenik.ime}

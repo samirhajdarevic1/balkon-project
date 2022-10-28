@@ -60,7 +60,16 @@ const Razred = (props) => {
         </TabList>
         {ucenikoviRazredi.map((razred, i) => (
           <TabPanel key={razred.idRazred}>
-            <h2>Razrednik je: {razred.razrednik}</h2>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <h2>Razrednik je: {razred.razrednik}</h2>
+              <h3>Skolska godina: {razred.skolskaGodina}</h3>
+            </div>
           </TabPanel>
         ))}
       </TabsComponent>

@@ -9,14 +9,17 @@ module.exports = class Odjeljenje {
     idRazred,
     razrednik,
     razred,
+    skolskaGodina,
   }) {
     this.idOdjeljenja = idOdjeljenja;
     this.idSkolskaGodina = idSkolskaGodina;
     this.idNastavnikRazrednik = idNastavnikRazrednik;
     this.oznakaOdjeljenja = oznakaOdjeljenja;
-    (this.idRazred = idRazred),
-      (this.razrednik = razrednik),
-      (this.razred = razred);
+    this.idRazred = idRazred;
+    this.razrednik = razrednik;
+    this.razred = razred;
+    this.skolskaGodina = skolskaGodina;
+    this.idSkolskaGodina = idSkolskaGodina;
   }
 
   async save() {
@@ -53,6 +56,26 @@ module.exports = class Odjeljenje {
     );
   }
 
+  static async fetchAllRazrediIzSkolskeGodine(idSkolskaGodina = 1) {
+    if (idSkolskaGodina) {
+      const odjeljenja = await db.execute(
+        `SELECT o.*, CONCAT(n.ime, ' ', n.prezime) AS razrednik FROM balkon.odjeljenja o 
+        LEFT JOIN balkon.nastavnici n on o.id_nastavnik_razrednik = n.id_nastavnik
+        where id_skolska_godina = ${idSkolskaGodina}`
+      );
+      const odjeljenjaInstances = odjeljenja[0].map((odjeljenje) => {
+        return new Odjeljenje({
+          idOdjeljenja: odjeljenje.id_odjeljenja,
+          idSkolskaGodina: odjeljenje.id_skolska_godina,
+          idNastavnikRazrednik: odjeljenje.id_nastavnik_razrednik,
+          oznakaOdjeljenja: odjeljenje.oznaka_odjeljenja,
+          razred: odjeljenje.razred,
+          razrednik: odjeljenje.razrednik,
+        });
+      });
+      return odjeljenjaInstances;
+    }
+  }
   static async fetchAll(idNastavnik) {
     if (idNastavnik) {
       const odjeljenja = await db.execute(
@@ -113,9 +136,10 @@ module.exports = class Odjeljenje {
 
   static async findUcenikovaOdjeljenjaByPk(id) {
     const ucenikovaOdjeljenja = await db.execute(
-      `SELECT o.id_odjeljenja AS id_razred, CONCAT(razred, ' ', oznaka_odjeljenja) AS razred , CONCAT(n.ime, ' ', n.prezime) as razrednik FROM balkon.ucenik_odjeljenje uo
+      `SELECT sg.skolska_godina, sg.id_skolska_godina ,o.id_odjeljenja AS id_razred, o.id_skolska_godina, CONCAT(razred, ' ', oznaka_odjeljenja) AS razred , CONCAT(n.ime, ' ', n.prezime) as razrednik FROM balkon.ucenik_odjeljenje uo
       LEFT JOIN balkon.odjeljenja o on uo.id_odjeljenja=o.id_odjeljenja
       LEFT JOIN balkon.ucenici u on uo.id_ucenik=u.id_ucenik
+      LEFT JOIN balkon.skolske_godine sg on o.id_skolska_godina = sg.id_skolska_godina
       LEFT JOIN balkon.nastavnici n on o.id_nastavnik_razrednik=n.id_nastavnik
       WHERE u.id_ucenik=${id}`
     );
@@ -128,6 +152,8 @@ module.exports = class Odjeljenje {
           idRazred: odjeljenje.id_razred,
           razred: odjeljenje.razred,
           razrednik: odjeljenje.razrednik,
+          skolskaGodina: odjeljenje.skolska_godina,
+          idSkolskaGodina: odjeljenje.id_skolska_godina,
         });
       }
     );

@@ -1,0 +1,14 @@
+.razredi {
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  border: 1px black solid;
+  box-shadow: 1px 2px 5px 0px blue;
+  padding: 1rem;
+}
+.razredi-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+}

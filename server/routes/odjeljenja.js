@@ -11,6 +11,11 @@ const router = express.Router();
 
 router.get('/', odjeljenjaController.getOdjeljenja);
 
+router.get(
+  '/skolske-godine/:idSkolskaGodina',
+  odjeljenjaController.getRazrediIzSkolskeGodine
+);
+
 router.get('/:idOdjeljenja', odjeljenjaController.getOdjeljenje);
 
 router.get('/:idOdjeljenja/ucenici', uceniciController.getUcenici);

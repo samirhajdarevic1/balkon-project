@@ -6,7 +6,6 @@ export const ucitajSveRazrede = () => async (dispatch) => {
     const response = await fetch('http://localhost:3001/odjeljenja');
     const result = await response.json();
     result.reverse();
-    console.log(result);
     dispatch({
       type: razrediTypes.UCITAJ_RAZREDE_SUCCESS,
       payload: result.odjeljenja,
@@ -18,6 +17,26 @@ export const ucitajSveRazrede = () => async (dispatch) => {
     });
   }
 };
+
+export const ucitajRazredeIzSkolskeGodine =
+  (idSkolskaGodina) => async (dispatch) => {
+    try {
+      dispatch({ type: razrediTypes.UCITAJ_RAZREDE_REQUEST });
+      const response = await fetch(
+        `http://localhost:3001/odjeljenja/skolske-godine/${idSkolskaGodina}`
+      );
+      const result = await response.json();
+      dispatch({
+        type: razrediTypes.UCITAJ_RAZREDE_SUCCESS,
+        payload: result.odjeljenja,
+      });
+    } catch (error) {
+      dispatch({
+        type: razrediTypes.UCITAJ_RAZREDE_ERROR,
+        error: error.message,
+      });
+    }
+  };
 //UCITAJ UCENIKOVE RAZREDE
 
 export const ucitajUcenikoveRazrede = (id) => {
@@ -30,7 +49,7 @@ export const ucitajUcenikoveRazrede = (id) => {
       const result = await response.json();
       dispatch({
         type: razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_SUCCESS,
-        payload: result.ucenikovaOdjeljenja || [],
+        payload: result.ucenikovaOdjeljenja.reverse() || [],
       });
     } catch (error) {
       dispatch({
@@ -42,7 +61,6 @@ export const ucitajUcenikoveRazrede = (id) => {
 };
 
 export const dodajRazred = (razred) => {
-  console.log(razred);
   return async (dispatch) => {
     try {
       dispatch({ type: razrediTypes.DODAJ_RAZRED_REQUEST });

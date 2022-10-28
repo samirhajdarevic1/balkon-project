@@ -8,6 +8,7 @@ const OcjenaRow = ({
   nastavnik,
   ocjena,
   onDeleteOcjenaHandler,
+  indexOfFirstElement,
 }) => {
   const navigate = useNavigate();
   return (
@@ -19,10 +20,15 @@ const OcjenaRow = ({
         <p>Ocjena: {ocjena}</p>
         <p>Opis: {opis}</p>
       </div>
-      <div className={styles['buttons-container']}>
-        <button onClick={() => onDeleteOcjenaHandler(id)}>Delete</button>
-        <button onClick={() => navigate('ocjene/' + id + '/edit')}>Edit</button>
-      </div>
+
+      {indexOfFirstElement < 1 && (
+        <div className={styles['buttons-container']}>
+          <button onClick={() => onDeleteOcjenaHandler(id)}>Delete</button>
+          <button onClick={() => navigate('ocjene/' + id + '/edit')}>
+            Edit
+          </button>
+        </div>
+      )}
     </div>
   );
 };

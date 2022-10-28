@@ -51,7 +51,7 @@ module.exports = class Ucenik {
   static async fetchAll(idOdjeljenja) {
     if (idOdjeljenja) {
       const ucenici = await db.execute(
-        `SELECT u.ime, u.prezime, u.birthday, u.ime_oca, u.ime_majke FROM balkon.ucenik_odjeljenje  uo 
+        `SELECT u.id_ucenik, u.ime, u.prezime, u.birthday, u.ime_oca, u.ime_majke FROM balkon.ucenik_odjeljenje  uo 
         JOIN balkon.odjeljenja o 
         JOIN balkon.ucenici u 
         WHERE balkon.uo.id_odjeljenja = o.id_odjeljenja 
@@ -90,7 +90,36 @@ module.exports = class Ucenik {
       return uceniciInstances;
     }
   }
-
+  static async findByPkUceniciIzRazreda(idRazred) {
+    const ucenici = await db.execute(
+      `SELECT * FROM balkon.ucenik_odjeljenje uo
+    LEFT JOIN balkon.ucenici u ON uo.id_ucenik = u.id_ucenik
+    LEFT JOIN balkon.odjeljenja o ON uo.id_odjeljenja = o.id_odjeljenja
+    WHERE o.id_odjeljenja = ${idRazred}`
+    );
+    const {
+      id_ucenik,
+      ime,
+      prezime,
+      birthday,
+      image,
+      ime_oca,
+      ime_majke,
+      maticni_broj,
+      adresa_stanovanja,
+    } = ucenik[0][0];
+    console.log(
+      id_ucenik,
+      ime,
+      prezime,
+      birthday,
+      image,
+      ime_oca,
+      ime_majke,
+      maticni_broj,
+      adresa_stanovanja
+    );
+  }
   static async findByPk(id, razredId) {
     const ucenik = await db.execute(
       'SELECT * FROM balkon.ucenici WHERE ucenici.id_ucenik = ? LIMIT 1',
