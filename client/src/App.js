@@ -21,9 +21,10 @@ import AddRazredForm from './components/AddRazredForm';
 import UcenikTest from './components/UcenikTest';
 import UcenikoviPredmeti from './components/UcenikoviPredmeti';
 import UcenikoveOcjene from './components/UcenikoveOcjene';
-import Modal from './components/Modal';
 import UceniciIzRazreda from './components/UceniciIzRazreda';
 import SkolskeGodine from './components/SkolskeGodine';
+import AddUcenikURazredForm from './components/AddUcenikURazredForm';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -79,6 +80,10 @@ function App() {
               path=":idSkolskaGodina/:idRazred/ucenici"
               element={<UceniciIzRazreda />}
             />
+            <Route
+              path=":idSkolskaGodina/:idRazred/ucenici/add-ucenik"
+              element={<AddUcenikURazredForm />}
+            />
           </Route>
           <Route path="razredi/add-razred" element={<AddRazredForm />} />
           <Route path="*" element={<h1>Not found</h1>} />
@@ -122,10 +127,6 @@ function Layout() {
       <Outlet />
     </>
   );
-}
-
-function Home() {
-  return <h1>Ovo je pocetna</h1>;
 }
 
 export default App;

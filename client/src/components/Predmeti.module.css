@@ -1,0 +1,28 @@
+.predmeti * {
+  margin: 10px;
+}
+.predmeti-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.predmeti {
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  border: 1px black solid;
+  width: max-content;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.button {
+  margin: 10px 10px;
+  border-radius: 10px;
+  background: #3c0080;
+  color: white;
+  cursor: pointer;
+  padding: 0.4rem;
+  width: 5rem;
+  text-decoration: none;
+  text-align: center;
+}

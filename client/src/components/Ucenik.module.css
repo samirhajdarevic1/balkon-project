@@ -29,3 +29,14 @@
   width: 150px;
   height: 150px;
 }
+.button {
+  margin: 10px 10px;
+  border-radius: 10px;
+  background: #3c0080;
+  color: white;
+  cursor: pointer;
+  padding: 0.4rem;
+  width: 5rem;
+  text-decoration: none;
+  text-align: center;
+}

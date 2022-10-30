@@ -24,22 +24,6 @@ const uceniciReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
-    case uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_REQUEST:
-      return { ...state, loading: true };
-    case uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_SUCCESS:
-      return {
-        ...state,
-        items: action.payload,
-        loading: false,
-      };
-    case uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_ERROR: {
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
-    }
-
     case uceniciTypes.UCITAJ_UCENIKA_REQUEST:
       return { ...state, loading: true };
     case uceniciTypes.UCITAJ_UCENIKA_SUCCESS:
@@ -105,6 +89,7 @@ const uceniciReducer = (state = INITIAL_STATE, action) => {
         error: action.error,
         loading: false,
       };
+
     default:
       return state;
   }

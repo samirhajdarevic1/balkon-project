@@ -8,22 +8,25 @@
   justify-content: center;
   border: 1px black solid;
 }
-.buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.ocjene-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-.ocjene-data {
-  display: flex;
-  flex-direction: column;
-  border-right: 1px black solid;
-}
+
 .buttons-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.nastavnici-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button {
+  margin: 10px 10px;
+  border-radius: 10px;
+  background: #3c0080;
+  color: white;
+  cursor: pointer;
+  padding: 0.4rem;
+  width: 5rem;
+  text-decoration: none;
+  text-align: center;
 }

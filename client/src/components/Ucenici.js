@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSveUcenike } from '../redux/ucenici/actions';
 import { Link, useNavigate } from 'react-router-dom';
 import UcenikRow from './UcenikRow';
+import styles from './Ucenik.module.css';
 
 const Ucenici = () => {
   const ucenici = useSelector((state) => state.ucenici);
@@ -37,7 +38,12 @@ const Ucenici = () => {
                 maticniBroj={ucenik.maticniBroj}
                 adresa={ucenik.adresa}
               />
-              <Link to={'/ucenici/' + ucenik.idUcenik}>Details</Link>
+              <Link
+                to={'/ucenici/' + ucenik.idUcenik}
+                className={styles.button}
+              >
+                Details
+              </Link>
             </div>
           );
         })}

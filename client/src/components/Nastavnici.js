@@ -23,7 +23,7 @@ const Nastavnici = () => {
       >
         Add nastavnik
       </button>
-      <div>
+      <div className={styles['nastavnici-container']}>
         {nastavnici &&
           nastavnici.items.map((nast) => {
             return (
@@ -33,7 +33,12 @@ const Nastavnici = () => {
                   ime={nast.ime}
                   prezime={nast.prezime}
                 />
-                <Link to={'/nastavnici/' + nast.idNastavnik}>Details</Link>
+                <Link
+                  to={'/nastavnici/' + nast.idNastavnik}
+                  className={styles.button}
+                >
+                  Details
+                </Link>
               </div>
             );
           })}

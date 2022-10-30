@@ -15,6 +15,7 @@ const predmetiNastavniciRoutes = require('./routes/predmeti-nastavnici');
 const ocjeneRoutes = require('./routes/ocjene');
 const zakljucneOcjeneRoutes = require('./routes/zakljucne-ocjene');
 const odjNastRoutes = require('./routes/odjeljenja-nastavnici');
+const ucenikRazredRoutes = require('./routes/ucenik-razred');
 
 //app.use(bodyParser.urlencoded()); // kad imamo forntend tj.kad formu koristimo
 
@@ -36,6 +37,7 @@ app.use('/predmeti-nastavnici', predmetiNastavniciRoutes);
 app.use('/ocjene', ocjeneRoutes);
 app.use('/zakljucne-ocjene', zakljucneOcjeneRoutes);
 app.use('/odjeljenja-nastavnici', odjNastRoutes);
+app.use('/ucenik-razred', ucenikRazredRoutes);
 app.use(errorController.get404);
 
 app.listen(3001);

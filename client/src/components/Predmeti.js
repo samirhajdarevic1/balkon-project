@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSvePredmete } from '../redux/predmeti/actions';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
+import styles from './Predmeti.module.css';
 import PredmetRow from './PredmetRow';
 import AddPredmetForm from './AddPredmetForm';
 
@@ -28,15 +28,22 @@ const Predmeti = () => {
       >
         Add predmet
       </button>
-      {predmeti &&
-        predmeti.items.map((pred) => {
-          return (
-            <div key={pred.idPredmet} className={styles.nastavnici}>
-              <PredmetRow id={pred.idPredmet} naziv={pred.naziv} />
-              <Link to={'/predmeti/' + pred.idPredmet}>Details</Link>
-            </div>
-          );
-        })}
+      <div className={styles['predmeti-container']}>
+        {predmeti &&
+          predmeti.items.map((pred) => {
+            return (
+              <div key={pred.idPredmet} className={styles.predmeti}>
+                <PredmetRow id={pred.idPredmet} naziv={pred.naziv} />
+                <Link
+                  to={'/predmeti/' + pred.idPredmet}
+                  className={styles.button}
+                >
+                  Details
+                </Link>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import razrediReducer from './odjeljenjaRazredi/reducers';
 import predmetiReducer from './predmeti/reducers';
 import skolskeGodineReducer from './skolskeGodine/reducers';
 import uceniciReducer from './ucenici/reducers';
+import ucenikRazredReducer from './ucenikRazred/reducers';
 import zakljucneOcjeneReducer from './zakljucnaOcjena/reducers';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   razredi: razrediReducer,
   zakljucneOcjene: zakljucneOcjeneReducer,
   skolskeGodine: skolskeGodineReducer,
+  ucenikRazred: ucenikRazredReducer,
 });
 
 export default rootReducer;

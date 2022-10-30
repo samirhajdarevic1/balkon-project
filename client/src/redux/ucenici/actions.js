@@ -17,25 +17,6 @@ export const ucitajSveUcenike = () => async (dispatch) => {
   }
 };
 
-export const ucitajUcenikeIzRazreda = (idRazred) => async (dispatch) => {
-  try {
-    dispatch({ type: uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_REQUEST });
-    const response = await fetch(
-      `http://localhost:3001/odjeljenja/${idRazred}/ucenici`
-    );
-    const result = await response.json();
-    console.log(result);
-    dispatch({
-      type: uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_SUCCESS,
-      payload: result.ucenici,
-    });
-  } catch (error) {
-    dispatch({
-      type: uceniciTypes.UCITAJ_UCENIKE_IZ_RAZREDA_ERROR,
-      error: error.message,
-    });
-  }
-};
 export const ucitajUcenika = (id) => {
   return async (dispatch) => {
     try {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
+import styles from './Ocjene.module.css';
 import { ucitajOcjenu, obrisiOcjenu } from '../redux/ocjene/actions';
 import OcjenaRow from './OcjenaRow';
 
@@ -28,7 +28,7 @@ const Ocjena = (props) => {
   }
 
   return (
-    <div key={ocjena.idOcjena} className={styles.nastavnici}>
+    <div key={ocjena.idOcjena} className={styles.ocjene}>
       <OcjenaRow
         id={ocjena.idOcjena}
         ucenik={ocjena.ucenik}

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSveOcjene } from '../redux/ocjene/actions';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
+import styles from './Ocjene.module.css';
 import OcjenaRow from './OcjenaRow';
 
 const Ocjene = () => {
@@ -23,10 +23,10 @@ const Ocjene = () => {
       >
         Add ocjenu
       </button>
-      <div>
+      <div className={styles['ocjene-container']}>
         {ocjene.items.map((ocjena) => {
           return (
-            <div key={ocjena.idOcjena} className={styles.nastavnici}>
+            <>
               <OcjenaRow
                 id={ocjena.idOcjena}
                 ucenik={ocjena.ucenik}
@@ -37,7 +37,7 @@ const Ocjene = () => {
                 opis={ocjena.opis}
               />
               <Link to={'/ocjene/' + ocjena.idOcjena}>Details</Link>
-            </div>
+            </>
           );
         })}
       </div>
