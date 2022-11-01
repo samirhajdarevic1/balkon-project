@@ -15,7 +15,7 @@ const UcenikRow = ({
   onDeleteUcenikHandler,
 }) => {
   return (
-    <div className={styles.ucenik}>
+    <>
       <h1>
         {id} {ime} {prezime}
       </h1>
@@ -32,20 +32,20 @@ const UcenikRow = ({
       <div className={styles['buttons-container']}>
         <button
           onClick={() => {
-            onDeleteUcenikHandler();
+            onDeleteUcenikHandler(id);
           }}
         >
           Delete
         </button>
         <button
           onClick={() => {
-            onEditUcenikHandler();
+            onEditUcenikHandler(id);
           }}
         >
           Edit
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

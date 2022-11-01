@@ -8,6 +8,7 @@ const AddPredmetForm = () => {
   const dispatch = useDispatch();
   const [predmet, setPredmet] = useState('');
   const navigate = useNavigate();
+  const [backdrop, setBackdrop] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -15,23 +16,37 @@ const AddPredmetForm = () => {
       navigate('/predmeti')
     );
   };
+  const backdropHandler = () => {
+    setBackdrop(true);
+    navigate(-1);
+  };
   return (
-    <form onSubmit={submitHandler} className={formStyles['form-control']}>
-      <div>
-        <ul>
-          <li>
-            <label>Predmet</label>
-            <input
-              value={predmet}
-              onChange={(e) => setPredmet(e.target.value)}
-              type="text"
-              placeholder="naziv predmeta"
-            />
-          </li>
-        </ul>
-      </div>
-      <button>Finnish adding</button>
-    </form>
+    <>
+      {!backdrop && (
+        <div
+          className={formStyles.backdrop}
+          onClick={() => {
+            backdropHandler();
+          }}
+        ></div>
+      )}
+      <form onSubmit={submitHandler} className={formStyles['form-control']}>
+        <div>
+          <ul>
+            <li>
+              <label>Predmet</label>
+              <input
+                value={predmet}
+                onChange={(e) => setPredmet(e.target.value)}
+                type="text"
+                placeholder="naziv predmeta"
+              />
+            </li>
+          </ul>
+        </div>
+        <button>Finnish adding</button>
+      </form>
+    </>
   );
 };
 

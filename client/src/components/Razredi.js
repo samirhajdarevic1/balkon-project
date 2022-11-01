@@ -18,7 +18,7 @@ const Razredi = () => {
   }, [idSkolskaGodina, razredi.length]);
 
   return (
-    <div>
+    <>
       <Outlet />
       {!idRazred && (
         <div className={styles['razredi-container']}>
@@ -32,8 +32,12 @@ const Razredi = () => {
                     razred={razredi.razred}
                     oznakaOdjeljenja={razredi.oznakaOdjeljenja}
                     razrednik={razredi.razrednik}
+                    key={razredi.idOdjeljenja}
                   />
-                  <Link to={pathname + '/' + razredi.idOdjeljenja + '/ucenici'}>
+                  <Link
+                    to={pathname + '/' + razredi.idOdjeljenja + '/ucenici'}
+                    className={styles.button}
+                  >
                     Details
                   </Link>
                 </div>
@@ -41,7 +45,7 @@ const Razredi = () => {
             })}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

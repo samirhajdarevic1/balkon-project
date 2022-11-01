@@ -26,7 +26,7 @@ export const ucitajUcenikovePredmete = (idUcenik, idRazred) => {
       const result = await response.json();
       dispatch({
         type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_SUCCESS,
-        payload: result.ucenikoviPredmeti,
+        payload: result.ucenikoviPredmeti || [],
       });
       return result.ucenikoviPredmeti;
     } catch (error) {
@@ -130,9 +130,7 @@ export const dodajPredmet = (predmet) => {
           naziv: `${predmet.naziv}`,
         }),
       });
-      //.then(ucitajSvePredmete().then((res) => console.log(res)));
       const result = await response.json();
-      console.log(1234, result);
       dispatch({
         type: predmetiTypes.DODAJ_PREDMET_SUCCESS,
         payload: result.predmet,

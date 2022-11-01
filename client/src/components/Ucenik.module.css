@@ -2,13 +2,23 @@
   display: grid;
   flex-direction: column;
   border: 1px solid black;
-  margin: 2rem;
+  margin: 2rem auto;
   border-radius: 5px;
   padding: 15px;
-  grid-template-rows: 66px 206px;
-  grid-template-columns: 350px 350px 350px;
+  grid-template-rows: 43px 210px;
+  grid-template-columns: 310px 326px 161px;
   justify-content: center;
-  min-width: 1250px;
+  width: max-content;
+}
+.ucenik-row {
+  display: flex;
+}
+.ucenici {
+  display: flex;
+  border: 1px black solid;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 1rem;
 }
 .ucenik h1 {
   grid-column-start: 1;
@@ -39,4 +49,5 @@
   width: 5rem;
   text-decoration: none;
   text-align: center;
+  height: fit-content;
 }

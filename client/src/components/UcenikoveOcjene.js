@@ -9,7 +9,7 @@ import {
   urediOcjenu,
 } from '../redux/ocjene/actions';
 import OcjenaRow from './OcjenaRow';
-import styles from './Nastavnici.module.css';
+import styles from './Ocjene.module.css';
 import ZakljucnaOcjena from './ZakljucnaOcjena';
 
 const UcenikoveOcjene = (props) => {

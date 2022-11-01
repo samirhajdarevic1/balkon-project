@@ -11,7 +11,7 @@ import { ucitajUcenikoveRazrede } from '../redux/odjeljenjaRazredi/actions';
 import { Tab, Tabs as TabsComponent, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-const Razred = (props) => {
+const UcenikoviRazredi = (props) => {
   const { idRazred, idUcenik } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,4 +78,4 @@ const Razred = (props) => {
   );
 };
 
-export default Razred;
+export default UcenikoviRazredi;

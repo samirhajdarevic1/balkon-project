@@ -5,7 +5,7 @@ import Nastavnik from './components/Nastavnik';
 import Predmeti from './components/Predmeti';
 import Predmet from './components/Predmet';
 import Ucenici from './components/Ucenici';
-import Ocjene from './components/Ocjene';
+/* import Ocjene from './components/Ocjene'; */
 import Ocjena from './components/Ocjena';
 import AddPredmetForm from './components/AddPredmetForm';
 import EditPredmetForm from './components/EditPredmetForm';
@@ -15,7 +15,7 @@ import AddUcenikForm from './components/AddUcenikForm';
 import EditUcenikForm from './components/EditUcenikForm';
 import EditOcjenuForm from './components/EditOcjenuForm';
 import AddOcjenuForm from './components/AddOcjenuForm';
-import Razred from './components/Razred';
+import UcenikoviRazredi from './components/UcenikoviRazredi';
 import Razredi from './components/Razredi';
 import AddRazredForm from './components/AddRazredForm';
 import UcenikTest from './components/UcenikTest';
@@ -46,8 +46,8 @@ function App() {
           <Route path="ucenici" element={<Ucenici />} />
 
           <Route path="ucenici/:idUcenik" element={<UcenikTest />}>
-            <Route index element={<Razred />} />
-            <Route path=":idRazred" element={<Razred />}>
+            <Route index element={<UcenikoviRazredi />} />
+            <Route path=":idRazred" element={<UcenikoviRazredi />}>
               <Route index element={<UcenikoviPredmeti />} />
               <Route path=":idPredmet" element={<UcenikoviPredmeti />}>
                 <Route index element={<UcenikoveOcjene />} />
@@ -69,7 +69,7 @@ function App() {
             element={<EditPredmetForm />}
           ></Route>
           <Route path="predmeti" element={<Predmeti />} />
-          <Route path="ocjene" element={<Ocjene />} />
+          {/* <Route path="ocjene" element={<Ocjene />} /> */}
           <Route path="ocjene/:idOcjena" element={<Ocjena />} />
           <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
           <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
@@ -111,9 +111,9 @@ function Layout() {
             <li>
               <Link to="/ucenici">Ucenici</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/ocjene">Ocjene</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/razredi">Razredi</Link>
             </li>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ucitajPredmet, obrisiPredmet } from '../redux/predmeti/actions';
 import { useParams, useNavigate } from 'react-router-dom';
 import PredmetRow from './PredmetRow';
-import styles from './Nastavnici.module.css';
+import styles from './Predmeti.module.css';
 import EditPredmetForm from './EditPredmetForm';
 
 const Predmet = (props) => {
@@ -36,7 +36,7 @@ const Predmet = (props) => {
     return <h1>Predmet doesn't exist</h1>;
   }
   return !editing ? (
-    <div key={predmet.idPredmet} className={styles.nastavnici}>
+    <div key={predmet.idPredmet} className={styles.predmeti}>
       <PredmetRow id={predmet.idPredmet} naziv={naziv} />
       {idPredmet && (
         <>
@@ -55,7 +55,7 @@ const Predmet = (props) => {
               navigate(`/predmeti/${idPredmet}/edit`);
             }}
           >
-            Edittttt
+            Edit
           </button>
         </>
       )}

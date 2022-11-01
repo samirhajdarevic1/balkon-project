@@ -9,40 +9,53 @@ const AddNastavnikForm = () => {
   const navigate = useNavigate();
   const [ime, setIme] = useState('');
   const [prezime, setPrezime] = useState('');
-
+  const [backdrop, setBackdrop] = useState('');
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(dodajNastavnika({ ime, prezime })).then(() =>
       navigate('/nastavnici')
     );
   };
-
+  const backdropHandler = () => {
+    setBackdrop(true);
+    navigate(-1);
+  };
   return (
-    <form onSubmit={submitHandler} className={formStyles['form-control']}>
-      <div>
-        <ul>
-          <li>
-            <label>Ime</label>
-            <input
-              value={ime}
-              onChange={(e) => setIme(e.target.value)}
-              type="text"
-              placeholder="Ime nastavnika"
-            />
-          </li>
-          <li>
-            <label>Prezime</label>
-            <input
-              value={prezime}
-              onChange={(e) => setPrezime(e.target.value)}
-              type="text"
-              placeholder="Prezime nastavnika"
-            />
-          </li>
-        </ul>
-      </div>
-      <button>Finnish adding</button>
-    </form>
+    <>
+      {!backdrop && (
+        <div
+          className={formStyles.backdrop}
+          onClick={() => {
+            backdropHandler();
+          }}
+        ></div>
+      )}
+      <form onSubmit={submitHandler} className={formStyles['form-control']}>
+        <div>
+          <ul>
+            <li>
+              <label>Ime</label>
+              <input
+                value={ime}
+                onChange={(e) => setIme(e.target.value)}
+                type="text"
+                placeholder="Ime nastavnika"
+              />
+            </li>
+            <li>
+              <label>Prezime</label>
+              <input
+                value={prezime}
+                onChange={(e) => setPrezime(e.target.value)}
+                type="text"
+                placeholder="Prezime nastavnika"
+              />
+            </li>
+          </ul>
+        </div>
+        <button>Finnish adding</button>
+      </form>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+/* import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ucitajSveOcjene } from '../redux/ocjene/actions';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const Ocjene = () => {
       >
         Add ocjenu
       </button>
-      <div className={styles['ocjene-container']}>
+      <div className={styles.ocjene}>
         {ocjene.items.map((ocjena) => {
           return (
             <>
@@ -46,3 +46,4 @@ const Ocjene = () => {
 };
 
 export default Ocjene;
+ */

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ucitajUcenikeIzRazreda } from '../redux/ucenikRazred/actions';
 import styles from './UceniciIzRazreda.module.css';
 const UceniciIzRazreda = () => {
@@ -9,7 +9,6 @@ const UceniciIzRazreda = () => {
   const { idRazred } = useParams();
   const uceniciRazred = useSelector((state) => state.ucenikRazred.items);
   const razredi = useSelector((state) => state.razredi.items);
-  console.log(razredi);
 
   useEffect(() => {
     if (idRazred && razredi.length > 0) {

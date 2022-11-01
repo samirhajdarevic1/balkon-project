@@ -44,7 +44,7 @@ const Razred = (props) => {
     return <h1>Loading...</h1>;
   }
   if (ucenikoviPredmeti.length < 1) {
-    return <h1>Ucenikovi predmeti doesn't exist</h1>;
+    return <h1>Nisu izabrani predmeti</h1>;
   }
 
   return (

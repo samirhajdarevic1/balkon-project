@@ -2,7 +2,7 @@ import React from 'react';
 
 const RazredRow = ({ id, razred, oznakaOdjeljenja, razrednik }) => {
   return (
-    <div>
+    <div key={id}>
       <p>idRazred: {id}</p>
       <p>
         razred: {razred} {oznakaOdjeljenja}

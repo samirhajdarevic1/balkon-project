@@ -9,14 +9,12 @@ import {
 const ZakljucnaOcjena = () => {
   const dispatch = useDispatch();
   const { idUcenik, idRazred, idPredmet } = useParams();
-  console.log(1, idUcenik, idRazred, idPredmet);
   const [zakljOcj, setZakljOcj] = useState('');
   const [currentRazred] = useSelector((state) =>
     state.razredi.items.filter((razred) => razred.idRazred === +idRazred)
   );
   const ucenikoveOcjene = useSelector((state) => state.ocjene.items);
   const zakljucnaOcjena = useSelector((state) => state.zakljucneOcjene.items);
-  console.log(1111, zakljucnaOcjena);
   const pojedinacneOcjene = ucenikoveOcjene.map((ocjena) => ocjena.ocjena);
   const prosjek = pojedinacneOcjene.reduce((total, curr) => {
     return +total + +curr / pojedinacneOcjene.length;
@@ -24,7 +22,6 @@ const ZakljucnaOcjena = () => {
 
   const zakljucnaOcjenaSubmitHandler = (e) => {
     if (ucenikoveOcjene) {
-      console.log(e.target.zakljucnaOcjena.value);
       e.preventDefault();
       const zakljOcjena = {
         idUcenik: +idUcenik,

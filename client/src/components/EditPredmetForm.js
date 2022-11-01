@@ -13,7 +13,7 @@ const EditPredmetForm = () => {
   );
   const tmpNaziv = (predmet && predmet.naziv) || '';
   const [naziv, setNaziv] = useState(tmpNaziv);
-
+  const [backdrop, setBackdrop] = useState('');
   useEffect(() => {
     if (!predmet) {
       dispatch(ucitajPredmet(+idPredmet));
@@ -29,23 +29,37 @@ const EditPredmetForm = () => {
       navigate(`/predmeti/${idPredmet}`)
     );
   };
+  const backdropHandler = () => {
+    setBackdrop(true);
+    navigate(-1);
+  };
 
   return (
-    <form onSubmit={editingHandler} className={formStyles['form-control']}>
-      <div>
-        <ul>
-          <li>
-            <label>Naziv predmeta</label>
-            <input
-              value={naziv}
-              onChange={(e) => setNaziv(e.target.value)}
-              type="text"
-            />
-          </li>
-        </ul>
-      </div>
-      <button>Done editing</button>
-    </form>
+    <>
+      {!backdrop && (
+        <div
+          className={formStyles.backdrop}
+          onClick={() => {
+            backdropHandler();
+          }}
+        ></div>
+      )}
+      <form onSubmit={editingHandler} className={formStyles['form-control']}>
+        <div>
+          <ul>
+            <li>
+              <label>Naziv predmeta</label>
+              <input
+                value={naziv}
+                onChange={(e) => setNaziv(e.target.value)}
+                type="text"
+              />
+            </li>
+          </ul>
+        </div>
+        <button>Done editing</button>
+      </form>
+    </>
   );
 };
 

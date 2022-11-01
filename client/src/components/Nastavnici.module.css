@@ -7,6 +7,9 @@
   display: flex;
   justify-content: center;
   border: 1px black solid;
+  width: max-content;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .buttons-container {

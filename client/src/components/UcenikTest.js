@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate, Outlet } from 'react-router-dom';
-import styles from './Nastavnici.module.css';
+import styles from './Ucenik.module.css';
 import UcenikRow from './UcenikRow';
 import { ucitajUcenika, obrisiUcenika } from '../redux/ucenici/actions';
 
@@ -33,7 +33,7 @@ const UcenikTest = (props) => {
   };
   return (
     <>
-      <div key={ucenik.idUcenik}>
+      <div key={ucenik.idUcenik} className={styles.ucenik}>
         <UcenikRow
           id={ucenik.idUcenik}
           ime={ucenik.ime}
