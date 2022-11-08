@@ -9,6 +9,8 @@ describe('My First Test', () => {
     cy.contains('Predmeti').should('exist').click();
     cy.contains('Add predmet').click();
     cy.url().should('include', '/predmeti/add-predmet');
-    cy.getByData('add-predmet-input');
+    cy.getByData('add-predmet-input').type('Predmet');
   });
+
+  // it('Obrisan predmet')
 });
