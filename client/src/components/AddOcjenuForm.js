@@ -35,7 +35,7 @@ const AddOcjenuForm = () => {
     navigate(-1);
   };
   const submitHandler = (e) => {
-    /*  e.preventDefault(); */
+    e.preventDefault();
     const idRazred = e.target.idRazred.value;
     const idUcenik = e.target.idUcenik.value;
     const idNastavnik = e.target.idNastavnik.value;
@@ -51,7 +51,7 @@ const AddOcjenuForm = () => {
         opis,
       })
     );
-    /* navigate(-1); */
+    navigate(-1);
   };
 
   return (

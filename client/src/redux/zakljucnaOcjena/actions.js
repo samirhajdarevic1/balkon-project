@@ -28,7 +28,7 @@ export const ucitajZakljucnuOcjenu = (idUcenik, idPredmet, idSkolskaGodina) => {
       console.log(result);
       dispatch({
         type: zakljucneOcjeneTypes.UCITAJ_ZAKLJUCNU_OCJENU_SUCCESS,
-        payload: result.zakljucnaOcjena || null,
+        payload: result.zakljucnaOcjena,
       });
     } catch (error) {
       dispatch({

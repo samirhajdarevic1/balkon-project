@@ -1,13 +1,11 @@
+/*  [...select.options] takes the Array-like list of options and destructures it so that we can use Array.prototype methods on it (Edit: also consider using Array.from())
+filter(...) reduces the options to only the ones that are selected
+map(...) converts the raw <option> elements into their respective values */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Link,
-  redirect,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
-import { ucitajRazredeIzSkolskeGodine } from '../redux/odjeljenjaRazredi/actions';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ucitajRazredeIzSkolskeGodine } from '../redux/razrediSkolskaGodina/actions';
+
 import { ucitajSveSkolskeGodine } from '../redux/skolskeGodine/actions';
 import { ucitajSveUcenike } from '../redux/ucenici/actions';
 import { ucitajUcenikeIzRazreda } from '../redux/ucenikRazred/actions';
@@ -17,48 +15,45 @@ import formStyles from './Form.module.css';
 const AddUcenikURazredForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  var { pathname } = useLocation();
   const { idRazred, idSkolskaGodina } = useParams();
   const [backdrop, setBackdrop] = useState('');
-  const ucenici = useSelector((state) => state.ucenici.items);
   const skolskeGodine = useSelector((state) => state.skolskeGodine.items);
-  const razredi = useSelector((state) => state.razredi.items);
+  const ucenici = useSelector((state) => state.ucenici.items);
   const uceniciRazred = useSelector((state) => state.ucenikRazred.items);
-  /*   const [idSkolskaGod, setIdSkolskaGod] = useState(idSkolskaGodina); */
+  const [idSkolskaGod, setIdSkolskaGod] = useState(idSkolskaGodina);
+  const razredi = useSelector((state) => state.razredi.items);
+  const [idRazr, setIdRazr] = useState('');
+  console.log(idRazr);
 
   useEffect(() => {
     if (skolskeGodine.length < 1) {
       dispatch(ucitajSveSkolskeGodine());
     }
-  }, []);
+  }, [+idSkolskaGod]);
 
   useEffect(() => {
-    if (idSkolskaGodina) {
-      console.log(idSkolskaGodina);
-      dispatch(ucitajRazredeIzSkolskeGodine(+idSkolskaGodina));
+    if (+idSkolskaGod) {
+      dispatch(ucitajRazredeIzSkolskeGodine(+idSkolskaGod));
     }
-  }, [+idSkolskaGodina]);
+  }, [+idSkolskaGod]);
 
   useEffect(() => {
-    if (idSkolskaGodina && idRazred) {
-      dispatch(ucitajUcenikeIzRazreda(+idRazred));
+    if (idRazr && idSkolskaGod) {
+      dispatch(ucitajUcenikeIzRazreda(+idRazr));
     }
-  }, [ucenici.length, +idSkolskaGodina, +idRazred]);
+  }, [+idSkolskaGod, +idRazr]);
 
   const backdropHandler = () => {
     setBackdrop(true);
-    navigate(-1);
+    navigate(`/razredi/${idSkolskaGodina}/${idRazred}/ucenici`);
   };
-
-  /*  [...select.options] takes the Array-like list of options and destructures it so that we can use Array.prototype methods on it (Edit: also consider using Array.from())
-filter(...) reduces the options to only the ones that are selected
-map(...) converts the raw <option> elements into their respective values */
 
   const submitHandler = (e) => {
     e.preventDefault();
     const selectedIds = [...e.target.idUcenik.options]
       .filter((option) => option.selected)
       .map((option) => option.value);
+
     selectedIds.forEach((idUcenik) => {
       dispatch(dodajUcenikaURazred(+idRazred, +idUcenik));
     });
@@ -81,10 +76,9 @@ map(...) converts the raw <option> elements into their respective values */
             <select
               name="idSkolskaGodina"
               id="idSkolskaGodina"
+              value={idSkolskaGod}
               onChange={(e) => {
-                navigate(
-                  `/razredi/${e.target.value}/${idRazred}/ucenici/add-ucenik`
-                );
+                setIdSkolskaGod(e.target.value);
               }}
             >
               {skolskeGodine.length > 0 &&
@@ -101,10 +95,9 @@ map(...) converts the raw <option> elements into their respective values */
             <select
               name="idRazred"
               id="idRazred"
+              value={idRazr}
               onChange={(e) => {
-                navigate(
-                  `/razredi/${idSkolskaGodina}/${e.target.value}/ucenici/add-ucenik`
-                );
+                setIdRazr(e.target.value);
               }}
             >
               {razredi.map((razred) => {

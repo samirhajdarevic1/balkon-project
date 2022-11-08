@@ -51,6 +51,10 @@ export const dodajUcenika = (ucenik) => {
           prezime: `${ucenik.prezime}`,
           birthday: `${ucenik.birthday}`,
           image: `${ucenik.image}`,
+          imeOca: `${ucenik.imeOca}`,
+          imeMajke: `${ucenik.imeMajke}`,
+          maticniBroj: `${ucenik.maticniBroj}`,
+          adresa: `${ucenik.adresaStanovanja}`,
         }),
       });
       const result = await response.json();

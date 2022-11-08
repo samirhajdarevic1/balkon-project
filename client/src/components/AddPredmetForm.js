@@ -36,6 +36,7 @@ const AddPredmetForm = () => {
             <li>
               <label>Predmet</label>
               <input
+                data="add-predmet-input"
                 value={predmet}
                 onChange={(e) => setPredmet(e.target.value)}
                 type="text"

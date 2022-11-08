@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { ucitajRazredeIzSkolskeGodine } from '../redux/razrediSkolskaGodina/actions';
 import styles from './Razredi.module.css';
-import { ucitajRazredeIzSkolskeGodine } from '../redux/odjeljenjaRazredi/actions';
 import RazredRow from './RazredRow';
 
 const Razredi = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { idSkolskaGodina, idRazred } = useParams();
-  const razredi = useSelector((state) => state.razredi.items);
+  const razredi = useSelector((state) => state.razrediUSkolskojGodini.items);
+  console.log(razredi);
 
   useEffect(() => {
-    if (idSkolskaGodina) {
+    if (idSkolskaGodina && idRazred === undefined) {
       dispatch(ucitajRazredeIzSkolskeGodine(+idSkolskaGodina));
     }
-  }, [idSkolskaGodina, razredi.length]);
+  }, [idSkolskaGodina]);
 
   return (
     <>
@@ -24,6 +25,7 @@ const Razredi = () => {
         <div className={styles['razredi-container']}>
           {razredi &&
             razredi.map((razredi) => {
+              console.log(razredi);
               return (
                 <div key={razredi.idOdjeljenja} className={styles.razredi}>
                   <RazredRow

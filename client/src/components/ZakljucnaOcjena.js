@@ -15,6 +15,7 @@ const ZakljucnaOcjena = () => {
   );
   const ucenikoveOcjene = useSelector((state) => state.ocjene.items);
   const zakljucnaOcjena = useSelector((state) => state.zakljucneOcjene.items);
+  console.log(zakljucnaOcjena);
   const pojedinacneOcjene = ucenikoveOcjene.map((ocjena) => ocjena.ocjena);
   const prosjek = pojedinacneOcjene.reduce((total, curr) => {
     return +total + +curr / pojedinacneOcjene.length;
@@ -55,12 +56,10 @@ const ZakljucnaOcjena = () => {
     <>
       <label>Prosjek ocjena</label>
       <input defaultValue={prosjek.toFixed(2)}></input>
-      {/*       <form onSubmit={zakljucnaOcjenaSubmitHandler}>
-        <label>Zakljucna ocjena</label>
-        {idPredmet && zakljucnaOcjena[0] !== [] ? (
-          <input defaultValue={zakljucnaOcjena[0].zakljucnaOcjena}></input>
-        ) : (
+      {zakljucnaOcjena.length < 1 && (
+        <form onSubmit={zakljucnaOcjenaSubmitHandler}>
           <>
+            <label>Zakljucna ocjena</label>
             <input
               name="zakljucnaOcjena"
               value={zakljOcj}
@@ -68,8 +67,16 @@ const ZakljucnaOcjena = () => {
             />
             <button type="submit">Submit</button>
           </>
-        )}
-      </form> */}
+        </form>
+      )}
+      {zakljucnaOcjena.length > 0 && (
+        <form onSubmit={zakljucnaOcjenaSubmitHandler}>
+          <input
+            name="zakljucnaOcjena"
+            defaultValue={zakljucnaOcjena[0].zakljucnaOcjena}
+          />
+        </form>
+      )}
     </>
   );
 };

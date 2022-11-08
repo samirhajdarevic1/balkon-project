@@ -27,9 +27,9 @@ exports.getZakljucnaOcjena = async (req, res, next) => {
     if (zakljucnaOcjena) {
       return res.json({ zakljucnaOcjena });
     } else {
-      return [];
+      return null;
     }
-    /*     return errorResponse(res, 'Zakljucna ocjena not found', 404); */
+    return errorResponse(res, 'Zakljucna ocjena not found', 404);
   } catch (err) {
     return errorResponse(res, 'Internal server error', 500, err);
   }

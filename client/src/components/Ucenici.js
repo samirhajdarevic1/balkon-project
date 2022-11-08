@@ -20,7 +20,7 @@ const Ucenici = () => {
     navigate(`/ucenici/${idUcenik}/edit`);
   };
   return (
-    <div>
+    <div data="ucenici-container">
       <button
         onClick={() => {
           navigate('/ucenici/add-ucenik');

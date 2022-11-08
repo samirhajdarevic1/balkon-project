@@ -35,8 +35,17 @@ module.exports = class Ucenik {
 
   async insert() {
     const savedUcenik = await db.execute(
-      'INSERT INTO ucenici (ime, prezime, birthday, image) VALUES (?, ?, ?, ?)',
-      [this.ime, this.prezime, this.birthday, this.image]
+      'INSERT INTO ucenici (ime, prezime, birthday, image, ime_oca, ime_majke, maticni_broj, adresa_stanovanja) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [
+        this.ime,
+        this.prezime,
+        this.birthday,
+        this.image,
+        this.imeOca,
+        this.imeMajke,
+        this.maticniBroj,
+        this.adresa,
+      ]
     );
     this.idUcenik = savedUcenik[0].insertId;
   }

@@ -30,7 +30,11 @@ const AddNastavnikForm = () => {
           }}
         ></div>
       )}
-      <form onSubmit={submitHandler} className={formStyles['form-control']}>
+      <form
+        onSubmit={submitHandler}
+        className={formStyles['form-control']}
+        data="nastavnik-form"
+      >
         <div>
           <ul>
             <li>

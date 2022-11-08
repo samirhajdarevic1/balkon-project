@@ -6,17 +6,18 @@ import styles from './UceniciIzRazreda.module.css';
 const UceniciIzRazreda = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { idRazred } = useParams();
+  const { idRazred, idSkolskaGodina } = useParams();
   const uceniciRazred = useSelector((state) => state.ucenikRazred.items);
   const razredi = useSelector((state) => state.razredi.items);
+  /*   const skolskeGodine = useSelector((state) => state.skolskeGodine.items);
 
+  const allSkolskeGodineIds = skolskeGodine.map((sg) => {
+    return sg.idSkolskaGodina;
+  });
+  const indexOfFirstElement = allSkolskeGodineIds.indexOf(+idSkolskaGodina);
+ */
   useEffect(() => {
-    if (idRazred && razredi.length > 0) {
-      dispatch(ucitajUcenikeIzRazreda(+idRazred));
-    }
-  }, []);
-  useEffect(() => {
-    if (uceniciRazred.length < 1) {
+    if (idRazred) {
       dispatch(ucitajUcenikeIzRazreda(+idRazred));
     }
   }, []);

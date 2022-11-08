@@ -9,6 +9,10 @@ const AddUcenikForm = () => {
   const [prezimeUcenika, setPrezimeUcenika] = useState('');
   const [birthday, setBirthday] = useState('');
   const [image, setImage] = useState('');
+  const [imeOca, setImeOca] = useState('');
+  const [imeMajke, setImeMajke] = useState('');
+  const [maticniBroj, setMaticniBroj] = useState('');
+  const [adresaStanovanja, setAdresaStanovanja] = useState('');
   const [backdrop, setBackdrop] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,6 +25,10 @@ const AddUcenikForm = () => {
         prezime: prezimeUcenika,
         birthday,
         image,
+        imeOca,
+        imeMajke,
+        maticniBroj,
+        adresaStanovanja,
       })
     ).then(() => {
       navigate('/ucenici');
@@ -40,7 +48,11 @@ const AddUcenikForm = () => {
           }}
         ></div>
       )}
-      <form onSubmit={submitHandler} className={formStyles['form-control']}>
+      <form
+        onSubmit={submitHandler}
+        className={formStyles['form-control']}
+        data="ucenik-form"
+      >
         <ul>
           <li>
             <label>Ime</label>
@@ -78,8 +90,44 @@ const AddUcenikForm = () => {
               type="text"
             />
           </li>
+          <li>
+            <label>Otac</label>
+            <input
+              value={imeOca}
+              onChange={(e) => setImeOca(e.target.value)}
+              placeholder="Ime oca"
+              type="text"
+            />
+          </li>
+          <li>
+            <label>Majka</label>
+            <input
+              value={imeMajke}
+              onChange={(e) => setImeMajke(e.target.value)}
+              placeholder="Ime majke"
+              type="text"
+            />
+          </li>
+          <li>
+            <label>Maticni broj</label>
+            <input
+              value={maticniBroj}
+              onChange={(e) => setMaticniBroj(e.target.value)}
+              placeholder="Maticni broj"
+              type="text"
+            />
+          </li>
+          <li>
+            <label>Adresa stanovanja</label>
+            <input
+              value={adresaStanovanja}
+              onChange={(e) => setAdresaStanovanja(e.target.value)}
+              placeholder="Adresa"
+              type="text"
+            />
+          </li>
         </ul>
-        <button>Add Ucenik</button>
+        <button data="add-ucenik-button">Add Ucenik</button>
       </form>
     </>
   );

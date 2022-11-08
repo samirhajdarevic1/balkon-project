@@ -22,7 +22,7 @@ const UcenikoviRazredi = (props) => {
 
   useEffect(() => {
     dispatch(ucitajUcenikoveRazrede(+idUcenik));
-  }, [dispatch, idUcenik]);
+  }, [idUcenik]);
 
   useEffect(() => {
     if (idRazred === undefined && ucenikoviRazredi.length > 0) {

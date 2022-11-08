@@ -57,8 +57,26 @@ exports.getUcenik = async (req, res, next) => {
 
 exports.createUcenik = async (req, res, next) => {
   try {
-    const { ime, prezime, birthday, image } = req.body;
-    const ucenik = new Ucenik({ ime, prezime, birthday, image });
+    const {
+      ime,
+      prezime,
+      birthday,
+      image,
+      imeOca,
+      imeMajke,
+      maticniBroj,
+      adresa,
+    } = req.body;
+    const ucenik = new Ucenik({
+      ime,
+      prezime,
+      birthday,
+      image,
+      imeOca,
+      imeMajke,
+      maticniBroj,
+      adresa,
+    });
     await ucenik.save();
     return successResponse(res, 200, ucenik);
   } catch (err) {

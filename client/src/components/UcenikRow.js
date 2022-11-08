@@ -19,7 +19,7 @@ const UcenikRow = ({
       <h1>
         {id} {ime} {prezime}
       </h1>
-      <div className={styles.data}>
+      <div className={styles.data} data="ucenik-data">
         <p>Datum rođenja: {birthday}</p>
         <p>Otac: {imeOca}</p>
         <p>Majka: {imeMajke}</p>

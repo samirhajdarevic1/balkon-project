@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const razrediReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case razrediTypes.UCITAJ_RAZREDE_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, items: [] };
     case razrediTypes.UCITAJ_RAZREDE_SUCCESS:
       return {
         ...state,
@@ -25,7 +25,7 @@ const razrediReducer = (state = INITIAL_STATE, action) => {
     }
 
     case razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, items: [] };
     case razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_SUCCESS:
       return {
         ...state,
