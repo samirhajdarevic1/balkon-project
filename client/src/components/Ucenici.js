@@ -20,7 +20,7 @@ const Ucenici = () => {
     navigate(`/ucenici/${idUcenik}/edit`);
   };
   return (
-    <div data="ucenici-container">
+    <div data="ucenici-container" id="ucenici-container">
       <button
         onClick={() => {
           navigate('/ucenici/add-ucenik');
@@ -31,7 +31,11 @@ const Ucenici = () => {
       {ucenici &&
         ucenici.items.map((ucenik) => {
           return (
-            <div key={ucenik.idUcenik} className={styles.ucenici}>
+            <div
+              key={ucenik.idUcenik}
+              className={styles.ucenici}
+              data="ucenik-container"
+            >
               <UcenikRow
                 id={ucenik.idUcenik}
                 ime={ucenik.ime}

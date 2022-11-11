@@ -43,7 +43,7 @@ const Razred = (props) => {
   if (loading) {
     return <h1>Loading...</h1>;
   }
-  if (ucenikoviPredmeti.length < 1) {
+  if (ucenikoviPredmeti.length < 1 && !loading) {
     return <h1>Nisu izabrani predmeti</h1>;
   }
 
@@ -53,7 +53,7 @@ const Razred = (props) => {
         selectedIndex={tabIndex}
         onSelect={(index) => setTabIndex(index)}
       >
-        <TabList>
+        <TabList data="predmeti-tabs">
           {ucenikoviPredmeti.map((predmet, i) => (
             <Tab key={predmet.idPredmet}>
               <Link

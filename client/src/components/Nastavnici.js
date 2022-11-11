@@ -23,7 +23,10 @@ const Nastavnici = () => {
       >
         Add nastavnik
       </button>
-      <div className={styles['nastavnici-container']}>
+      <div
+        className={styles['nastavnici-container']}
+        data="nastavnici-container"
+      >
         {nastavnici &&
           nastavnici.items.map((nast) => {
             return (

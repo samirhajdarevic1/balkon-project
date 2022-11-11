@@ -33,7 +33,11 @@ const UcenikTest = (props) => {
   };
   return (
     <>
-      <div key={ucenik.idUcenik} className={styles.ucenik}>
+      <div
+        key={ucenik.idUcenik}
+        className={styles.ucenik}
+        data="ucenik-container"
+      >
         <UcenikRow
           id={ucenik.idUcenik}
           ime={ucenik.ime}

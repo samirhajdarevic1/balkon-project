@@ -36,7 +36,7 @@ const Predmet = (props) => {
     return <h1>Predmet doesn't exist</h1>;
   }
   return !editing ? (
-    <div key={predmet.idPredmet} className={styles.predmeti}>
+    <div key={predmet.idPredmet} className={styles.predmeti} data="predmet">
       <PredmetRow id={predmet.idPredmet} naziv={naziv} />
       {idPredmet && (
         <>

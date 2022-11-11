@@ -39,40 +39,45 @@ const UcenikoviRazredi = (props) => {
   if (loading) {
     return <h1>Loading...</h1>;
   }
-  if (!ucenikoviRazredi) {
-    return <h1>Ucenikovi razredi doesn't exist</h1>;
-  }
 
   return (
     <>
-      <TabsComponent
-        selectedIndex={tabIndex}
-        onSelect={(index) => setTabIndex(index)}
-      >
-        <TabList>
+      {ucenikoviRazredi.length > 0 && (
+        <TabsComponent
+          selectedIndex={tabIndex}
+          onSelect={(index) => setTabIndex(index)}
+        >
+          <TabList>
+            {ucenikoviRazredi.map((razred, i) => (
+              <Tab key={razred.idRazred}>
+                <Link to={'/ucenici/' + idUcenik + '/' + razred.idRazred}>
+                  {razred.razred}
+                </Link>
+              </Tab>
+            ))}
+          </TabList>
           {ucenikoviRazredi.map((razred, i) => (
-            <Tab key={razred.idRazred}>
-              <Link to={'/ucenici/' + idUcenik + '/' + razred.idRazred}>
-                {razred.razred}
-              </Link>
-            </Tab>
+            <TabPanel key={razred.idRazred}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <h2>Razrednik je: {razred.razrednik}</h2>
+                <h3>Skolska godina: {razred.skolskaGodina}</h3>
+              </div>
+            </TabPanel>
           ))}
-        </TabList>
-        {ucenikoviRazredi.map((razred, i) => (
-          <TabPanel key={razred.idRazred}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <h2>Razrednik je: {razred.razrednik}</h2>
-              <h3>Skolska godina: {razred.skolskaGodina}</h3>
-            </div>
-          </TabPanel>
-        ))}
-      </TabsComponent>
+        </TabsComponent>
+      )}
+      {ucenikoviRazredi.length === 0 && (
+        <>
+          <hr></hr>
+          <h1>Nisu definisani razredi</h1>
+        </>
+      )}
       <Outlet />
     </>
   );

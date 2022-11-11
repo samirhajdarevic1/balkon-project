@@ -94,7 +94,7 @@ const EditUcenikForm = () => {
             <li>
               <label>Birthday</label>
               <input
-                value={birthday}
+                value={String(birthday).split('T')[0]}
                 onChange={(e) => setBirthday(e.target.value)}
                 type="text"
               />

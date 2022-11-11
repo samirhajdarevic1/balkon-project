@@ -10,7 +10,6 @@ const Razredi = () => {
   const { pathname } = useLocation();
   const { idSkolskaGodina, idRazred } = useParams();
   const razredi = useSelector((state) => state.razrediUSkolskojGodini.items);
-  console.log(razredi);
 
   useEffect(() => {
     if (idSkolskaGodina && idRazred === undefined) {
@@ -25,7 +24,6 @@ const Razredi = () => {
         <div className={styles['razredi-container']}>
           {razredi &&
             razredi.map((razredi) => {
-              console.log(razredi);
               return (
                 <div key={razredi.idOdjeljenja} className={styles.razredi}>
                   <RazredRow

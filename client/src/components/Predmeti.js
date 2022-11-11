@@ -28,11 +28,15 @@ const Predmeti = () => {
       >
         Add predmet
       </button>
-      <div className={styles['predmeti-container']}>
+      <div className={styles['predmeti-container']} data="predmeti-container">
         {predmeti &&
           predmeti.items.map((pred) => {
             return (
-              <div key={pred.idPredmet} className={styles.predmeti}>
+              <div
+                key={pred.idPredmet}
+                className={styles.predmeti}
+                data="predmeti"
+              >
                 <PredmetRow id={pred.idPredmet} naziv={pred.naziv} />
                 <Link
                   to={'/predmeti/' + pred.idPredmet}

@@ -80,7 +80,10 @@ const UcenikoveOcjene = (props) => {
           Dodaj ocjenu
         </button>
       )}
-      <TabsComponent className={styles['ocjene-container']}>
+      <TabsComponent
+        className={styles['ocjene-container']}
+        data="ocjene-container"
+      >
         {ucenikoveOcjene.map((ocjena, i) => (
           <div key={ocjena.idOcjena}>
             <OcjenaRow

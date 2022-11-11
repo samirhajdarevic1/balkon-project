@@ -17,7 +17,8 @@ const UcenikRow = ({
   return (
     <>
       <h1>
-        {id} {ime} {prezime}
+        <span>{id} </span>
+        {ime} {prezime}
       </h1>
       <div className={styles.data} data="ucenik-data">
         <p>Datum rođenja: {birthday}</p>
