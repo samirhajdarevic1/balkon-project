@@ -1,8 +1,9 @@
 /// <reference types="Cypress" />
+const serverUrl = Cypress.env('serverUrl');
 
 describe('Nastavnici test', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
   });
 
   it('Dodavanje nastavnika', () => {
@@ -16,12 +17,12 @@ describe('Nastavnici test', () => {
       .type('nastavnik Prezime');
     cy.location('pathname').should('eq', '/nastavnici/add-nastavnik');
     cy.contains('Finnish adding').click();
-    cy.url().should('eq', 'http://localhost:3000/nastavnici');
+    cy.url().should('eq', Cypress.config().baseUrl + 'nastavnici');
   });
 
-  it.only('Provjera da li je dodat nastavnik', () => {
-    cy.intercept('GET', 'http://localhost:3001/nastavnici').as('getNastavnici');
-    cy.visit('http://localhost:3000/nastavnici');
+  it('Provjera da li je dodat nastavnik', () => {
+    cy.intercept('GET', `${serverUrl}/nastavnici`).as('getNastavnici');
+    cy.visit('/nastavnici');
     cy.wait('@getNastavnici');
     cy.getByData('nastavnici-container')
       .children()

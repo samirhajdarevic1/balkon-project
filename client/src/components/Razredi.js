@@ -21,11 +21,15 @@ const Razredi = () => {
     <>
       <Outlet />
       {!idRazred && (
-        <div className={styles['razredi-container']}>
+        <div className={styles['razredi-container']} data="razredi-container">
           {razredi &&
             razredi.map((razredi) => {
               return (
-                <div key={razredi.idOdjeljenja} className={styles.razredi}>
+                <div
+                  key={razredi.idOdjeljenja}
+                  className={styles.razredi}
+                  data="razred"
+                >
                   <RazredRow
                     id={razredi.idOdjeljenja}
                     idNastavnikRazrednik={razredi.idNastavnikRazrednik}

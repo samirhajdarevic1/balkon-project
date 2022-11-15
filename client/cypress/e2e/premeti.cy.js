@@ -1,8 +1,9 @@
 /// <reference types="Cypress" />
 
+const serverUrl = Cypress.env('serverUrl');
 describe('Testovi za predmete', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
   });
 
   it('Dodati predmet', () => {
@@ -18,7 +19,7 @@ describe('Testovi za predmete', () => {
     cy.url().should('include', '/predmeti');
   });
 
-  it.only('Obrisi predmet', () => {
+  it('Obrisi predmet', () => {
     cy.contains('Predmeti').should('exist').click();
     cy.url().should('include', '/predmeti');
     cy.getByData('predmeti')
@@ -38,8 +39,8 @@ describe('Testovi za predmete', () => {
       });
   });
 
-  it('Testiranje editovanja predmeta', () => {
-    cy.intercept('GET', 'http://localhost:3001/predmeti').as('getPredmeti');
+  it.only('Testiranje editovanja predmeta', () => {
+    cy.intercept('GET', `${serverUrl}/predmeti`).as('getPredmeti');
     //cy.visit('http://localhost:3000/predmeti');
     cy.contains('Predmeti').should('exist').click();
     cy.wait('@getPredmeti');

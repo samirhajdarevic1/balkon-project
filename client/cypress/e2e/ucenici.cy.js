@@ -1,15 +1,18 @@
 /// <reference types="Cypress" />
 
+const serverUrl = Cypress.env('serverUrl');
 describe('Ucenik/ucenici test', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
   });
 
   it('Dodat ucenik', () => {
     cy.contains('Ucenici').should('exist').click();
     cy.url().should('include', '/ucenici');
     cy.contains('Add ucenik').click();
-    cy.getByData('ucenik-form').find('input').eq(0).type('Ime');
+    const modal = cy.getByData('ucenik-form');
+
+    modal.find('input').eq(0).type('Ime');
     cy.getByData('ucenik-form').find('input').eq(1).type('Prezime');
     cy.getByData('ucenik-form').find('input').eq(2).type('1995-01-01');
     cy.getByData('ucenik-form')
@@ -117,8 +120,8 @@ describe('Ucenik/ucenici test', () => {
   /* .its('response.statusCode').should('eq', 200) --------> Nije loše,  write Cypress commands serially cy.wait('@alias') cy.get(...), ne kačiti cypress komande unutar .then*/
 
   it('Testiranje ucenikovih razreda ako nema razreda', () => {
-    cy.intercept('GET', 'http://localhost:3001/ucenici').as('getUcenici');
-    cy.visit('http://localhost:3000/ucenici');
+    cy.intercept('GET', `${serverUrl}/ucenici`).as('getUcenici');
+    cy.visit(Cypress.config().baseUrl + 'ucenici');
     cy.wait('@getUcenici');
     cy.getByData('ucenici-container')
       //     .should('have.length.greaterThan', 1)
@@ -129,8 +132,8 @@ describe('Ucenik/ucenici test', () => {
     cy.contains('Nisu definisani razredi');
   });
 
-  it('Testiranje editovanja ucenikovih informacija na /ucenici ruti', () => {
-    cy.intercept('GET', 'http://localhost:3001/ucenici').as('getUcenici');
+  it.only('Testiranje editovanja ucenikovih informacija na /ucenici ruti', () => {
+    cy.intercept('GET', `${serverUrl}/ucenici`).as('getUcenici');
     cy.visit('http://localhost:3000/ucenici');
     cy.wait('@getUcenici');
     cy.getByData('ucenik-container').last().contains('Edit').click();
@@ -257,7 +260,7 @@ describe('Ucenik/ucenici test', () => {
       .should('be.greaterThan', 0);
   });
 
-  it.only('Provjera dodavanja ocjene na ucenikovom profilu', () => {
+  it('Provjera dodavanja ocjene na ucenikovom profilu', () => {
     cy.intercept('GET', 'http://localhost:3001/ucenici').as('getUcenici');
     cy.visit('http://localhost:3000/ucenici');
     cy.wait('@getUcenici');
@@ -276,5 +279,18 @@ describe('Ucenik/ucenici test', () => {
       .last()
       .should('have.text', 'Finnish adding')
       .click();
+  });
+
+  it('Testiranje da li postoji prosjek  ocjena', () => {
+    cy.intercept('GET', 'http://localhost:3001/ucenici').as('getUcenici');
+    cy.visit('http://localhost:3000/ucenici');
+    cy.wait('@getUcenici');
+    cy.getByData('ucenik-container').first().contains('Details').click();
+    cy.reload();
+    cy.getByData('ocjene-container')
+      .next()
+      .next()
+      .invoke('val')
+      .should('not.be.empty');
   });
 });

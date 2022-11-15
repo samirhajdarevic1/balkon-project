@@ -22,7 +22,11 @@ const AddUcenikURazredForm = () => {
   const uceniciRazred = useSelector((state) => state.ucenikRazred.items);
   const [idSkolskaGod, setIdSkolskaGod] = useState(idSkolskaGodina);
   const razredi = useSelector((state) => state.razredi.items);
+  const razrediUSkolskojGodini = useSelector(
+    (state) => state.razrediUSkolskojGodini.items
+  );
   const [idRazr, setIdRazr] = useState('');
+  console.log(razrediUSkolskojGodini);
   console.log(idRazr);
 
   useEffect(() => {
@@ -100,7 +104,7 @@ const AddUcenikURazredForm = () => {
                 setIdRazr(e.target.value);
               }}
             >
-              {razredi.map((razred) => {
+              {razrediUSkolskojGodini.map((razred) => {
                 return (
                   <option key={razred.idOdjeljenja} value={razred.idOdjeljenja}>
                     {razred.razred} {razred.oznakaOdjeljenja}
