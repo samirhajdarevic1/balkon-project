@@ -16,6 +16,8 @@ const ocjeneRoutes = require('./routes/ocjene');
 const zakljucneOcjeneRoutes = require('./routes/zakljucne-ocjene');
 const odjNastRoutes = require('./routes/odjeljenja-nastavnici');
 const ucenikRazredRoutes = require('./routes/ucenik-razred');
+const userRoutes = require('./routes/user');
+const loginRoutes = require('./routes/login');
 
 //app.use(bodyParser.urlencoded()); // kad imamo forntend tj.kad formu koristimo
 
@@ -38,6 +40,8 @@ app.use('/ocjene', ocjeneRoutes);
 app.use('/zakljucne-ocjene', zakljucneOcjeneRoutes);
 app.use('/odjeljenja-nastavnici', odjNastRoutes);
 app.use('/ucenik-razred', ucenikRazredRoutes);
+app.use('/createUser', userRoutes);
+app.use('/login', loginRoutes);
 app.use(errorController.get404);
 
 app.listen(3001);

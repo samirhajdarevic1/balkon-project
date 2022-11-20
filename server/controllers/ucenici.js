@@ -77,6 +77,7 @@ exports.createUcenik = async (req, res, next) => {
       maticniBroj,
       adresa,
     });
+    console.log(ucenik);
     await ucenik.save();
     return successResponse(res, 200, ucenik);
   } catch (err) {

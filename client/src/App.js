@@ -25,6 +25,8 @@ import UceniciIzRazreda from './components/UceniciIzRazreda';
 import SkolskeGodine from './components/SkolskeGodine';
 import AddUcenikURazredForm from './components/AddUcenikURazredForm';
 import Home from './components/Home';
+import LoginForm from './components/LoginForm';
+import RegisterUser from './components/RegisterUser';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="login" element={<LoginForm />} />
+          <Route path="createUser" element={<RegisterUser />} />
           <Route index element={<Home />} />
           <Route path="nastavnici" element={<Nastavnici />} />
           <Route
@@ -101,6 +105,9 @@ function Layout() {
           <ul>
             <li>
               <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
             </li>
             <li>
               <Link to="/predmeti">Predmeti</Link>

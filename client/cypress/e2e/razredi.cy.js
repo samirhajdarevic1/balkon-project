@@ -96,8 +96,9 @@ describe('Razredi testovi', () => {
       .first()
       .then(($p) => {
         const txt = $p.text();
-        cy.get('form select').select(2);
+        cy.get('form select').select(1);
         cy.get('form button').click();
+        cy.wait(1000);
         cy.getByData('razredi-container')
           .find('div p')
           .first()
@@ -109,7 +110,6 @@ describe('Razredi testovi', () => {
           });
       });
   });
-
   it('Provjera da li se dodao novi razred', () => {
     cy.intercept('GET', `${serverUrl}skolske-godine`).as('getSkolskeGodine');
     cy.visit(`${razrediUrl}`);
@@ -135,5 +135,33 @@ describe('Razredi testovi', () => {
             );
           });
       });
+  });
+
+  it('Provjera da li dugme na kartici razreda otvara razred', () => {
+    cy.getByData('razred').first().contains('Details').click();
+    cy.get('button').should('have.text', 'Dodaj ucenika u razred');
+    cy.get('button').next().should('have.text', 'Ucenici u ovom razredu: ');
+  });
+
+  it('Testiranje da li dodaj ucenika u razred otvara formu', () => {
+    cy.getByData('razred').first().contains('Details').click();
+    cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
+  });
+
+  it('Testiranje da li u redu ruta kad se otvori forma da dodavanje ucenika u razred', () => {
+    cy.getByData('razred').first().contains('Details').click();
+    cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
+    cy.url().should('include', '/add-ucenik');
+  });
+
+  it('Trebali bi postojati 3 select element kad se otvori forma', () => {
+    cy.getByData('razred').first().contains('Details').click();
+    cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
+    cy.get('select').its('length').should('eq', 3);
+  });
+  it.only('trebao bi postojeti dropdown sa skolskim godinama', () => {
+    cy.getByData('razred').first().contains('Details').click();
+    cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
+    cy.get('select').first().invoke('val').should('not.be.empty');
   });
 });

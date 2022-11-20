@@ -6,10 +6,20 @@ describe('Testovi za predmete', () => {
     cy.visit('/');
   });
 
-  it('Dodati predmet', () => {
+  it('Trebalo bi postojati dugme za dodavanje predmeta', () => {
+    cy.contains('Predmeti').should('exist').click();
+    cy.contains('Add predmet');
+  });
+
+  it('Testiranje poklapanja rute sa formom', () => {
     cy.contains('Predmeti').should('exist').click();
     cy.contains('Add predmet').click();
     cy.url().should('include', '/predmeti/add-predmet');
+  });
+
+  it('Dodati predmet', () => {
+    cy.contains('Predmeti').should('exist').click();
+    cy.contains('Add predmet').click();
     cy.getByData('add-predmet-input').type('Predmet');
     cy.get('button').click();
     cy.getByData('predmet-container')
