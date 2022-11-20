@@ -1,6 +1,4 @@
-# Unit 01: Introduction to School Database project
-
-# Unit 02: Overview
+Unit 01: Introduction to School Database project
 
 This is a Full Stack React App with Rest API to provide a way for users to administer a school database containing information about:
 
