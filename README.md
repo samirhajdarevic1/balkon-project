@@ -1,6 +1,7 @@
-Unit 01: Introduction to School Database project
+# Unit 01: Introduction to School Database project
 
-Unit 02: Overview
+# Unit 02: Overview
+
 This is a Full Stack React App with Rest API to provide a way for users to administer a school database containing information about:
 
 - subjects: users can interact with the database by retrieving a list of subjects, viewing detail for a specific course, as well as creating, updating and deleting subjects in the database.
@@ -26,7 +27,7 @@ Technologies used in this project
 
 In case you are not familiar with chosen technologies here are some link that'll help: -https://developer.mozilla.org/en-US/docs/Web/HTML -https://developer.mozilla.org/en-US/docs/Web/CSS -https://developer.mozilla.org/en-US/docs/Web/JavaScript -https://reactjs.org/ -https://redux.js.org/ -https://nodejs.org/en/ -https://www.cypress.io/blog/2019/02/05/modern-frontend-testing-with-cypress/
 
-Unit 03: How to install and run the project:
+# Unit 03: How to install and run the project:
 
 Before starting project you'll need three separated terminals, one is for back-end, the other one for front-end and the third for running tests
 
@@ -48,7 +49,7 @@ After this it should be opened your browser where you can choose typ of tests th
 Choose E2E tests, than navigate in the spec folder that holds our tests.
 Now you are ready to perform some written tests
 
-Unit 04: How to use project
+# Unit 04: How to use project
 
 \*\*\*LATER WILL BE SHOWED HOW TO REGISTER AND LOGIN FOLLOWED BY SCREENSHOTS
 In this unit we'll describe some of the utilities that this app can do.
