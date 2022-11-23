@@ -1,10 +1,10 @@
+import fetchInstance from '../utils/fetchInstance';
 import { uceniciTypes } from './types';
 
 export const ucitajSveUcenike = () => async (dispatch) => {
   try {
     dispatch({ type: uceniciTypes.UCITAJ_UCENIKE_REQUEST });
-    const response = await fetch('http://localhost:3001/ucenici');
-    const result = await response.json();
+    const result = await fetchInstance('http://localhost:3001/ucenici');
     dispatch({
       type: uceniciTypes.UCITAJ_UCENIKE_SUCCESS,
       payload: result.ucenici,
@@ -21,8 +21,8 @@ export const ucitajUcenika = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: uceniciTypes.UCITAJ_UCENIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/ucenici/${id}`);
-      const result = await response.json();
+      const result = await fetchInstance(`http://localhost:3001/ucenici/${id}`);
+      //const result = await response.json();
       dispatch({
         type: uceniciTypes.UCITAJ_UCENIKA_SUCCESS,
         payload: result.ucenik,
@@ -40,7 +40,7 @@ export const dodajUcenika = (ucenik) => {
   return async (dispatch) => {
     try {
       dispatch({ type: uceniciTypes.DODAJ_UCENIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/ucenici`, {
+      const response = await fetchInstance(`http://localhost:3001/ucenici`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -74,9 +74,8 @@ export const dodajUcenika = (ucenik) => {
 export const urediUcenika = (ucenik) => {
   return async (dispatch) => {
     try {
-      console.log(ucenik);
       dispatch({ type: uceniciTypes.UREDI_UCENIKA_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/ucenici/${ucenik.idUcenik}`,
         {
           method: 'PUT',
@@ -96,7 +95,6 @@ export const urediUcenika = (ucenik) => {
           }),
         }
       );
-      const result = await response.json();
       dispatch({
         type: uceniciTypes.UREDI_UCENIKA_SUCCESS,
         payload: result.data,
@@ -114,10 +112,12 @@ export const obrisiUcenika = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: uceniciTypes.OBRISI_UCENIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/ucenici/${id}`, {
-        method: 'DELETE',
-      });
-      await response.json();
+      const result = await fetchInstance(
+        `http://localhost:3001/ucenici/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       dispatch({
         type: uceniciTypes.OBRISI_UCENIKA_SUCCESS,
         payload: id,

@@ -1,11 +1,10 @@
+import fetchInstance from '../utils/fetchInstance';
 import { skolskeGodineTypes } from './types';
 
 export const ucitajSveSkolskeGodine = () => async (dispatch) => {
   try {
     dispatch({ type: skolskeGodineTypes.UCITAJ_SKOLSKE_GODINE_REQUEST });
-    const response = await fetch('http://localhost:3001/skolske-godine');
-    const result = await response.json();
-
+    const result = await fetchInstance('http://localhost:3001/skolske-godine');
     dispatch({
       type: skolskeGodineTypes.UCITAJ_SKOLSKE_GODINE_SUCCESS,
       payload: result.skolskeGodine.reverse(),

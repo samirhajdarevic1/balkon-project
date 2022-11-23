@@ -3,7 +3,6 @@ const express = require('express');
 
 const predmetiController = require('../controllers/predmeti');
 const nastavniciController = require('../controllers/nastavnici');
-
 const router = express.Router();
 
 //GET

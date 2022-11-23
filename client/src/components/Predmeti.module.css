@@ -9,11 +9,12 @@
   margin: 10px;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   border: 1px black solid;
   width: max-content;
   flex-wrap: wrap;
   align-items: center;
+  min-width: 20rem;
 }
 .button {
   margin: 10px 10px;

@@ -1,10 +1,11 @@
+import fetchInstance from '../utils/fetchInstance';
 import { nastavniciTypes } from './types';
 
 export const ucitajSveNastavnike = () => async (dispatch) => {
   try {
     dispatch({ type: nastavniciTypes.UCITAJ_NASTAVNIKE_REQUEST });
-    const response = await fetch('http://localhost:3001/nastavnici');
-    const result = await response.json();
+    const result = await fetchInstance('http://localhost:3001/nastavnici');
+    // const result = await response.json();
     dispatch({
       type: nastavniciTypes.UCITAJ_NASTAVNIKE_SUCCESS,
       payload: result.nastavnici,
@@ -40,9 +41,9 @@ export const ucitajNastavnika = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: nastavniciTypes.UCITAJ_NASTAVNIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/nastavnici/${id}`);
-      const result = await response.json();
-      console.log(result.nastavnik);
+      const result = await fetchInstance(
+        `http://localhost:3001/nastavnici/${id}`
+      );
       if (!result.nastavnik) {
         dispatch({
           type: nastavniciTypes.UCITAJ_NASTAVNIKA_SUCCESS,
@@ -66,10 +67,12 @@ export const obrisiNastavnika = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: nastavniciTypes.OBRISI_NASTAVNIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/nastavnici/${id}`, {
-        method: 'DELETE',
-      });
-      await response.json();
+      const result = await fetchInstance(
+        `http://localhost:3001/nastavnici/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       dispatch({
         type: nastavniciTypes.OBRISI_NASTAVNIKA_SUCCESS,
         payload: id,
@@ -87,7 +90,7 @@ export const urediNastavnika = (nastavnik) => {
   return async (dispatch) => {
     try {
       dispatch({ type: nastavniciTypes.UREDI_NASTAVNIKA_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/nastavnici/${nastavnik.idNastavnik}`,
         {
           method: 'PUT',
@@ -101,7 +104,6 @@ export const urediNastavnika = (nastavnik) => {
           }),
         }
       );
-      const result = await response.json();
       dispatch({
         type: nastavniciTypes.UREDI_NASTAVNIKA_SUCCESS,
         payload: result.data,

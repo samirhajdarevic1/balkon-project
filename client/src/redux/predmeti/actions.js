@@ -1,10 +1,10 @@
 import { predmetiTypes } from './types';
+import fetchInstance from '../utils/fetchInstance';
 
 export const ucitajSvePredmete = () => async (dispatch) => {
   try {
     dispatch({ type: predmetiTypes.UCITAJ_PREDMETE_REQUEST });
-    const response = await fetch('http://localhost:3001/predmeti');
-    const result = await response.json();
+    const result = await fetchInstance('http://localhost:3001/predmeti');
     dispatch({
       type: predmetiTypes.UCITAJ_PREDMETE_SUCCESS,
       payload: result.predmeti,
@@ -20,10 +20,9 @@ export const ucitajUcenikovePredmete = (idUcenik, idRazred) => {
   return async (dispatch) => {
     try {
       dispatch({ type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/ucenici/${idUcenik}/${idRazred}/predmeti`
       );
-      const result = await response.json();
       dispatch({
         type: predmetiTypes.UCITAJ_UCENIKOVE_PREDMETE_SUCCESS,
         payload: result.ucenikoviPredmeti || [],
@@ -42,8 +41,9 @@ export const ucitajPredmet = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: predmetiTypes.UCITAJ_PREDMET_REQUEST });
-      const response = await fetch(`http://localhost:3001/predmeti/${id}`);
-      const result = await response.json();
+      const result = await fetchInstance(
+        `http://localhost:3001/predmeti/${id}`
+      );
       console.log(result.predmet);
       if (!result.predmet) {
         dispatch({
@@ -68,10 +68,12 @@ export const obrisiPredmet = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: predmetiTypes.OBRISI_PREDMET_REQUEST });
-      const response = await fetch(`http://localhost:3001/predmeti/${id}`, {
-        method: 'DELETE',
-      });
-      await response.json();
+      const result = await fetchInstance(
+        `http://localhost:3001/predmeti/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       dispatch({
         type: predmetiTypes.OBRISI_PREDMET_SUCCESS,
         payload: id,
@@ -89,7 +91,7 @@ export const urediPredmet = (predmet) => {
   return async (dispatch) => {
     try {
       dispatch({ type: predmetiTypes.UREDI_PREDMET_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/predmeti/${predmet.idPredmet}`,
         {
           method: 'PUT',
@@ -102,7 +104,6 @@ export const urediPredmet = (predmet) => {
           }),
         }
       );
-      const result = await response.json();
       dispatch({
         type: predmetiTypes.UREDI_PREDMET_SUCCESS,
         payload: result.data,
@@ -120,7 +121,7 @@ export const dodajPredmet = (predmet) => {
   return async (dispatch) => {
     try {
       dispatch({ type: predmetiTypes.DODAJ_PREDMET_REQUEST });
-      const response = await fetch(`http://localhost:3001/predmeti`, {
+      const result = await fetchInstance(`http://localhost:3001/predmeti`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -130,7 +131,6 @@ export const dodajPredmet = (predmet) => {
           naziv: `${predmet.naziv}`,
         }),
       });
-      const result = await response.json();
       dispatch({
         type: predmetiTypes.DODAJ_PREDMET_SUCCESS,
         payload: result.predmet,

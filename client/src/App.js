@@ -1,5 +1,5 @@
 import Nastavnici from './components/Nastavnici';
-import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
 import styles from './App.module.css';
 import Nastavnik from './components/Nastavnik';
 import Predmeti from './components/Predmeti';
@@ -27,88 +27,108 @@ import AddUcenikURazredForm from './components/AddUcenikURazredForm';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import RegisterUser from './components/RegisterUser';
+import { useState } from 'react';
 
 function App() {
+  const userAccessToken = localStorage.getItem('token');
+  const userRefreshToken = localStorage.getItem('refereshToken');
+
+  const [usrAccessToken, setUserAccesToken] = useState(userAccessToken);
+
   return (
     <div style={{ margin: '1.5rem' }}>
-      <h1>Main Navigation</h1>
+      <h1 className={styles.title}>SCHOOL DATABASE</h1>
+      {usrAccessToken ? (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/*   <Route path="login" element={<LoginForm />} />
+            <Route path="createUser" element={<RegisterUser />} /> */}
+            <Route index path="home" element={<Home />} />
+            <Route path="nastavnici" element={<Nastavnici />} />
+            <Route
+              path="nastavnici/add-nastavnik"
+              element={<AddNastavnikForm />}
+            />
+            <Route
+              path="/nastavnici/:idNastavnik/edit"
+              element={<EditNastavnikForm />}
+            />
+            <Route path="ucenici" element={<Ucenici />} />
 
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="login" element={<LoginForm />} />
-          <Route path="createUser" element={<RegisterUser />} />
-          <Route index element={<Home />} />
-          <Route path="nastavnici" element={<Nastavnici />} />
-          <Route
-            path="nastavnici/add-nastavnik"
-            element={<AddNastavnikForm />}
-          />
-          <Route
-            path="/nastavnici/:idNastavnik/edit"
-            element={<EditNastavnikForm />}
-          />
-          <Route path="ucenici" element={<Ucenici />} />
-
-          <Route path="ucenici/:idUcenik" element={<UcenikTest />}>
-            <Route index element={<UcenikoviRazredi />} />
-            <Route path=":idRazred" element={<UcenikoviRazredi />}>
-              <Route index element={<UcenikoviPredmeti />} />
-              <Route path=":idPredmet" element={<UcenikoviPredmeti />}>
-                <Route index element={<UcenikoveOcjene />} />
-                <Route path="add-ocjenu" element={<AddOcjenuForm />} />
-                <Route
-                  path="ocjene/:idOcjena/edit"
-                  element={<EditOcjenuForm />}
-                />
+            <Route path="ucenici/:idUcenik" element={<UcenikTest />}>
+              <Route index element={<UcenikoviRazredi />} />
+              <Route path=":idRazred" element={<UcenikoviRazredi />}>
+                <Route index element={<UcenikoviPredmeti />} />
+                <Route path=":idPredmet" element={<UcenikoviPredmeti />}>
+                  <Route index element={<UcenikoveOcjene />} />
+                  <Route path="add-ocjenu" element={<AddOcjenuForm />} />
+                  <Route
+                    path="ocjene/:idOcjena/edit"
+                    element={<EditOcjenuForm />}
+                  />
+                </Route>
               </Route>
             </Route>
-          </Route>
-          <Route path="ucenici/:idUcenik/edit" element={<EditUcenikForm />} />
-          <Route path="ucenici/add-ucenik" element={<AddUcenikForm />} />
-          <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
-          <Route path="predmeti/:idPredmet" element={<Predmet />} />
-          <Route path="predmeti/add-predmet" element={<AddPredmetForm />} />
-          <Route
-            path="predmeti/:idPredmet/edit"
-            element={<EditPredmetForm />}
-          ></Route>
-          <Route path="predmeti" element={<Predmeti />} />
-          {/* <Route path="ocjene" element={<Ocjene />} /> */}
-          <Route path="ocjene/:idOcjena" element={<Ocjena />} />
-          <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
-          <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
-          <Route path="razredi" element={<Razredi />}>
-            <Route index element={<SkolskeGodine />} />
-            <Route path=":idSkolskaGodina" element={<SkolskeGodine />} />
+            <Route path="ucenici/:idUcenik/edit" element={<EditUcenikForm />} />
+            <Route path="ucenici/add-ucenik" element={<AddUcenikForm />} />
+            <Route path="nastavnici/:idNastavnik" element={<Nastavnik />} />
+            <Route path="predmeti/:idPredmet" element={<Predmet />} />
+            <Route path="predmeti/add-predmet" element={<AddPredmetForm />} />
             <Route
-              path=":idSkolskaGodina/:idRazred/ucenici"
-              element={<UceniciIzRazreda />}
-            />
-            <Route
-              path=":idSkolskaGodina/:idRazred/ucenici/add-ucenik"
-              element={<AddUcenikURazredForm />}
-            />
+              path="predmeti/:idPredmet/edit"
+              element={<EditPredmetForm />}
+            ></Route>
+            <Route path="predmeti" element={<Predmeti />} />
+            {/* <Route path="ocjene" element={<Ocjene />} /> */}
+            <Route path="ocjene/:idOcjena" element={<Ocjena />} />
+            <Route path="ocjene/:idOcjena/edit" element={<EditOcjenuForm />} />
+            <Route path="ocjene/add-ocjenu" element={<AddOcjenuForm />} />
+            <Route path="razredi" element={<Razredi />}>
+              <Route index element={<SkolskeGodine />} />
+              <Route path=":idSkolskaGodina" element={<SkolskeGodine />} />
+              <Route
+                path=":idSkolskaGodina/:idRazred/ucenici"
+                element={<UceniciIzRazreda />}
+              />
+              <Route
+                path=":idSkolskaGodina/:idRazred/ucenici/add-ucenik"
+                element={<AddUcenikURazredForm />}
+              />
+            </Route>
+            <Route path="razredi/add-razred" element={<AddRazredForm />} />
+            <Route path="*" element={<h1>Not found</h1>} />
           </Route>
-          <Route path="razredi/add-razred" element={<AddRazredForm />} />
-          <Route path="*" element={<h1>Not found</h1>} />
-        </Route>
-      </Routes>
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route index path="login" element={<LoginForm />} />
+          <Route path="createUser" element={<RegisterUser />} />
+          <Route path="*" element={<h1>Page not found</h1>} />
+        </Routes>
+      )}
     </div>
   );
 }
 
 function Layout() {
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    window.location.href = '/login';
+  };
+
   return (
     <>
       <header className={styles.header}>
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/home">Home</Link>
             </li>
-            <li>
+            {/*    <li>
               <Link to="/login">Login</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/predmeti">Predmeti</Link>
             </li>
@@ -123,6 +143,15 @@ function Layout() {
             </li> */}
             <li>
               <Link to="/razredi">Razredi</Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Logout
+              </Link>
             </li>
           </ul>
         </nav>

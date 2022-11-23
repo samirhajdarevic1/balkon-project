@@ -1,3 +1,4 @@
+import fetchInstance from '../utils/fetchInstance';
 import { ocjeneTypes } from './types';
 
 export const ucitajSveOcjene = () => async (dispatch) => {
@@ -21,10 +22,9 @@ export const ucitajOcjeneIzPredmeta = (idUcenik, idRazred, idPredmet) => {
   return async (dispatch) => {
     try {
       dispatch({ type: ocjeneTypes.UCITAJ_UCENIKOVE_OCJENE_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/ucenici/${idUcenik}/${idRazred}/${idPredmet}/ocjene`
       );
-      const result = await response.json();
       dispatch({
         type: ocjeneTypes.UCITAJ_UCENIKOVE_OCJENE_SUCCESS,
         payload: result.ocjene,
@@ -133,10 +133,12 @@ export const obrisiOcjenu = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: ocjeneTypes.OBRISI_OCJENU_REQUEST });
-      const response = await fetch(`http://localhost:3001/ocjene/${id}`, {
-        method: 'DELETE',
-      });
-      await response.json();
+      const response = await fetchInstance(
+        `http://localhost:3001/ocjene/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       dispatch({
         type: ocjeneTypes.OBRISI_OCJENU_SUCCESS,
         payload: id,

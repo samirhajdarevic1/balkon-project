@@ -13,23 +13,24 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const x = dispatch(authUser({ ime, password }));
+    dispatch(authUser({ ime, password }));
   };
-  const backdropHandler = () => {
+  /*   const backdropHandler = () => {
     setBackdrop(true);
     navigate(-1);
-  };
+  }; */
   return (
     <>
       {!backdrop && (
         <div
           className={formStyles.backdrop}
-          onClick={() => {
+          /*  onClick={() => {
             backdropHandler();
-          }}
+          }} */
         ></div>
       )}
       <form onSubmit={submitHandler} className={formStyles['form-control']}>
+        <h1>Login</h1>
         <div>
           <ul>
             <li>

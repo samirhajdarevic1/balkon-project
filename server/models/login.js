@@ -1,8 +1,8 @@
 const { errorResponse } = require('../controllers/error');
 const db = require('../util/database');
 const bcrypt = require('bcrypt');
-const generateAccessToken = require('./generateAccesToken');
-const generateRefreshToken = require('./generatreRefreshToken');
+const generateAccessToken = require('../controllers/generateAccesToken');
+const generateRefreshToken = require('../controllers/generatreRefreshToken');
 module.exports = class AuthUser {
   constructor({ name, password }) {
     // this.idUser = idUser;

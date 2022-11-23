@@ -2,9 +2,10 @@ const { errorResponse } = require('../controllers/error');
 const db = require('../util/database');
 
 module.exports = class User {
-  constructor({ name, hashedPassword }) {
+  constructor({ name, email, hashedPassword }) {
     // this.idUser = idUser;
     this.name = name;
+    this.email = email;
     this.hashedPassword = hashedPassword;
   }
 
@@ -18,8 +19,8 @@ module.exports = class User {
       // return errorResponse(res, 'Conflict', 409, err);
     } else {
       const savedUser = await db.execute(
-        'INSERT INTO userdb (`name`, `password`) VALUES (?, ?)',
-        [this.name, this.hashedPassword]
+        'INSERT INTO userdb (`name`,`email`, `password`) VALUES (?, ?, ?)',
+        [this.name, this.email, this.hashedPassword]
       );
     }
     // this.idUser = savedUser[0].insertId;

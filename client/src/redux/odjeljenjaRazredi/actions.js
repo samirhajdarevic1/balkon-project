@@ -1,3 +1,4 @@
+import fetchInstance from '../utils/fetchInstance';
 import { razrediTypes } from './types';
 
 export const ucitajSveRazrede = () => async (dispatch) => {
@@ -24,10 +25,10 @@ export const ucitajUcenikoveRazrede = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/ucenici/${id}/razredi`
       );
-      const result = await response.json();
+      // const result = await response.json();
       dispatch({
         type: razrediTypes.UCITAJ_UCENIKOVE_RAZREDE_SUCCESS,
         payload: result.ucenikovaOdjeljenja.reverse() || [],
@@ -110,10 +111,12 @@ export const obrisiRazred = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: razrediTypes.OBRISI_RAZRED_REQUEST });
-      const response = await fetch(`http://localhost:3001/odjeljenja/${id}`, {
-        method: 'DELETE',
-      });
-      await response.json();
+      const response = await fetchInstance(
+        `http://localhost:3001/odjeljenja/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       dispatch({
         type: razrediTypes.OBRISI_RAZRED_SUCCESS,
         payload: id,

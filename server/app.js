@@ -22,6 +22,7 @@ const loginRoutes = require('./routes/login');
 //app.use(bodyParser.urlencoded()); // kad imamo forntend tj.kad formu koristimo
 
 const errorController = require('./controllers/error');
+const { authCheck } = require('./middleware/validateToken');
 
 app.use((req, res, next) => {
   res.setHeader('Acces-Control-Allow-Origin', '*'); //allowes acces from any client
@@ -29,6 +30,11 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorisation'); //client can send request that holds extra authorisation data in the header and content-type of request
   next();
 });
+
+app.use('/login', loginRoutes);
+app.use('/createUser', userRoutes);
+
+app.use(authCheck);
 
 app.use('/ucenici', uceniciRoutes);
 app.use('/skolske-godine', skolskeGodineRoutes);
@@ -40,8 +46,6 @@ app.use('/ocjene', ocjeneRoutes);
 app.use('/zakljucne-ocjene', zakljucneOcjeneRoutes);
 app.use('/odjeljenja-nastavnici', odjNastRoutes);
 app.use('/ucenik-razred', ucenikRazredRoutes);
-app.use('/createUser', userRoutes);
-app.use('/login', loginRoutes);
 app.use(errorController.get404);
 
 app.listen(3001);

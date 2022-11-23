@@ -1,12 +1,13 @@
+import fetchInstance from '../utils/fetchInstance';
 import { ucenikRazredTypes } from './types';
 
 export const ucitajUcenikeIzRazreda = (idRazred) => async (dispatch) => {
   try {
     dispatch({ type: ucenikRazredTypes.UCITAJ_UCENIKE_IZ_RAZREDA_REQUEST });
-    const response = await fetch(
+    const result = await fetchInstance(
       `http://localhost:3001/odjeljenja/${idRazred}/ucenici`
     );
-    const result = await response.json();
+    //const result = await response.json();
     dispatch({
       type: ucenikRazredTypes.UCITAJ_UCENIKE_IZ_RAZREDA_SUCCESS,
       payload: result.ucenici,

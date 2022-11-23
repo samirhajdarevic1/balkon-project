@@ -17,7 +17,14 @@ export const authUser = (user) => {
         }),
       });
       const result = await response.json();
-      console.log(result);
+      if (result.accessToken) {
+        localStorage.setItem('token', result.accessToken);
+        localStorage.setItem('refreshToken', result.refreshToken);
+        alert('Login successful');
+        window.location.href = '/home';
+      } else {
+        alert('Please check your username and password');
+      }
       dispatch({
         type: authUserTypes.AUTH_USER_SUCCESS,
         payload: result.data,

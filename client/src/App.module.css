@@ -2,7 +2,7 @@
   width: 80%;
   height: 5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #3c0080;
   color: white;
@@ -45,4 +45,8 @@
 .header button:active {
   background-color: #ffa600;
   border-color: #ffa600;
+}
+.title {
+  display: flex;
+  justify-content: center;
 }
