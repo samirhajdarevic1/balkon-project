@@ -1,8 +1,10 @@
 /// <reference types="Cypress" />
 
 const serverUrl = Cypress.env('serverUrl');
+
 describe('Ucenik/ucenici test', () => {
   beforeEach(() => {
+    cy.login();
     cy.visit('/');
   });
 
@@ -11,7 +13,6 @@ describe('Ucenik/ucenici test', () => {
     cy.url().should('include', '/ucenici');
     cy.contains('Add ucenik').click();
     const modal = cy.getByData('ucenik-form');
-
     modal.find('input').eq(0).type('Ime');
     cy.getByData('ucenik-form').find('input').eq(1).type('Prezime');
     cy.getByData('ucenik-form').find('input').eq(2).type('1995-01-01');
@@ -132,7 +133,7 @@ describe('Ucenik/ucenici test', () => {
     cy.contains('Nisu definisani razredi');
   });
 
-  it.only('Testiranje editovanja ucenikovih informacija na /ucenici ruti', () => {
+  it('Testiranje editovanja ucenikovih informacija na /ucenici ruti', () => {
     cy.intercept('GET', `${serverUrl}/ucenici`).as('getUcenici');
     cy.visit('http://localhost:3000/ucenici');
     cy.wait('@getUcenici');
