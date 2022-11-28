@@ -7,7 +7,6 @@ export const ucitajUcenikeIzRazreda = (idRazred) => async (dispatch) => {
     const result = await fetchInstance(
       `http://localhost:3001/odjeljenja/${idRazred}/ucenici`
     );
-    //const result = await response.json();
     dispatch({
       type: ucenikRazredTypes.UCITAJ_UCENIKE_IZ_RAZREDA_SUCCESS,
       payload: result.ucenici,
@@ -24,7 +23,7 @@ export const dodajUcenikaURazred = (idRazred, idUcenik) => {
   return async (dispatch) => {
     try {
       dispatch({ type: ucenikRazredTypes.DODAJ_UCENIKA_U_RAZRED_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/ucenik-razred/${idRazred}/${idUcenik}`,
         {
           method: 'POST',
@@ -38,7 +37,6 @@ export const dodajUcenikaURazred = (idRazred, idUcenik) => {
           }),
         }
       );
-      const result = await response.json();
       dispatch({
         type: ucenikRazredTypes.DODAJ_UCENIKA_U_RAZRED_SUCCESS,
         payload: result.ucenikRazred,

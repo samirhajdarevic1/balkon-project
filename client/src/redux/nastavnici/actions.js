@@ -21,10 +21,9 @@ export const ucitajSveNastavnike = () => async (dispatch) => {
 export const ucitajNastavnikeIzPredmeta = (idPredmet) => async (dispatch) => {
   try {
     dispatch({ type: nastavniciTypes.UCITAJ_NASTAVNIKE_REQUEST });
-    const response = await fetch(
+    const result = await fetchInstance(
       `http://localhost:3001/predmeti/${idPredmet}/nastavnici`
     );
-    const result = await response.json();
     dispatch({
       type: nastavniciTypes.UCITAJ_NASTAVNIKE_SUCCESS,
       payload: result.nastavnici,
@@ -120,7 +119,7 @@ export const dodajNastavnika = (nastavnik) => {
   return async (dispatch) => {
     try {
       dispatch({ type: nastavniciTypes.DODAJ_NASTAVNIKA_REQUEST });
-      const response = await fetch(`http://localhost:3001/nastavnici`, {
+      const result = await fetchInstance(`http://localhost:3001/nastavnici`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -131,7 +130,6 @@ export const dodajNastavnika = (nastavnik) => {
           prezime: `${nastavnik.prezime}`,
         }),
       });
-      const result = await response.json();
       dispatch({
         type: nastavniciTypes.DODAJ_NASTAVNIKA_SUCCESS,
         payload: result.data,

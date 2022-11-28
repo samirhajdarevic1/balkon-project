@@ -1,3 +1,4 @@
+import fetchInstance from '../utils/fetchInstance';
 import { authUserTypes } from './types';
 
 export const authUser = (user) => {
@@ -5,7 +6,7 @@ export const authUser = (user) => {
     try {
       console.log(user);
       dispatch({ type: authUserTypes.AUTH_USER_REQUEST });
-      const response = await fetch(`http://localhost:3001/login`, {
+      const result = await fetchInstance(`http://localhost:3001/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -16,7 +17,6 @@ export const authUser = (user) => {
           password: `${user.password}`,
         }),
       });
-      const result = await response.json();
       if (result.accessToken) {
         localStorage.setItem('token', result.accessToken);
         localStorage.setItem('refreshToken', result.refreshToken);

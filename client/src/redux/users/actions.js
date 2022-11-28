@@ -1,11 +1,12 @@
 import { getAuthTokens } from '../utils';
+import fetchInstance from '../utils/fetchInstance';
 import { userTypes } from './types';
 
 export const dodajUsera = (user) => {
   return async (dispatch) => {
     try {
       dispatch({ type: userTypes.DODAJ_USERA_REQUEST });
-      const response = await fetch(`http://localhost:3001/createUser`, {
+      const result = await fetchInstance(`http://localhost:3001/createUser`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -18,7 +19,6 @@ export const dodajUsera = (user) => {
           password: `${user.password}`,
         }),
       });
-      const result = await response.json();
       if (result.success) {
         window.location.href = '/login';
       }

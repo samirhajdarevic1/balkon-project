@@ -146,6 +146,7 @@ function Layout() {
             </li>
             <li>
               <Link
+                to="/"
                 onClick={() => {
                   logout();
                 }}

@@ -3,6 +3,7 @@ const serverUrl = Cypress.env('serverUrl');
 
 describe('Nastavnici test', () => {
   beforeEach(() => {
+    cy.login();
     cy.visit('/');
   });
 

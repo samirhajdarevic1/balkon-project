@@ -2,6 +2,7 @@ const razrediUrl = Cypress.env('razrediUrl');
 const serverUrl = Cypress.env('serverUrl');
 describe('Razredi testovi', () => {
   beforeEach(() => {
+    cy.login();
     cy.visit(razrediUrl);
   });
 
@@ -110,7 +111,7 @@ describe('Razredi testovi', () => {
           });
       });
   });
-  it('Provjera da li se dodao novi razred', () => {
+  it.only('Provjera da li se dodao novi razred', () => {
     cy.intercept('GET', `${serverUrl}skolske-godine`).as('getSkolskeGodine');
     cy.visit(`${razrediUrl}`);
     cy.wait('@getSkolskeGodine');
@@ -159,7 +160,7 @@ describe('Razredi testovi', () => {
     cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
     cy.get('select').its('length').should('eq', 3);
   });
-  it.only('trebao bi postojeti dropdown sa skolskim godinama', () => {
+  it('trebao bi postojeti dropdown sa skolskim godinama', () => {
     cy.getByData('razred').first().contains('Details').click();
     cy.get('button').should('have.text', 'Dodaj ucenika u razred').click();
     cy.get('select').first().invoke('val').should('not.be.empty');

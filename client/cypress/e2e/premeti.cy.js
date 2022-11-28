@@ -3,6 +3,7 @@
 const serverUrl = Cypress.env('serverUrl');
 describe('Testovi za predmete', () => {
   beforeEach(() => {
+    cy.login();
     cy.visit('/');
   });
 
@@ -49,7 +50,7 @@ describe('Testovi za predmete', () => {
       });
   });
 
-  it.only('Testiranje editovanja predmeta', () => {
+  it('Testiranje editovanja predmeta', () => {
     cy.intercept('GET', `${serverUrl}/predmeti`).as('getPredmeti');
     //cy.visit('http://localhost:3000/predmeti');
     cy.contains('Predmeti').should('exist').click();

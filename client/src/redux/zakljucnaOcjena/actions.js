@@ -1,3 +1,4 @@
+import fetchInstance from '../utils/fetchInstance';
 import { uceniciTypes, zakljucneOcjeneTypes } from './types';
 
 /* export const ucitajSveUcenike = () => async (dispatch) => {
@@ -21,11 +22,9 @@ export const ucitajZakljucnuOcjenu = (idUcenik, idPredmet, idSkolskaGodina) => {
   return async (dispatch) => {
     try {
       dispatch({ type: zakljucneOcjeneTypes.UCITAJ_ZAKLJUCNU_OCJENU_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/zakljucne-ocjene/${idUcenik}/${idPredmet}/${idSkolskaGodina}`
       );
-      const result = await response.json();
-      console.log(result);
       dispatch({
         type: zakljucneOcjeneTypes.UCITAJ_ZAKLJUCNU_OCJENU_SUCCESS,
         payload: result.zakljucnaOcjena,
@@ -44,21 +43,22 @@ export const dodajZakljucnuOcjenu = (zakljucnaOcjena) => {
     console.log(zakljucnaOcjena);
     try {
       dispatch({ type: zakljucneOcjeneTypes.DODAJ_ZAKLJUCNU_OCJENU_REQUEST });
-      const response = await fetch(`http://localhost:3001/zakljucne-ocjene`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_skolska_godina: `${zakljucnaOcjena.idSkolskaGodina}`,
-          id_predmet: `${zakljucnaOcjena.idPredmet}`,
-          id_ucenik: `${zakljucnaOcjena.idUcenik}`,
-          zakljucnaOcjena: `${zakljucnaOcjena.zakljucnaOcjena}`,
-        }),
-      });
-      const result = await response.json();
-      console.log(result);
+      const result = await fetchInstance(
+        `http://localhost:3001/zakljucne-ocjene`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id_skolska_godina: `${zakljucnaOcjena.idSkolskaGodina}`,
+            id_predmet: `${zakljucnaOcjena.idPredmet}`,
+            id_ucenik: `${zakljucnaOcjena.idUcenik}`,
+            zakljucnaOcjena: `${zakljucnaOcjena.zakljucnaOcjena}`,
+          }),
+        }
+      );
       dispatch({
         type: zakljucneOcjeneTypes.DODAJ_ZAKLJUCNU_OCJENU_SUCCESS,
         payload: result.data,

@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authUser } from '../redux/authUser/actions';
+import {
+  handleChangeIme,
+  handleImeOnBlur,
+  handlePasswordOnBlur,
+} from './LoginUserCheckInput';
 import formStyles from './Form.module.css';
 
 const LoginForm = () => {
@@ -9,47 +14,60 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [ime, setIme] = useState('');
   const [password, setPassword] = useState('');
-  const [backdrop, setBackdrop] = useState('');
+  const [error, setError] = useState({ ime: '', password: '' });
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (ime.trim().length === 0) {
+      setError({ ...error, ime: 'Must enter a value' });
+    } else if (password.trim().length === 0) {
+      setError({ ...error, password: 'Must enter the value' });
+    }
     dispatch(authUser({ ime, password }));
   };
-  /*   const backdropHandler = () => {
-    setBackdrop(true);
-    navigate(-1);
-  }; */
+
   return (
     <>
-      {!backdrop && (
-        <div
-          className={formStyles.backdrop}
-          /*  onClick={() => {
-            backdropHandler();
-          }} */
-        ></div>
-      )}
+      {<div className={formStyles.backdrop}></div>}
       <form onSubmit={submitHandler} className={formStyles['form-control']}>
         <h1>Login</h1>
         <div>
           <ul>
             <li>
               <label>Ime</label>
-              <input
-                value={ime}
-                onChange={(e) => setIme(e.target.value)}
-                type="text"
-                placeholder="Ime"
-              />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <input
+                  value={ime}
+                  onChange={(e) => handleChangeIme(e, error, setError, setIme)}
+                  onBlur={() => handleImeOnBlur(ime, error, setError)}
+                  type="text"
+                  placeholder="Ime"
+                />
+                {error.ime && (
+                  <span style={{ color: 'red' }} htmlFor="ime">
+                    {error.ime}
+                  </span>
+                )}
+              </div>
             </li>
             <li>
               <label>Password</label>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Password"
-              />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => {
+                    handlePasswordOnBlur(password, error, setError);
+                  }}
+                  type="password"
+                  placeholder="Password"
+                />
+                {error.password && (
+                  <span style={{ color: 'red' }} htmlFor="ime">
+                    {error.password}
+                  </span>
+                )}
+              </div>
             </li>
           </ul>
         </div>

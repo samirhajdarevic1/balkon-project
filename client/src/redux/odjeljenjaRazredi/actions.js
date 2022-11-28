@@ -4,8 +4,7 @@ import { razrediTypes } from './types';
 export const ucitajSveRazrede = () => async (dispatch) => {
   try {
     dispatch({ type: razrediTypes.UCITAJ_RAZREDE_REQUEST });
-    const response = await fetch('http://localhost:3001/odjeljenja');
-    const result = await response.json();
+    const result = await fetchInstance('http://localhost:3001/odjeljenja');
     result.reverse();
     dispatch({
       type: razrediTypes.UCITAJ_RAZREDE_SUCCESS,
@@ -46,7 +45,7 @@ export const dodajRazred = (razred) => {
   return async (dispatch) => {
     try {
       dispatch({ type: razrediTypes.DODAJ_RAZRED_REQUEST });
-      const response = await fetch(`http://localhost:3001/odjeljenja`, {
+      const result = await fetchInstance(`http://localhost:3001/odjeljenja`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -59,7 +58,6 @@ export const dodajRazred = (razred) => {
           idNastavnikRazrednik: `${razred.idNastavnikRazrednik}`,
         }),
       });
-      const result = await response.json();
       dispatch({
         type: razrediTypes.DODAJ_RAZRED_SUCCESS,
         payload: result.razred,
@@ -77,7 +75,7 @@ export const urediRazred = (razred) => {
   return async (dispatch) => {
     try {
       dispatch({ type: razrediTypes.UREDI_RAZRED_REQUEST });
-      const response = await fetch(
+      const result = await fetchInstance(
         `http://localhost:3001/odjeljenja/${razred.idOdjeljenja}`,
         {
           method: 'PUT',
@@ -93,7 +91,6 @@ export const urediRazred = (razred) => {
           }),
         }
       );
-      const result = await response.json();
       dispatch({
         type: razrediTypes.UREDI_RAZRED_SUCCESS,
         payload: result.data,
