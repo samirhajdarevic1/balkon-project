@@ -48,7 +48,7 @@ const EditNastavnikForm = () => {
           }}
         ></div>
       )}
-      <form onSubmit={editingHandler} className={formStyles['form-control']}>
+      <form onSubmit={editingHandler} className="form-control">
         <div>
           <ul>
             <li>
@@ -69,7 +69,7 @@ const EditNastavnikForm = () => {
             </li>
           </ul>
         </div>
-        <button>Done editing</button>
+        <button className="btn">Done editing</button>
       </form>
     </>
   );

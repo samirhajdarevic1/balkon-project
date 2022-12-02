@@ -58,6 +58,7 @@ const UcenikoveOcjene = (props) => {
         <h1>Nema ocjena</h1>
         {indexOfFirstElement < 1 && (
           <button
+            className="btn"
             onClick={() => {
               setDodajOcjenu(true);
             }}
@@ -73,6 +74,7 @@ const UcenikoveOcjene = (props) => {
     <>
       {indexOfFirstElement < 1 && (
         <button
+          className="btn"
           onClick={() => {
             setDodajOcjenu(true);
           }}
@@ -80,10 +82,7 @@ const UcenikoveOcjene = (props) => {
           Dodaj ocjenu
         </button>
       )}
-      <TabsComponent
-        className={styles['ocjene-container']}
-        data="ocjene-container"
-      >
+      <TabsComponent className="ocjene-container" data="ocjene-container">
         {ucenikoveOcjene.map((ocjena, i) => (
           <div key={ocjena.idOcjena}>
             <OcjenaRow

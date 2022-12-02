@@ -39,7 +39,7 @@ describe('Testiranje forme za kreiranje usera', () => {
     cy.contains('Must enter the password');
   });
 
-  it.only('Testing unhappy path on submit user if all fields are empty', () => {
+  it('Testing unhappy path on submit user if all fields are empty', () => {
     cy.visit('/createUser');
     cy.get('form button').should('contain.text', 'Sign up').click();
   });

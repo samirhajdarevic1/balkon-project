@@ -9,10 +9,12 @@ const AddNastavnikForm = () => {
   const navigate = useNavigate();
   const [ime, setIme] = useState('');
   const [prezime, setPrezime] = useState('');
+  const [photo, setPhoto] = useState('');
   const [backdrop, setBackdrop] = useState('');
+
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(dodajNastavnika({ ime, prezime })).then(() =>
+    dispatch(dodajNastavnika({ ime, prezime, photo })).then(() =>
       navigate('/nastavnici')
     );
   };
@@ -32,7 +34,7 @@ const AddNastavnikForm = () => {
       )}
       <form
         onSubmit={submitHandler}
-        className={formStyles['form-control']}
+        className="form-control"
         data="nastavnik-form"
       >
         <div>
@@ -55,9 +57,18 @@ const AddNastavnikForm = () => {
                 placeholder="Prezime nastavnika"
               />
             </li>
+            <li>
+              <label>Foto</label>
+              <input
+                value={photo}
+                onChange={(e) => setPhoto(e.target.value)}
+                type="text"
+                placeholder="Foto nastavnika"
+              />
+            </li>
           </ul>
         </div>
-        <button>Finnish adding</button>
+        <button className="btn">Finnish adding</button>
       </form>
     </>
   );

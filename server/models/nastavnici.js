@@ -2,10 +2,11 @@ const { errorResponse } = require('../controllers/error');
 const db = require('../util/database');
 
 module.exports = class Nastavnik {
-  constructor({ idNastavnik, ime, prezime }) {
+  constructor({ idNastavnik, ime, prezime, photo }) {
     this.idNastavnik = idNastavnik;
     this.ime = ime;
     this.prezime = prezime;
+    this.photo = photo;
   }
 
   async save() {
@@ -18,10 +19,11 @@ module.exports = class Nastavnik {
 
   async insert() {
     const savedNastavnik = await db.execute(
-      'INSERT INTO nastavnici (ime, prezime) VALUES (?, ?)',
-      [this.ime, this.prezime]
+      'INSERT INTO nastavnici (ime, prezime, photo) VALUES (?, ?, ?)',
+      [this.ime, this.prezime, this.photo]
     );
     this.idNastavnik = savedNastavnik[0].insertId;
+    console.log(savedNastavnik[0]);
   }
 
   async update() {
@@ -34,7 +36,7 @@ module.exports = class Nastavnik {
   static async fetchAll(idOdjeljenja, idPredmet) {
     if (idPredmet) {
       const nastavnici = await db.execute(
-        `SELECT n.id_nastavnik, n.ime, n.prezime FROM balkon.predmeti_nastavnici  pn 
+        `SELECT n.id_nastavnik,n.photos, n.ime, n.prezime FROM balkon.predmeti_nastavnici  pn 
         JOIN balkon.predmeti p
         JOIN balkon.nastavnici n 
         WHERE balkon.pn.id_predmet = p.id_predmet
@@ -52,7 +54,7 @@ module.exports = class Nastavnik {
     }
     if (idOdjeljenja) {
       const nastavnici = await db.execute(
-        `SELECT n.ime, n.prezime FROM balkon.odjeljenja_nastavnici  odna 
+        `SELECT n.ime, n.prezime, n.photos FROM balkon.odjeljenja_nastavnici  odna 
         JOIN balkon.odjeljenja o 
         JOIN balkon.nastavnici n 
         WHERE balkon.odna.id_odjeljenja = o.id_odjeljenja 
@@ -69,7 +71,9 @@ module.exports = class Nastavnik {
       return nastavniciInstances;
     }
     const nastavnici = await db.execute('SELECT * FROM nastavnici');
+    //console.log(555, nastavnici[0]);
     const nastavniciInstances = nastavnici[0].map((nastavnik) => {
+      console.log(22, nastavnik);
       return new Nastavnik({
         ...nastavnik,
         idNastavnik: nastavnik.id_nastavnik,
@@ -86,8 +90,8 @@ module.exports = class Nastavnik {
     if (nastavnik[0].length === 0) {
       return null;
     }
-    const { id_nastavnik, ime, prezime } = nastavnik[0][0];
-    return new Nastavnik({ ime, prezime, idNastavnik: id_nastavnik });
+    const { id_nastavnik, ime, prezime, photo } = nastavnik[0][0];
+    return new Nastavnik({ ime, prezime, photo, idNastavnik: id_nastavnik });
   }
 
   async delete() {

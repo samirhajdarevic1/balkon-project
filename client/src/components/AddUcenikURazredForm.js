@@ -26,8 +26,6 @@ const AddUcenikURazredForm = () => {
     (state) => state.razrediUSkolskojGodini.items
   );
   const [idRazr, setIdRazr] = useState('');
-  console.log(razrediUSkolskojGodini);
-  console.log(idRazr);
 
   useEffect(() => {
     if (skolskeGodine.length < 1) {
@@ -75,7 +73,8 @@ const AddUcenikURazredForm = () => {
             }}
           ></div>
         )}
-        <form onSubmit={submitHandler} className={formStyles['form-control']}>
+        <form onSubmit={submitHandler} className="form-control">
+          <h4>Odaberite skolsku godinu, razred i ucenike</h4>
           <div className={formStyles.box}>
             <select
               name="idSkolskaGodina"
@@ -128,7 +127,7 @@ const AddUcenikURazredForm = () => {
               })}
             </select>
           </div>
-          <button>Dodaj u razred</button>
+          <button className="btn">Dodaj u razred</button>
         </form>
       </>
     )

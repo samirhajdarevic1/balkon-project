@@ -20,45 +20,53 @@ const Ucenici = () => {
     navigate(`/ucenici/${idUcenik}/edit`);
   };
   return (
-    <div data="ucenici-container" id="ucenici-container">
+    <>
       <button
         onClick={() => {
           navigate('/ucenici/add-ucenik');
         }}
+        className="btn btn-primary mx-2"
       >
         Add ucenik
       </button>
-      {ucenici &&
-        ucenici.items.map((ucenik) => {
-          return (
-            <div
-              key={ucenik.idUcenik}
-              className={styles.ucenici}
-              data="ucenik-container"
-            >
-              <UcenikRow
-                id={ucenik.idUcenik}
-                ime={ucenik.ime}
-                prezime={ucenik.prezime}
-                birthday={String(ucenik.birthday).split('T')[0]}
-                image={ucenik.image}
-                imeOca={ucenik.imeOca}
-                imeMajke={ucenik.imeMajke}
-                maticniBroj={ucenik.maticniBroj}
-                adresa={ucenik.adresa}
-                onDeleteUcenikHandler={deleteUcenikHandler}
-                onEditUcenikHandler={ucenikEditHandler}
-              />
-              <Link
-                to={'/ucenici/' + ucenik.idUcenik}
-                className={styles.button}
+      <div
+        data="ucenici-container"
+        id="ucenici-container"
+        /* className={styles['ucenici-container']} */
+        className="data-container"
+      >
+        {ucenici &&
+          ucenici.items.map((ucenik) => {
+            return (
+              <div
+                key={ucenik.idUcenik}
+                className="card"
+                data="ucenik-container"
               >
-                Details
-              </Link>
-            </div>
-          );
-        })}
-    </div>
+                <UcenikRow
+                  id={ucenik.idUcenik}
+                  ime={ucenik.ime}
+                  prezime={ucenik.prezime}
+                  birthday={String(ucenik.birthday).split('T')[0]}
+                  image={ucenik.image}
+                  imeOca={ucenik.imeOca}
+                  imeMajke={ucenik.imeMajke}
+                  maticniBroj={ucenik.maticniBroj}
+                  adresa={ucenik.adresa}
+                  onDeleteUcenikHandler={deleteUcenikHandler}
+                  onEditUcenikHandler={ucenikEditHandler}
+                />
+                <Link
+                  className="btn btn-quarternary"
+                  to={'/ucenici/' + ucenik.idUcenik}
+                >
+                  Details
+                </Link>
+              </div>
+            );
+          })}
+      </div>
+    </>
   );
 };
 

@@ -50,7 +50,7 @@ const AddUcenikForm = () => {
       )}
       <form
         onSubmit={submitHandler}
-        className={formStyles['form-control']}
+        className="form-control"
         data="ucenik-form"
       >
         <ul>
@@ -127,7 +127,9 @@ const AddUcenikForm = () => {
             />
           </li>
         </ul>
-        <button data="add-ucenik-button">Add Ucenik</button>
+        <button className="btn" data="add-ucenik-button">
+          Add Ucenik
+        </button>
       </form>
     </>
   );

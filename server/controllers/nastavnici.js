@@ -43,14 +43,15 @@ exports.getNastavnik = async (req, res, next) => {
 
 exports.createNastavnik = async (req, res, next) => {
   try {
-    let { ime, prezime } = req.body;
+    let { ime, prezime, photo } = req.body;
     /*     ime = ime.trim();
     prezime = prezime.trim();
     if (ime || prezime === '') {
       errorResponse(res, 'Must enter the value');
       return;
     } */
-    const nastavnik = new Nastavnik({ ime, prezime });
+    const nastavnik = new Nastavnik({ ime, prezime, photo });
+    //console.log(nastavnik);
     await nastavnik.save();
     return successResponse(res, 200, nastavnik);
   } catch (err) {

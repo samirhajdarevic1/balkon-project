@@ -9,7 +9,7 @@ const Nastavnici = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const nastavnici = useSelector((state) => state.nastavnici);
-
+  console.log(nastavnici);
   useEffect(() => {
     dispatch(ucitajSveNastavnike());
   }, []);
@@ -20,26 +20,22 @@ const Nastavnici = () => {
         onClick={() => {
           navigate('/nastavnici/add-nastavnik');
         }}
+        className="btn"
       >
         Add nastavnik
       </button>
-      <div
-        className={styles['nastavnici-container']}
-        data="nastavnici-container"
-      >
+      <div className="data-container" data="nastavnici-container">
         {nastavnici &&
           nastavnici.items.map((nast) => {
             return (
-              <div key={nast.idNastavnik} className={styles.nastavnici}>
+              <div key={nast.idNastavnik} className="card h-fit">
                 <NastavnikRow
                   id={nast.idNastavnik}
                   ime={nast.ime}
                   prezime={nast.prezime}
+                  photo={nast.photo}
                 />
-                <Link
-                  to={'/nastavnici/' + nast.idNastavnik}
-                  className={styles.button}
-                >
+                <Link to={'/nastavnici/' + nast.idNastavnik} className="btn">
                   Details
                 </Link>
               </div>

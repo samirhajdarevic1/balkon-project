@@ -5,7 +5,6 @@ export const ucitajSveNastavnike = () => async (dispatch) => {
   try {
     dispatch({ type: nastavniciTypes.UCITAJ_NASTAVNIKE_REQUEST });
     const result = await fetchInstance('http://localhost:3001/nastavnici');
-    // const result = await response.json();
     dispatch({
       type: nastavniciTypes.UCITAJ_NASTAVNIKE_SUCCESS,
       payload: result.nastavnici,
@@ -128,6 +127,7 @@ export const dodajNastavnika = (nastavnik) => {
         body: JSON.stringify({
           ime: `${nastavnik.ime}`,
           prezime: `${nastavnik.prezime}`,
+          photo: `${nastavnik.photo}`,
         }),
       });
       dispatch({

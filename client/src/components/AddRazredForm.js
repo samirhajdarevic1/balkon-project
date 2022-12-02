@@ -52,7 +52,7 @@ const AddRazredForm = () => {
           }}
         ></div>
       )}
-      <form onSubmit={submitHandler} className={formStyles['form-control']}>
+      <form onSubmit={submitHandler} className="form-control">
         <div>
           <ul>
             <li>
@@ -97,7 +97,7 @@ const AddRazredForm = () => {
             </li>
           </ul>
         </div>
-        <button>Finnish adding</button>
+        <button className="btn">Finnish adding</button>
       </form>
     </>
   );

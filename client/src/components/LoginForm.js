@@ -29,8 +29,8 @@ const LoginForm = () => {
   return (
     <>
       {<div className={formStyles.backdrop}></div>}
-      <form onSubmit={submitHandler} className={formStyles['form-control']}>
-        <h1>Login</h1>
+      <form onSubmit={submitHandler} className="form-control">
+        <h1 className="font-bold">Login</h1>
         <div>
           <ul>
             <li>
@@ -71,7 +71,7 @@ const LoginForm = () => {
             </li>
           </ul>
         </div>
-        <button>Login</button>
+        <button className="btn">Login</button>
         <hr></hr>
         <Link to="/createUser">Don't have an account?</Link>
       </form>

@@ -12,19 +12,37 @@ const OcjenaRow = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className={styles.ocjene}>
-      <div className={styles['ocjene-data']}>
-        <p>ID ocjene: {id}</p>
-        <p>Datum ocjene: {datum}</p>
-        <p>Nastavnik: {nastavnik}</p>
-        <p>Ocjena: {ocjena}</p>
-        <p>Opis: {opis}</p>
+    <div className="ocjene">
+      <div className="ocjene-data">
+        <p>
+          ID ocjene: <span>{id}</span>{' '}
+        </p>
+        <p>
+          Datum ocjene: <span>{datum}</span>{' '}
+        </p>
+        <p>
+          Nastavnik: <span>{nastavnik}</span>{' '}
+        </p>
+        <p>
+          Ocjena: <span>{ocjena}</span>{' '}
+        </p>
+        <p>
+          Opis: <span>{opis}</span>{' '}
+        </p>
       </div>
 
       {indexOfFirstElement < 1 && (
         <div className={styles['buttons-container']}>
-          <button onClick={() => onDeleteOcjenaHandler(id)}>Delete</button>
-          <button onClick={() => navigate('ocjene/' + id + '/edit')}>
+          <button
+            className="btn btn-secondary m-2"
+            onClick={() => onDeleteOcjenaHandler(id)}
+          >
+            Delete
+          </button>
+          <button
+            className="btn"
+            onClick={() => navigate('ocjene/' + id + '/edit')}
+          >
             Edit
           </button>
         </div>

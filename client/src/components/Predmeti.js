@@ -32,16 +32,9 @@ const Predmeti = () => {
         {predmeti &&
           predmeti.items.map((pred) => {
             return (
-              <div
-                key={pred.idPredmet}
-                className={styles.predmeti}
-                data="predmeti"
-              >
+              <div key={pred.idPredmet} className="card" data="predmeti">
                 <PredmetRow id={pred.idPredmet} naziv={pred.naziv} />
-                <Link
-                  to={'/predmeti/' + pred.idPredmet}
-                  className={styles.button}
-                >
+                <Link to={'/predmeti/' + pred.idPredmet} className="link">
                   Details
                 </Link>
               </div>

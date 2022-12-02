@@ -25,11 +25,7 @@ const Razredi = () => {
           {razredi &&
             razredi.map((razredi) => {
               return (
-                <div
-                  key={razredi.idOdjeljenja}
-                  className={styles.razredi}
-                  data="razred"
-                >
+                <div key={razredi.idOdjeljenja} className="card" data="razred">
                   <RazredRow
                     id={razredi.idOdjeljenja}
                     idNastavnikRazrednik={razredi.idNastavnikRazrednik}
@@ -40,7 +36,7 @@ const Razredi = () => {
                   />
                   <Link
                     to={pathname + '/' + razredi.idOdjeljenja + '/ucenici'}
-                    className={styles.button}
+                    className="btn"
                   >
                     Details
                   </Link>

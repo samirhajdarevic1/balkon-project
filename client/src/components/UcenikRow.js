@@ -16,34 +16,46 @@ const UcenikRow = ({
 }) => {
   return (
     <>
-      <h1>
-        <span>{id} </span>
+      <h1 className="text-4xl mb-10 left-[15%]">
+        {/* <span>{id} </span> */}
         {ime} {prezime}
       </h1>
-      <div className={styles.data} data="ucenik-data">
-        <p>Datum rođenja: {birthday}</p>
-        <p>Otac: {imeOca}</p>
-        <p>Majka: {imeMajke}</p>
-        <p>Maticni broj: {maticniBroj}</p>
-        <p>Adresa: {adresa}</p>
+      <div className="ucenik-data" data="ucenik-data">
+        <p>
+          Datum rođenja: <span> {birthday}</span>{' '}
+        </p>
+        <p>
+          Otac: <span> {imeOca}</span>
+        </p>
+        <p>
+          Majka: <span> {imeMajke}</span>{' '}
+        </p>
+        <p>
+          Maticni broj: <span> {maticniBroj}</span>{' '}
+        </p>
+        <p>
+          Adresa: <span> {adresa}</span>{' '}
+        </p>
       </div>
       <div className={styles.image}>
-        <img src={image} alt="User"></img>
+        <img className="ucenik-image top-[15%]" src={image} alt="User"></img>
       </div>
       <div className={styles['buttons-container']}>
         <button
-          onClick={() => {
-            onDeleteUcenikHandler(id);
-          }}
-        >
-          Delete
-        </button>
-        <button
+          className="btn btn-thertiary"
           onClick={() => {
             onEditUcenikHandler(id);
           }}
         >
           Edit
+        </button>
+        <button
+          className="btn btn-secondary m-5"
+          onClick={() => {
+            onDeleteUcenikHandler(id);
+          }}
+        >
+          Delete
         </button>
       </div>
     </>

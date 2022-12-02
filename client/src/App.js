@@ -1,6 +1,6 @@
 import Nastavnici from './components/Nastavnici';
 import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
-import styles from './App.module.css';
+
 import Nastavnik from './components/Nastavnik';
 import Predmeti from './components/Predmeti';
 import Predmet from './components/Predmet';
@@ -28,6 +28,7 @@ import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import RegisterUser from './components/RegisterUser';
 import { useState } from 'react';
+import Layout from './components/Layout';
 
 function App() {
   const userAccessToken = localStorage.getItem('token');
@@ -36,8 +37,7 @@ function App() {
   const [usrAccessToken, setUserAccesToken] = useState(userAccessToken);
 
   return (
-    <div style={{ margin: '1.5rem' }}>
-      <h1 className={styles.title}>SCHOOL DATABASE</h1>
+    <div className="wraper">
       {usrAccessToken ? (
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -108,61 +108,6 @@ function App() {
         </Routes>
       )}
     </div>
-  );
-}
-
-function Layout() {
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    window.location.href = '/login';
-  };
-
-  return (
-    <>
-      <header className={styles.header}>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            {/*    <li>
-              <Link to="/login">Login</Link>
-            </li> */}
-            <li>
-              <Link to="/predmeti">Predmeti</Link>
-            </li>
-            <li>
-              <Link to="/nastavnici">Nastavnici</Link>
-            </li>
-            <li>
-              <Link to="/ucenici">Ucenici</Link>
-            </li>
-            {/* <li>
-              <Link to="/ocjene">Ocjene</Link>
-            </li> */}
-            <li>
-              <Link to="/razredi">Razredi</Link>
-            </li>
-            <li>
-              <Link
-                to="/"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                Logout
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      </header>
-      <Outlet />
-    </>
   );
 }
 

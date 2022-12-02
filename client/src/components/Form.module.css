@@ -47,7 +47,7 @@ input {
   height: 2rem;
   border-radius: 10px;
 }
-button {
+/* button {
   margin: 10px 10px;
   border-radius: 10px;
   background: #3c0080;
@@ -57,7 +57,7 @@ button {
   width: 5rem;
   text-decoration: none;
   text-align: center;
-}
+} */
 select {
   width: 13rem;
   height: 2rem;

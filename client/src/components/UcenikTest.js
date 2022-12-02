@@ -35,7 +35,7 @@ const UcenikTest = (props) => {
     <>
       <div
         key={ucenik.idUcenik}
-        className={styles.ucenik}
+        className="ucenik-container"
         data="ucenik-container"
       >
         <UcenikRow
