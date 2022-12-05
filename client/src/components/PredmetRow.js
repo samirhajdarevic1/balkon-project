@@ -2,7 +2,7 @@ import React from 'react';
 
 const PredmetRow = ({ id, naziv }) => {
   return (
-    <div data="predmet-container">
+    <div className="m-4" data="predmet-container">
       <p>
         {id} {naziv}
       </p>

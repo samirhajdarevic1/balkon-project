@@ -30,8 +30,9 @@ const SkolskeGodine = () => {
   };
 
   return (
-    <div>
+    <div className="text-center">
       <button
+        className="btn btn-primary m-10 "
         onClick={() => {
           navigate('/razredi/add-razred');
         }}
@@ -49,7 +50,7 @@ const SkolskeGodine = () => {
               );
             })}
         </select>
-        <button>Pretraži</button>
+        <button className="btn btn-primary m-10">Pretraži</button>
       </form>
     </div>
   );

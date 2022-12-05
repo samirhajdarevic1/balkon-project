@@ -31,11 +31,12 @@ const Nastavnik = (props) => {
     return <h1>Nastavnik doesn't exist</h1>;
   }
   return (
-    <div key={nastavnik.idNastavnik} className={styles.nastavnici}>
+    <div key={nastavnik.idNastavnik} className="card w-fit">
       <NastavnikRow
         id={nastavnik.idNastavnik}
         ime={nastavnik.ime}
         prezime={nastavnik.prezime}
+        photo={nastavnik.photo}
       />
       {idNastavnik && (
         <>
@@ -45,6 +46,7 @@ const Nastavnik = (props) => {
                 navigate('/nastavnici')
               );
             }}
+            className="btn btn-secondary"
           >
             Delete
           </button>
@@ -52,6 +54,7 @@ const Nastavnik = (props) => {
             onClick={() => {
               navigate(`/nastavnici/${idNastavnik}/edit`);
             }}
+            className="btn btn-thertiary"
           >
             Edit
           </button>

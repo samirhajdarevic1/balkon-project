@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .wraper {
-  @apply bg-lavander mt-20 p-5;
+  @apply bg-lavander mt-20 p-5 w-screen;
 }
 .card {
   @apply rounded-xl  m-10 min-w-350  p-10 flex-col items-center text-center shadow-2xl hover:shadow-lg transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300;
@@ -53,7 +53,9 @@
 .btn-quarternary {
   @apply hover:bg-gray-500 hover:shadow-inner bg-lavander;
 }
-
+.card .nastavnik-image {
+  @apply w-36 h-36;
+}
 .ocjene-container {
   @apply flex flex-wrap justify-center;
 }

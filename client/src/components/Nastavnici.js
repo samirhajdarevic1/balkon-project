@@ -20,7 +20,7 @@ const Nastavnici = () => {
         onClick={() => {
           navigate('/nastavnici/add-nastavnik');
         }}
-        className="btn"
+        className="btn btn-primary"
       >
         Add nastavnik
       </button>
@@ -28,14 +28,17 @@ const Nastavnici = () => {
         {nastavnici &&
           nastavnici.items.map((nast) => {
             return (
-              <div key={nast.idNastavnik} className="card h-fit">
+              <div key={nast.idNastavnik} className="card h-fit m-auto">
                 <NastavnikRow
                   id={nast.idNastavnik}
                   ime={nast.ime}
                   prezime={nast.prezime}
                   photo={nast.photo}
                 />
-                <Link to={'/nastavnici/' + nast.idNastavnik} className="btn">
+                <Link
+                  to={'/nastavnici/' + nast.idNastavnik}
+                  className="btn btn-quarternary mt-4 m-2"
+                >
                   Details
                 </Link>
               </div>

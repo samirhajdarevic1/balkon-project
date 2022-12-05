@@ -21,6 +21,7 @@ const Predmeti = () => {
   ) : (
     <div>
       <button
+        className="btn btn-primary"
         onClick={() => {
           setPosting(true);
           navigate('/predmeti/add-predmet');
@@ -34,7 +35,10 @@ const Predmeti = () => {
             return (
               <div key={pred.idPredmet} className="card" data="predmeti">
                 <PredmetRow id={pred.idPredmet} naziv={pred.naziv} />
-                <Link to={'/predmeti/' + pred.idPredmet} className="link">
+                <Link
+                  to={'/predmeti/' + pred.idPredmet}
+                  className="btn btn-quarternary"
+                >
                   Details
                 </Link>
               </div>

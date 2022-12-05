@@ -36,7 +36,7 @@ const Razredi = () => {
                   />
                   <Link
                     to={pathname + '/' + razredi.idOdjeljenja + '/ucenici'}
-                    className="btn"
+                    className="btn btn-quarternary mx-2"
                   >
                     Details
                   </Link>
